@@ -1,7 +1,13 @@
 ﻿<div class="p-4">
-    <div class="container">
-        <h1>Hi {{user.firstName}}!</h1>
-        <p>You're logged in with Angular 10!!</p>
-        <p><a routerLink="/users">Manage Users</a></p>
-    </div>
+  <div class="container">
+    <h1>Bienvenido {{ user.firstName }}!</h1>
+    <p>
+      has ingresado a la aplicación de finanzas, cuentanos que quieres hacer:
+    </p>
+    <p><a routerLink="/users">Administrar Usuarios</a></p>
+    <p>
+      <a routerLink="/registros">Registrar Ingresos o egresos por Empresa</a>
+    </p>
+    <p><a routerLink="/users">Visualizar Consolidados</a></p>
+  </div>
 </div>

@@ -1,24 +1,43 @@
 ﻿<!-- nav -->
-<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="user">
-    <div class="navbar-nav">
-        <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-        <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Users</a>
-        <a class="nav-item nav-link" (click)="logout()">Logout</a>
-    </div>
+<nav class="navbar navbar-expand navbar-dark bg-danger" *ngIf="user">
+  <div class="navbar-nav">
+    <a
+      class="nav-item nav-link"
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Inicio</a
+    >
+    <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active"
+      >Administrar Usuarios</a
+    >
+    <a class="nav-item nav-link" (click)="logout()">Salir</a>
+  </div>
 </nav>
 
 <!-- main app container -->
-<div class="app-container" [ngClass]="{ 'bg-light': user }">
-    <alert></alert>
-    <router-outlet></router-outlet>
+<div
+  class="app-container"
+  style="background-color: rgb(250, 235, 235);"
+  [ngClass]="{ 'bg-secundary': user }"
+>
+  <alert></alert>
+  <router-outlet></router-outlet>
 </div>
 
 <!-- credits -->
 <div class="text-center mt-4">
-    <p>
-        <a href="https://jasonwatmore.com/post/2020/07/18/angular-10-user-registration-and-login-example-tutorial" target="_top">Angular 10 - User Registration and Login Example & Tutorial</a>
-    </p>
-    <p>
-        <a href="https://jasonwatmore.com" target="_top">JasonWatmore.com</a>
-    </p>
+  <p>
+    <a href="https://www.imlchile.cl" target="_top"
+      >Visite nuestro portal para explorar nuestras Aplicaciones</a
+    >
+  </p>
+  <p>
+    <img
+      class="img-thumbnail"
+      src="https://i.ibb.co/vHhnLfT/LOGO-GRUPO-FIRMA.png"
+      width="300"
+      height="100"
+    />
+  </p>
 </div>

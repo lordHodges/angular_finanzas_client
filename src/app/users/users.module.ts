@@ -8,15 +8,7 @@ import { ListComponent } from './list.component';
 import { AddEditComponent } from './add-edit.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        UsersRoutingModule
-    ],
-    declarations: [
-        LayoutComponent,
-        ListComponent,
-        AddEditComponent
-    ]
+  imports: [CommonModule, ReactiveFormsModule, UsersRoutingModule],
+  declarations: [LayoutComponent, ListComponent, AddEditComponent],
 })
-export class UsersModule { }
+export class UsersModule {}
