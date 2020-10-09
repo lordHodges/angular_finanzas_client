@@ -1,0 +1,151 @@
+<div class="card">
+  <div class="card-header">
+    <h5 *ngIf="isAddMode">Agregar Ingresos {{ empresa.razonSocial }}</h5>
+    <h5 *ngIf="!isAddMode">Editar Ingresos {{ empresa.razonSocial }}</h5>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group col">
+          <label for="idSucursal">Sucursal</label>
+          <select
+            class="custom-select"
+            name="idSucursal"
+            id="idSucursal"
+            formControlName="idSucursal"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.idSucursal.errors }"
+          >
+            <option default>Seleccionar</option>
+            <option *ngFor="let s of empresa.Sucursals" value="{{ s.id }}">
+              {{ s.razonSocial }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col">
+          <label for="tipoIngreso">Tipo Ingreso</label>
+          <select
+            class="custom-select"
+            name="tipoIngreso"
+            id="tipoIngreso"
+            formControlName="tipoIngreso"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.tipoIngreso.errors }"
+          >
+            <option value="">Seleccionar</option>
+            <option value="1">Alojamiento</option>
+            <option value="2">Desayuno</option>
+            <option value="3">Almuerzo</option>
+            <option value="4">Cena</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col">
+          <label for="fecha">Fecha</label>
+          <input
+            type="date"
+            formControlName="fecha"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.fecha.errors }"
+          />
+          <div *ngIf="submitted && f.fecha.errors" class="invalid-feedback">
+            <div *ngIf="f.fecha.errors.required">este campo es requerido</div>
+          </div>
+        </div>
+        <div class="form-group col">
+          <label for="monto">Monto</label>
+          <input
+            type="number"
+            formControlName="monto"
+            class="form-control"
+            value="{{ f.monto }}"
+            [ngClass]="{ 'is-invalid': submitted && f.monto.errors }"
+          />
+          <div *ngIf="submitted && f.monto.errors" class="invalid-feedback">
+            <div *ngIf="f.monto.errors.required">este campo es requerido</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col">
+          <label for="cliente">Cliente</label>
+          <input
+            type="text"
+            formControlName="cliente"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.cliente.errors }"
+          />
+          <div *ngIf="submitted && f.cliente.errors" class="invalid-feedback">
+            <div *ngIf="f.cliente.errors.required">este campo es requerido</div>
+          </div>
+        </div>
+        <div class="form-group col">
+          <label for="tipoCliente">Tipo Cliente</label>
+          <select
+            class="custom-select"
+            name="tipoCliente"
+            id="tipoCliente"
+            formControlName="tipoCliente"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.tipoCliente.errors }"
+          >
+            <option value="">Seleccionar</option>
+            <option value="1">Particular</option>
+            <option value="2">Empresa</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col">
+          <label for="tipoPago">Tipo Pago</label>
+          <select
+            class="custom-select"
+            name="tipoPago"
+            id="tipoPago"
+            formControlName="tipoPago"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.tipoPago.errors }"
+          >
+            <option value="">Seleccionar</option>
+            <option value="1">Efectivo</option>
+            <option value="2">TransBank</option>
+            <option value="3">Transferencia</option>
+          </select>
+        </div>
+        <!-- respaldo de documantacion -->
+        <div class="form-group col">
+          <label for="documentoRespaldo">Documento</label>
+          <input
+            type="file"
+            formControlName="documentoRespaldo"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && f.documentoRespaldo.errors
+            }"
+          />
+          <div
+            *ngIf="submitted && f.documentoRespaldo.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.documentoRespaldo.errors.required">
+              este campo es requerido
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <button [disabled]="loading" class="btn btn-primary">
+            <span
+              *ngIf="loading"
+              class="spinner-border spinner-border-sm mr-1"
+            ></span>
+            Guardar
+          </button>
+          <a routerLink="/ingresos" class="btn btn-link">Cancelar</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
