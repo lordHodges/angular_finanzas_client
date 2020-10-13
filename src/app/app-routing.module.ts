@@ -19,6 +19,8 @@ const sucursalModule = () =>
   import('./sucursal/sucursal.module').then((x) => x.SucursalModule);
 const ingresosModule = () =>
   import('./registros/ingresos/ingresos.module').then((x) => x.IngresosModule);
+const egresosModule = () =>
+  import('./registros/egresos/egresos.module').then((x) => x.EgresosModule);
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'users', loadChildren: usersModule, canActivate: [AuthGuard] },
@@ -38,6 +40,10 @@ const routes: Routes = [
   {
     path: 'ingresos',
     loadChildren: ingresosModule,
+  },
+  {
+    path: 'egresos',
+    loadChildren: egresosModule,
   },
 
   // otherwise redirect to home

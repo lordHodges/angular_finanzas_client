@@ -1,0 +1,64 @@
+<h4>Egresos Hostal</h4>
+<a routerLink="add/{{ idEmpresa }}" class="btn btn-sm btn-success mb-2"
+  >Agregar egresos</a
+>
+<router-outlet></router-outlet>
+<br />
+<!-- Rounded switch -->
+<div class="row">
+  <label class="switch">
+    <input type="checkbox" checked (change)="mostrar($event)" />
+    <span class="slider round"></span>
+  </label>
+  <h5 class="col">Mostrar Listado</h5>
+</div>
+<div class="row" *ngIf="mostrarList">
+  <table class="table table-striped col-12">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>fecha</th>
+        <th>monto</th>
+
+        <th>sucursal</th>
+        <th>usuario</th>
+
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let egreso of egresos">
+        <td>{{ egreso.id }}</td>
+        <td>{{ egreso.fecha }}</td>
+        <td>{{ egreso.monto }}</td>
+        <td>{{ egreso.idSucursal }}</td>
+        <td>{{ egreso.idUsuario }}</td>
+
+        <td style="white-space: nowrap">
+          <a
+            routerLink="edit/{{ egreso.id }}/{{ idEmpresa }}"
+            class="btn btn-sm btn-primary mr-1"
+            >Editar</a
+          >
+          <button
+            (click)="deleteEgreso(egreso.id)"
+            class="btn btn-sm btn-danger btn-delete-sucursal"
+            [disabled]="egreso.isDeleting"
+          >
+            <span
+              *ngIf="egreso.isDeleting"
+              class="spinner-border spinner-border-sm"
+            ></span>
+            <span *ngIf="!egreso.isDeleting">Eliminar</span>
+            <br />
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="!egresos">
+        <td colspan="4" class="text-center">
+          <span class="spinner-border spinner-border-lg align-center"></span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

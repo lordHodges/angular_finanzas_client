@@ -9,3 +9,4 @@ export * from './sucursales/sucursal';
 export * from './registros/registrosAbogados/ingresos-abogados';
 export * from './registros/registrosHostal/ingresos-hostal';
 export * from './registros/registrosHostal/egresos-hostal';
+export * from './registros/registrosHostal/ingresos-hostal';

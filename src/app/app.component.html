@@ -39,7 +39,12 @@
         >
         <ul class="collapse list-unstyled" id="registrarEgresos">
           <li *ngFor="let e of empresas">
-            <a href="#">{{ e.razonSocial }}</a>
+            <a
+              target="_parent"
+              routerLink="/egresos/{{ e.id }}"
+              routerLinkActive="active"
+              >{{ e.razonSocial }}</a
+            >
           </li>
 
           <li>

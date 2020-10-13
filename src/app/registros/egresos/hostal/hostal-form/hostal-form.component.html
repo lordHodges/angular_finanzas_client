@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-header">
-    <h5 *ngIf="isAddMode">Agregar Ingresos {{ empresa.razonSocial }}</h5>
-    <h5 *ngIf="!isAddMode">Editar Ingresos {{ empresa.razonSocial }}</h5>
+    <h5 *ngIf="isAddMode">Agregar Egresos {{ empresa.razonSocial }}</h5>
+    <h5 *ngIf="!isAddMode">Editar Egresos {{ empresa.razonSocial }}</h5>
   </div>
   <div class="card-body">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -23,20 +23,21 @@
           </select>
         </div>
         <div class="form-group col">
-          <label for="tipoIngreso">Tipo Ingreso</label>
+          <label for="tipoEgreso">Tipo Egreso</label>
           <select
             class="custom-select"
-            name="tipoIngreso"
-            id="tipoIngreso"
-            formControlName="tipoIngreso"
+            name="tipoEgreso"
+            id="tipoEgreso"
+            formControlName="tipoEgreso"
             class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.tipoIngreso.errors }"
+            [ngClass]="{ 'is-invalid': submitted && f.tipoEgreso.errors }"
           >
             <option value="">Seleccionar</option>
-            <option value="1">Alojamiento</option>
-            <option value="2">Desayuno</option>
-            <option value="3">Almuerzo</option>
-            <option value="4">Cena</option>
+            <option value="1">Gastos</option>
+            <option value="2">Costos</option>
+            <option value="3">Remuneraciones</option>
+            <option value="4">Bancarios</option>
+            <option value="4">Impuestos</option>
           </select>
         </div>
       </div>
@@ -69,51 +70,43 @@
       </div>
       <div class="form-row">
         <div class="form-group col">
-          <label for="cliente">Cliente</label>
+          <label for="responsable">Responsable</label>
           <input
             type="text"
-            formControlName="cliente"
+            formControlName="responsable"
             class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.cliente.errors }"
+            [ngClass]="{ 'is-invalid': submitted && f.responsable.errors }"
           />
-          <div *ngIf="submitted && f.cliente.errors" class="invalid-feedback">
-            <div *ngIf="f.cliente.errors.required">este campo es requerido</div>
-          </div>
-        </div>
-        <div class="form-group col">
-          <label for="tipoCliente">Tipo Cliente</label>
-          <select
-            class="custom-select"
-            name="tipoCliente"
-            id="tipoCliente"
-            formControlName="tipoCliente"
-            class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.tipoCliente.errors }"
+          <div
+            *ngIf="submitted && f.responsable.errors"
+            class="invalid-feedback"
           >
-            <option value="">Seleccionar</option>
-            <option value="1">Particular</option>
-            <option value="2">Empresa</option>
-          </select>
+            <div *ngIf="f.responsable.errors.required">
+              este campo es requerido
+            </div>
+          </div>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group col">
-          <label for="tipoPago">Tipo Pago</label>
-          <select
-            class="custom-select"
-            name="tipoPago"
-            id="tipoPago"
-            formControlName="tipoPago"
+          <label for="descripcion">Descripcion</label>
+          <input
+            type="text"
+            formControlName="descripcion"
             class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.tipoPago.errors }"
+            [ngClass]="{ 'is-invalid': submitted && f.descripcion.errors }"
+          />
+          <div
+            *ngIf="submitted && f.descripcion.errors"
+            class="invalid-feedback"
           >
-            <option value="">Seleccionar</option>
-            <option value="1">Efectivo</option>
-            <option value="2">TransBank</option>
-            <option value="3">Transferencia</option>
-          </select>
+            <div *ngIf="f.descripcion.errors.required">
+              este campo es requerido
+            </div>
+          </div>
         </div>
       </div>
+
       <div class="form-row">
         <!-- respaldo de documantacion -->
         <app-respaldos></app-respaldos>
@@ -128,7 +121,7 @@
             ></span>
             Guardar
           </button>
-          <a routerLink="/ingresos" class="btn btn-link">Cancelar</a>
+          <a routerLink="/egresos" class="btn btn-link">Cancelar</a>
         </div>
       </div>
     </form>
