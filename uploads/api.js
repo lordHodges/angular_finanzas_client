@@ -2,17 +2,31 @@
 var express = require("express");
 var multer = require("multer");
 var fs = require("fs");
+const path = require("path");
+const bodyParser = require("body-parser");
+const router = express.Router();
 var app = express();
 
 var DIR = "./uploads";
 
-var upload = multer({ dest: DIR });
+let storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, DIR);
+  },
+  filename: (req, file, cb) => {
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + "." + path.extname(file.originalname)
+    );
+  },
+});
+let upload = multer({ storage: storage });
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(function (req, res, next) {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "http://valor-software.github.io"
-  );
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:4200");
   res.setHeader("Access-Control-Allow-Methods", "POST");
   res.setHeader(
     "Access-Control-Allow-Headers",
@@ -21,37 +35,25 @@ app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Credentials", true);
   next();
 });
-
-app.use(
-  multer({
-    dest: DIR,
-    rename: function (fieldname, filename) {
-      return filename + Date.now();
-    },
-    onFileUploadStart: function (file) {
-      console.log(file.originalname + " is starting ...");
-    },
-    onFileUploadComplete: function (file) {
-      console.log(file.fieldname + " uploaded to  " + file.path);
-    },
-  })
-);
-
-app.get("/api", function (req, res) {
+app.get("/api/upload", function (req, res) {
   res.end("file catcher example");
 });
 
-app.post("/api", function (req, res) {
-  upload(req, res, function (err) {
-    if (err) {
-      return res.end(err.toString());
-    }
-
-    res.end("File is uploaded");
-  });
+app.post("/api/upload", function (req, res) {
+  if (!req.file) {
+    console.log("No file received");
+    return res.send({
+      success: false,
+    });
+  } else {
+    console.log("file received successfully");
+    return res.send({
+      success: true,
+    });
+  }
 });
 
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 3001;
 
 app.listen(PORT, function () {
   console.log("Working on port " + PORT);
