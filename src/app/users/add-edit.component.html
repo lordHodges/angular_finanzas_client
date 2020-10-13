@@ -2,58 +2,80 @@
 <h1 *ngIf="!isAddMode">Editar Usuarios</h1>
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="form-row">
-    <div class="form-group col">
-      <label for="firstName">Nombres</label>
-      <input
-        type="text"
-        formControlName="firstName"
+    <div class="form-group">
+      <label for="RolID">RolUsuario</label>
+      <select
+        class="custom-select"
+        name="RolID"
+        id="RolID"
+        formControlName="RolID"
         class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"
-      />
-      <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-        <div *ngIf="f.firstName.errors.required">este campo es requerido</div>
-      </div>
+        [ngClass]="{ 'is-invalid': submitted && f.RolID.errors }"
+      >
+        <option selected>Seleccionar</option>
+        <option *ngFor="let rol of roles" value="{{ rol.id }}">
+          {{ rol.nombre }}
+        </option>
+        <div *ngIf="submitted && f.RolID.errors" class="invalid-feedback">
+          <div *ngIf="f.RolID.errors.required">este campo es requerido</div>
+        </div>
+      </select>
     </div>
     <div class="form-group col">
-      <label for="lastName">Apellidos</label>
+      <label for="nombre">Nombres</label>
       <input
         type="text"
-        formControlName="lastName"
+        formControlName="nombre"
         class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }"
+        [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }"
       />
-      <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-        <div *ngIf="f.lastName.errors.required">este campo es requerido</div>
+      <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
+        <div *ngIf="f.nombre.errors.required">este campo es requerido</div>
+      </div>
+    </div>
+
+    <div class="form-group col">
+      <label for="apellido">Apellidos</label>
+      <input
+        type="text"
+        formControlName="apellido"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.apellido.errors }"
+      />
+      <div *ngIf="submitted && f.apellido.errors" class="invalid-feedback">
+        <div *ngIf="f.apellido.errors.required">este campo es requerido</div>
       </div>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group col">
-      <label for="username">Nombre Usuario</label>
+      <label for="nombreUsuario">Nombre Usuario</label>
       <input
         type="text"
-        formControlName="username"
+        formControlName="nombreUsuario"
         class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+        [ngClass]="{ 'is-invalid': submitted && f.nombreUsuario.errors }"
       />
-      <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-        <div *ngIf="f.username.errors.required">este campo es requerido</div>
+      <div *ngIf="submitted && f.nombreUsuario.errors" class="invalid-feedback">
+        <div *ngIf="f.nombreUsuario.errors.required">
+          este campo es requerido
+        </div>
       </div>
     </div>
     <div class="form-group col">
-      <label for="password">
+      <label for="hash">
         Contraseña
-        <em *ngIf="!isAddMode">(mantener en blanco para conservar password)</em>
+        <em *ngIf="!isAddMode">(mantener en blanco para conservar hash)</em>
       </label>
       <input
         type="password"
-        formControlName="password"
+        formControlName="hash"
         class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+        [ngClass]="{ 'is-invalid': submitted && f.hash.errors }"
       />
-      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-        <div *ngIf="f.password.errors.required">este capo es requerido</div>
-        <div *ngIf="f.password.errors.minlength">
+      <div *ngIf="submitted && f.hash.errors" class="invalid-feedback">
+        <div *ngIf="f.hash.errors.required">este capo es requerido</div>
+        <div *ngIf="f.hash.errors.minlength">
           La contraseña debe tener al menos 6 caracteres
         </div>
       </div>

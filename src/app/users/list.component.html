@@ -1,20 +1,23 @@
 ﻿<h1>Usuarios</h1>
 <a routerLink="add" class="btn btn-sm btn-success mb-2">Agregar Usuarios</a>
+<a routerLink="addRol" class="btn btn-sm btn-success ml-2 mb-2"
+  >Agregar Roles</a
+>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th style="width: 30%;">Nombres</th>
-      <th style="width: 30%;">Apellidos</th>
-      <th style="width: 30%;">Usuario</th>
-      <th style="width: 10%;"></th>
+      <th style="width: 30%">Nombres</th>
+      <th style="width: 30%">Apellidos</th>
+      <th style="width: 30%">Usuario</th>
+      <th style="width: 10%"></th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let user of users">
-      <td>{{ user.firstName }}</td>
-      <td>{{ user.lastName }}</td>
-      <td>{{ user.username }}</td>
-      <td style="white-space: nowrap;">
+      <td>{{ user.nombre }}</td>
+      <td>{{ user.apellido }}</td>
+      <td>{{ user.nombreUsuario }}</td>
+      <td style="white-space: nowrap">
         <a routerLink="edit/{{ user.id }}" class="btn btn-sm btn-primary mr-1"
           >Editar</a
         >
@@ -28,6 +31,7 @@
             class="spinner-border spinner-border-sm"
           ></span>
           <span *ngIf="!user.isDeleting">Eliminar</span>
+          <br />
         </button>
       </td>
     </tr>

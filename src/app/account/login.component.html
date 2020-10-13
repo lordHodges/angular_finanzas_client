@@ -3,29 +3,32 @@
   <div class="card-body">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label for="username">Usuario</label>
+        <label for="nombreUsuario">Usuario</label>
         <input
           type="text"
-          formControlName="username"
+          formControlName="nombreUsuario"
           class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+          [ngClass]="{ 'is-invalid': submitted && f.nombreUsuario.errors }"
         />
-        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-          <div *ngIf="f.username.errors.required">
+        <div
+          *ngIf="submitted && f.nombreUsuario.errors"
+          class="invalid-feedback"
+        >
+          <div *ngIf="f.nombreUsuario.errors.required">
             Se requiere Nombre de Usuario
           </div>
         </div>
       </div>
       <div class="form-group">
-        <label for="password">Contraseña</label>
+        <label for="hash">Contraseña</label>
         <input
           type="password"
-          formControlName="password"
+          formControlName="hash"
           class="form-control"
-          [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+          [ngClass]="{ 'is-invalid': submitted && f.hash.errors }"
         />
-        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-          <div *ngIf="f.password.errors.required">Se requiere Contraseña</div>
+        <div *ngIf="submitted && f.hash.errors" class="invalid-feedback">
+          <div *ngIf="f.hash.errors.required">Se requiere Contraseña</div>
         </div>
       </div>
       <div class="form-group">

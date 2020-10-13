@@ -1,0 +1,73 @@
+<h1 *ngIf="isAddMode">Agregar Empresas</h1>
+<h1 *ngIf="!isAddMode">Editar Empresas</h1>
+<h2>el ID: {{ idEmpresa }}</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="form-row">
+    <div class="form-group">
+      <label for="idEmpresa">Empresa</label>
+      <select
+        class="custom-select"
+        name="idEmpresa"
+        id="idEmpresa"
+        formControlName="idEmpresa"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.idEmpresa.errors }"
+      >
+        <option selected>Seleccionar</option>
+        <option *ngFor="let em of empresas" value="{{ em.id }}">
+          {{ em.razonSocial }}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col">
+      <label for="razonSocial">Razon Social</label>
+      <input
+        type="text"
+        formControlName="razonSocial"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.razonSocial.errors }"
+      />
+      <div *ngIf="submitted && f.razonSocial.errors" class="invalid-feedback">
+        <div *ngIf="f.razonSocial.errors.required">este campo es requerido</div>
+      </div>
+    </div>
+    <div class="form-group col">
+      <label for="nombre">RUT</label>
+      <input type="text" formControlName="rut" class="form-control" />
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col">
+      <label for="nombre">Giro</label>
+      <input type="text" formControlName="giro" class="form-control" />
+    </div>
+    <div class="form-group col">
+      <label for="nombre">Actividad</label>
+      <input type="text" formControlName="actividad" class="form-control" />
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col">
+      <label for="nombre">Direccion</label>
+      <input type="text" formControlName="direccion" class="form-control" />
+    </div>
+    <div class="form-group col">
+      <label for="nombre">Descripcion</label>
+      <input type="text" formControlName="descripcion" class="form-control" />
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group">
+      <button [disabled]="loading" class="btn btn-primary">
+        <span
+          *ngIf="loading"
+          class="spinner-border spinner-border-sm mr-1"
+        ></span>
+        Guardar
+      </button>
+      <a routerLink="/sucursales" class="btn btn-link">Cancelar</a>
+    </div>
+  </div>
+</form>

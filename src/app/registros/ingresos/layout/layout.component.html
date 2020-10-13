@@ -1,0 +1,24 @@
+<div class="p-4">
+  <div class="container">
+    <router-outlet>
+      <div *ngIf="statics">
+        <h4>Registrar Ingresos</h4>
+        <p>seleccione la empresa a gestionar:</p>
+        <div class="row">
+          <div *ngFor="let e of empresas" class="card col" style="width: 18rem">
+            <img src="..." class="card-img-top" alt="..." />
+            <div class="card-body">
+              <h5 class="card-title">{{ e.razonSocial }}</h5>
+              <p class="card-text">
+                {{ e.descripcion }}
+              </p>
+              <a [routerLink]="['/ingresos/', e.id]" class="btn btn-primary"
+                >Registrar Ingresos</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </router-outlet>
+  </div>
+</div>

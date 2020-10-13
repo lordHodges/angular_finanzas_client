@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { AccountService, AlertService } from '@app/_services';
+import { AccountService, AlertService, RolService } from '@app/_services';
 
 @Component({ templateUrl: 'add-edit.component.html' })
 export class AddEditComponent implements OnInit {
@@ -12,18 +12,24 @@ export class AddEditComponent implements OnInit {
   isAddMode: boolean;
   loading = false;
   submitted = false;
+  roles = null;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private accountService: AccountService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private rolService: RolService
   ) {}
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
     this.isAddMode = !this.id;
+    this.rolService
+      .getAll()
+      .pipe(first())
+      .subscribe((roles) => (this.roles = roles));
 
     // password not required in edit mode
     const passwordValidators = [Validators.minLength(6)];
@@ -32,10 +38,11 @@ export class AddEditComponent implements OnInit {
     }
 
     this.form = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      username: ['', Validators.required],
-      password: ['', passwordValidators],
+      RolID: ['', Validators.required],
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      nombreUsuario: ['', Validators.required],
+      hash: ['', passwordValidators],
     });
 
     if (!this.isAddMode) {
@@ -43,9 +50,9 @@ export class AddEditComponent implements OnInit {
         .getById(this.id)
         .pipe(first())
         .subscribe((x) => {
-          this.f.firstName.setValue(x.firstName);
-          this.f.lastName.setValue(x.lastName);
-          this.f.username.setValue(x.username);
+          this.f.nombre.setValue(x.nombre);
+          this.f.apellido.setValue(x.apellido);
+          this.f.nombreUsuario.setValue(x.nombreUsuario);
         });
     }
   }
@@ -98,7 +105,7 @@ export class AddEditComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          this.alertService.success('edicion Exitosa', {
+          this.alertService.success('Usuario editado con Exito', {
             keepAfterRouteChange: true,
           });
           this.router.navigate(['..', { relativeTo: this.route }]);

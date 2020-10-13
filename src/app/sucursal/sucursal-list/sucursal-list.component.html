@@ -1,0 +1,49 @@
+<h1>Sucursales</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Agregar Sucursales</a>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>RazonSocial</th>
+      <th>RUT</th>
+      <th>Giro</th>
+      <th>Actividad</th>
+      <th>Direccion</th>
+      <th>Empresa</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let su of sucursales">
+      <td>{{ su.razonSocial }}</td>
+      <td>{{ su.rut }}</td>
+      <td>{{ su.giro }}</td>
+      <td>{{ su.actividad }}</td>
+      <td>{{ su.direccion }}</td>
+      <td>{{ su.idEmpresa }}</td>
+
+      <td style="white-space: nowrap">
+        <a routerLink="edit/{{ su.id }}" class="btn btn-sm btn-primary mr-1"
+          >Editar</a
+        >
+        <button
+          (click)="deleteSucursal(su.id)"
+          class="btn btn-sm btn-danger btn-delete-sucursal"
+          [disabled]="su.isDeleting"
+        >
+          <span
+            *ngIf="su.isDeleting"
+            class="spinner-border spinner-border-sm"
+          ></span>
+          <span *ngIf="!su.isDeleting">Eliminar</span>
+          <br />
+        </button>
+      </td>
+    </tr>
+    <tr *ngIf="!sucursales">
+      <td colspan="4" class="text-center">
+        <span class="spinner-border spinner-border-lg align-center"></span>
+      </td>
+    </tr>
+  </tbody>
+</table>
