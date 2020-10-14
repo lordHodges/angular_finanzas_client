@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Dir } from '@app/_models';
 import { FileUploader, FileSelectDirective } from 'ng2-file-upload';
+import { first } from 'rxjs/operators';
 
 const UploadURL = 'http://localhost:3001/api/upload';
 
@@ -9,35 +11,38 @@ const UploadURL = 'http://localhost:3001/api/upload';
   styleUrls: ['./respaldos.component.less'],
 })
 export class RespaldosComponent {
-  uploader: FileUploader;
+  public uploader: FileUploader;
   hasBaseDropZoneOver: boolean;
   hasAnotherDropZoneOver: boolean;
-  response: string;
-
+  response;
+  public dir: Dir;
+  public uris: Dir[] = [];
   constructor() {
     this.uploader = new FileUploader({
       url: UploadURL,
       itemAlias: 'photo',
-      disableMultipart: true, // 'DisableMultipart' must be 'true' for formatDataFunction to be called.
-      formatDataFunctionIsAsync: true,
-      formatDataFunction: async (item) => {
-        return new Promise((resolve, reject) => {
-          resolve({
-            name: item._file.name,
-            length: item._file.size,
-            contentType: item._file.type,
-            date: new Date(),
-          });
-        });
-      },
     });
 
     this.hasBaseDropZoneOver = false;
     this.hasAnotherDropZoneOver = false;
 
-    this.response = '';
+    this.uploader.response
+      .pipe()
 
-    this.uploader.response.subscribe((res) => (this.response = res));
+      .subscribe((res) => {
+        this.response = res;
+
+        this.uris.push(this.response as Dir);
+        console.log(this.uris);
+      });
+
+    /* this.uploader.response.subscribe((res) => {
+      this.response = res;
+      console.log(this.response);
+
+      let length = this.uris.push(this.response);
+      console.log(this.uris);
+    }); */
   }
 
   public fileOverBase(e: any): void {

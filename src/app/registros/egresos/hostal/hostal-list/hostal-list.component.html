@@ -13,6 +13,39 @@
   <h5 class="col">Mostrar Listado</h5>
 </div>
 <div class="row" *ngIf="mostrarList">
+  <div class="form-row">
+    <div class="form-group col">
+      <label for="idSucursal">Sucursal</label>
+      <select
+        class="custom-select"
+        name="idSucursal"
+        id="idSucursal"
+        [formControl]="filtrarSucursal"
+        class="form-control"
+      >
+        <option default>Seleccionar</option>
+        <option *ngFor="let s of empresa.Sucursals" value="{{ s.id }}">
+          {{ s.razonSocial }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group col">
+      <label for="fecha">Seleccionar Mes</label>
+      <select
+        class="custom-select"
+        name="fecha"
+        id="idSucursal"
+        [formControl]="filtrarFecha"
+        class="form-control"
+      >
+        <option default>Seleccionar</option>
+        <option *ngFor="let f of fechas" value="{{ f.valor }}">
+          {{ f.nombre }}
+        </option>
+      </select>
+    </div>
+  </div>
+
   <table class="table table-striped col-12">
     <thead>
       <tr>
@@ -27,7 +60,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let egreso of egresos">
+      <tr *ngFor="let egreso of egresosFiltrados">
         <td>{{ egreso.id }}</td>
         <td>{{ egreso.fecha }}</td>
         <td>{{ egreso.monto }}</td>

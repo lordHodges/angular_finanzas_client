@@ -40,7 +40,7 @@ app.use(function (req, res, next) {
 app.get("/api", function (req, res) {
   res.end("file catcher example");
 });
-
+//upload.single("photo"),
 app.post("/api/upload", upload.single("photo"), function (req, res) {
   if (!req.file) {
     console.log("No file received");

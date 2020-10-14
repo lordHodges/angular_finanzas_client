@@ -74,13 +74,13 @@
           </td>
           <td class="text-center">
             <span *ngIf="item.isSuccess"
-              ><i class="glyphicon glyphicon-ok"></i
+              ><i class="fa fa-check success-color" aria-hidden="true"></i
             ></span>
             <span *ngIf="item.isCancel"
-              ><i class="glyphicon glyphicon-ban-circle"></i
+              ><i class="fa fa-arrow-alt-circle-down warning"></i
             ></span>
             <span *ngIf="item.isError"
-              ><i class="glyphicon glyphicon-remove"></i
+              >fail<i class="fa fa-stop-circle red"></i
             ></span>
           </td>
           <td nowrap>
@@ -90,7 +90,7 @@
               (click)="item.upload()"
               [disabled]="item.isReady || item.isUploading || item.isSuccess"
             >
-              <span class="glyphicon glyphicon-upload"></span> Subir
+              <span class="fa fa-arrow-circle-up"></span> Subir
             </button>
             <button
               type="button"
@@ -98,14 +98,14 @@
               (click)="item.cancel()"
               [disabled]="!item.isUploading"
             >
-              <span class="glyphicon glyphicon-ban-circle"></span> Cancelar
+              <span class="fa fa-ban"></span> Cancelar
             </button>
             <button
               type="button"
               class="btn btn-danger btn-xs ml-2"
               (click)="item.remove()"
             >
-              <span class="glyphicon glyphicon-trash"></span> Quitar
+              <span class="fa fa-trash"></span> Quitar
             </button>
           </td>
         </tr>
@@ -129,7 +129,7 @@
         (click)="uploader.uploadAll()"
         [disabled]="!uploader.getNotUploadedItems().length"
       >
-        <span class="glyphicon glyphicon-upload"></span> Subir Todos
+        <span class="fa fa-arrow-circle-up"></span> Subir Todos
       </button>
       <button
         type="button"
@@ -137,7 +137,7 @@
         (click)="uploader.cancelAll()"
         [disabled]="!uploader.isUploading"
       >
-        <span class="glyphicon glyphicon-ban-circle"></span> Cancelar Todos
+        <span class="fa fa-ban"></span> Cancelar Todos
       </button>
       <button
         type="button"
@@ -145,7 +145,7 @@
         (click)="uploader.clearQueue()"
         [disabled]="!uploader.queue.length"
       >
-        <span class="glyphicon glyphicon-trash"></span> Quitar Todos
+        <span class="fa fa-trash"></span> Quitar Todos
       </button>
     </div>
   </div>
@@ -159,6 +159,16 @@
       <div class="panel-heading">Response</div>
       <div class="panel-body">
         {{ response }}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">list</div>
+      <div class="panel-body" *ngFor="let u of uris">
+        {{ u.uri | json }}
       </div>
     </div>
   </div>
