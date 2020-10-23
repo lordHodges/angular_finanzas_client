@@ -22,12 +22,9 @@
         >
         <ul class="collapse list-unstyled" id="registrarIngresos">
           <li *ngFor="let e of empresas">
-            <a
-              target="_parent"
-              routerLink="/ingresos/{{ e.id }}"
-              routerLinkActive="active"
-              >{{ e.razonSocial }}</a
-            >
+            <a routerLink="/ingresos/{{ e.id }}" routerLinkActive="active">{{
+              e.razonSocial
+            }}</a>
           </li>
         </ul>
         <a
@@ -39,12 +36,9 @@
         >
         <ul class="collapse list-unstyled" id="registrarEgresos">
           <li *ngFor="let e of empresas">
-            <a
-              target="_parent"
-              routerLink="/egresos/{{ e.id }}"
-              routerLinkActive="active"
-              >{{ e.razonSocial }}</a
-            >
+            <a routerLink="/egresos/{{ e.id }}" routerLinkActive="active">{{
+              e.razonSocial
+            }}</a>
           </li>
 
           <li>
