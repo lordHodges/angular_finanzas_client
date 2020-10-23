@@ -1,6 +1,14 @@
+import { RespaldoEgreso } from '@app/_models/respaldo-egreso';
 import { Registro } from '../registro';
 
-export class EgresosHostal extends Registro {
+export class EgresosHostal {
+  id: number;
+  tipoEgreso: string;
+  fecha: string;
+  monto: number;
+  responsable: string;
   descripcion: string;
-  isDeleting: boolean;
+  idSucursal: number;
+  idUsuario: number;
+  RespaldoEgresos: any[];
 }

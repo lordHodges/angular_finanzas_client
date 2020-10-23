@@ -6,3 +6,4 @@ export * from './sucursales/sucursal.service';
 export * from './ingresos/ingreso-abogados.service';
 export * from './ingresos/ingreso-hostal.service';
 export * from './egresos/egreso-hostal.service';
+export * from './excel.service';

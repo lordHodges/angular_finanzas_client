@@ -10,7 +10,9 @@ import { HostalListComponent } from './hostal/hostal-list/hostal-list.component'
 import { RespaldosComponent } from './hostal/respaldos/respaldos.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileUploadModule } from 'ng2-file-upload';
-
+import { ExcelService } from '@app/_services';
+import { AgGridModule } from 'ag-grid-angular';
+import { ModalModule } from '../egresos/hostal/_modal';
 @NgModule({
   declarations: [
     LayoutComponent,
@@ -22,10 +24,13 @@ import { FileUploadModule } from 'ng2-file-upload';
   ],
   imports: [
     CommonModule,
+    ModalModule,
     EgresosRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     FileUploadModule,
+    AgGridModule.withComponents([]),
   ],
+  providers: [ExcelService],
 })
 export class EgresosModule {}

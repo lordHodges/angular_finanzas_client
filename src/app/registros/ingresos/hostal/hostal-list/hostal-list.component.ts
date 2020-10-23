@@ -1,7 +1,9 @@
 import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
-import { IngresoHostalService } from '@app/_services';
+import { ExcelService, IngresoHostalService } from '@app/_services';
 import { first } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AgGridAngular } from 'ag-grid-angular';
+import { ModalService } from '../_modal';
 
 @Component({
   selector: 'app-hostal-list',
@@ -9,16 +11,50 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./hostal-list.component.less'],
 })
 export class HostalListComponent implements OnInit {
+  @ViewChild('agGrid') agGrid: AgGridAngular;
+
+  private gridApi: any;
+  private gridColumnApi: any;
+  rowFind;
+  selectedRows: any[];
   ingresos = null;
   idEmpresa = null;
   id = null;
   mostrarList = true;
-
+  total: number = 0;
   //mdtable
+  rowData: any;
+  columnDefs = [
+    {
+      headerName: 'ID',
+      field: 'id',
+      sortable: true,
+      filter: true,
+      checkboxSelection: true,
+    },
+    { field: 'fecha', sortable: true, filter: true },
+    { field: 'monto', sortable: true, filter: true },
+    { field: 'cliente', sortable: true, filter: true },
+    { field: 'tipoIngreso', sortable: true, filter: true },
 
+    {
+      headerName: 'Sucursal',
+      field: 'Sucursal.razonSocial',
+      sortable: true,
+      filter: true,
+    },
+    {
+      headerName: 'Usuario',
+      field: 'Usuario.nombreUsuario',
+      sortable: true,
+      filter: true,
+    },
+  ];
   constructor(
     private ingresoService: IngresoHostalService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private modalService: ModalService,
+    private excelService: ExcelService
   ) {}
 
   /////////////////////
@@ -34,10 +70,34 @@ export class HostalListComponent implements OnInit {
       .getAllWithUsuario()
       .pipe(first())
       .subscribe((ingresos) => (this.ingresos = ingresos));
+
+    //TODO campos de configuracion de datatable jq.
+    this.rowData = this.ingresoService.getAll();
+  }
+  closeModal(id: string) {
+    this.modalService.close(id);
+  }
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+
+    params.api.expandAll();
   }
   ///metodo de busqueda en tabla
-
+  getSelectedRows() {
+    this.total = 0;
+    this.selectedRows = [];
+    this.agGrid.api.getSelectedRows().forEach((x) => this.selectedRows.push(x));
+    this.selectedRows.forEach((x) => {
+      this.total = this.total + Number(x.monto);
+    });
+  }
   ////////////////////////////////////
+  exportAsXLSX(): void {
+    this.selectedRows = [];
+    this.agGrid.api.getSelectedRows().forEach((x) => this.selectedRows.push(x));
+    this.excelService.exportAsExcelFile(this.selectedRows, 'sample');
+  }
   mostrar(e) {
     if (e.target.checked) {
       this.mostrarList = true;
@@ -58,6 +118,26 @@ export class HostalListComponent implements OnInit {
           this.ingresos = this.ingresos.filter((x) => x.id !== id);
         });
       ingreso.isDeleting = false;
+    }
+  }
+  async detalleIngreso() {
+    let rowView;
+
+    this.selectedRows = [];
+    await this.agGrid.api
+      .getSelectedRows()
+      .forEach((x) => this.selectedRows.push(x));
+
+    if (this.selectedRows.length <= 1 && this.selectedRows.length > 0) {
+      await this.selectedRows.forEach((x) => {
+        rowView = x.id;
+        this.rowFind = rowView;
+        this.modalService.open('custom-modal-1', rowView);
+      });
+    } else {
+      alert(
+        `Atencion: No es posible visualizar ${this.selectedRows.length} Registros`
+      );
     }
   }
 }

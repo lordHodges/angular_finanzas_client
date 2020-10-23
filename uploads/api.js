@@ -1,10 +1,10 @@
 var express = require("express");
 var multer = require("multer");
-var fs = require("fs");
 var app = express();
 const path = require("path");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const { fileURLToPath } = require("url");
 
 var DIR = "./uploads";
 let storage = multer.diskStorage({
@@ -41,8 +41,21 @@ app.post("/api/upload", upload.single("photo"), function (req, res) {
     });
   } else {
     console.log("file received successfully");
-    return res.status(200).json({ uri: `${req.file.path}` });
+    return res.status(200).send(req.file.filename);
   }
+});
+app.use("/api/download", express.static(DIR));
+app.get("/api/download/*", function (req, res) {
+  filename = req.params.filename;
+  filepath = path.join(__dirname, "../uploads") + "/uploads/" + filename;
+  return res.render("index", { req, res }, (err, html) => {
+    if (html) {
+      res.send(html);
+    } else {
+      console.error(err);
+      res.send(err);
+    }
+  });
 });
 
 var PORT = process.env.PORT || 3001;

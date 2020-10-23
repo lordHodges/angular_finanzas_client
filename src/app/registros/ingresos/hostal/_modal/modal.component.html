@@ -1,0 +1,19 @@
+﻿<div class="jw-modal slidein">
+  <div class="jw-modal-body">
+    <ng-content></ng-content>
+    <ag-grid-angular
+      #agGrid2
+      id="agGrid2"
+      style="width: 100%; height: 500px"
+      class="ag-theme-material"
+      [rowData]="rowData"
+      (gridReady)="onGridReady($event)"
+      [columnDefs]="columnDefs2"
+      [animateRows]="true"
+      (selectionChanged)="onSelectionChanged()"
+      rowSelection="multiple"
+    >
+    </ag-grid-angular>
+  </div>
+</div>
+<div class="jw-modal-background"></div>

@@ -1,7 +1,11 @@
-import { Registro } from '../registro';
 import { User } from '@app/_models/users/user';
 import { Sucursal } from '@app/_models/sucursales/sucursal';
-export class IngresosHostal extends Registro {
+export class IngresosHostal {
+  id: string;
+  fecha: string;
+  monto: number;
+  idSucursal: number;
+  idUsuario: number;
   estadoPago: string;
   tipoPago: string;
   tipoCliente: string;
@@ -9,4 +13,5 @@ export class IngresosHostal extends Registro {
   tipoIngreso: string;
   Sucursal: Sucursal[];
   Usuario: User[];
+  RespaldoIngresos: any[];
 }

@@ -17,7 +17,9 @@ import { RentacarFormComponent } from './rentacar/rentacar-form/rentacar-form.co
 import { RentacarListComponent } from './rentacar/rentacar-list/rentacar-list.component';
 import { RespaldosComponent } from './hostal/respaldos/respaldos.component';
 import { FileSelectDirective, FileUploadModule } from 'ng2-file-upload';
-
+import { ModalModule } from './hostal/_modal';
+import { AgGridModule } from 'ag-grid-angular';
+import { ExcelService } from '@app/_services';
 @NgModule({
   declarations: [
     LayoutComponent,
@@ -41,6 +43,9 @@ import { FileSelectDirective, FileUploadModule } from 'ng2-file-upload';
     FormsModule,
     ReactiveFormsModule,
     FileUploadModule,
+    ModalModule,
+    AgGridModule,
   ],
+  providers: [ExcelService],
 })
 export class IngresosModule {}

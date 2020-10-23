@@ -1,5 +1,5 @@
 ﻿<div class="wrapper">
-  <nav id="sidebar" *ngIf="user">
+  <nav id="sidebar" #sidebar *ngIf="user">
     <div class="sidebar-header">
       <h3
         routerLink="/"
@@ -95,7 +95,12 @@
   <div id="content">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <button type="button" id="sidebarCollapse" class="navbar-btn">
+        <button
+          type="button"
+          id="sidebarCollapse"
+          (click)="colapsarSide()"
+          class="navbar-btn"
+        >
           <span></span>
           <span></span>
           <span></span>

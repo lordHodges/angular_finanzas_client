@@ -16,17 +16,33 @@ export class EgresoHostalService {
   }
   create(EgresosHostal: EgresosHostal) {
     return this.http.post(
-      `${environment.apiUrl}/egresoBancario`,
+      `${environment.apiUrl}/egresoHostal/conRespaldo`,
       EgresosHostal
     );
   }
   getAll() {
-    return this.http.get<[]>(`${environment.apiUrl}/egresoBancario`);
+    return this.http.get<[]>(`${environment.apiUrl}/egresoHostal`);
+  }
+  getFiles(fileName: string) {
+    return this.http
+      .get(`${environment.apiUrl}/egresoHostal/download/${fileName}`, {
+        responseType: 'blob',
+      })
+      .subscribe((res) => {
+        window.open(window.URL.createObjectURL(res));
+      });
+  }
+  public download(fileName: string): void {
+    this.http
+      .get('/files/${fileName}', { responseType: 'blob' })
+      .subscribe((res) => {
+        window.open(window.URL.createObjectURL(res));
+      });
   }
 
   getById(id: string) {
     return this.http.get<EgresosHostal>(
-      `${environment.apiUrl}/egresoBancario/${id}`
+      `${environment.apiUrl}/egresoHostal/${id}`
     );
   }
   update(id, params) {

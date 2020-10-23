@@ -9,7 +9,7 @@ import {
   AccountService,
 } from '@app/_services';
 import { first } from 'rxjs/operators';
-import { Empresa, Sucursal, User } from '@app/_models';
+import { Empresa, IngresosHostal, Sucursal, User } from '@app/_models';
 
 @Component({
   selector: 'app-hostal-form',
@@ -25,9 +25,11 @@ export class HostalFormComponent implements OnInit {
   isAddMode: boolean;
   idEmpresa = null;
   submitted = false;
-  loading = false;
+  loading = true;
   usuario: User;
   idUsuario = null;
+  respuesta;
+  ingreso = new IngresosHostal();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -41,7 +43,12 @@ export class HostalFormComponent implements OnInit {
     this.usuario = this.accountService.userValue;
     this.idUsuario = this.usuario.id;
   }
-
+  envv(e) {
+    this.loading = e;
+  }
+  resp(e) {
+    this.respuesta = e;
+  }
   ngOnInit() {
     this.idEmpresa = this.route.snapshot.params['idEmpresa'];
     this.id = this.route.snapshot.params['id'];
@@ -62,7 +69,6 @@ export class HostalFormComponent implements OnInit {
         x['Sucursals'] = Object.values(x['Sucursals']);
 
         this.empresa = x;
-        console.log(this.empresa);
       });
     /* TODO AGREGAR campos numeroBoleta, Tipo Documento(boleta, factura), documento */
 
@@ -126,8 +132,25 @@ export class HostalFormComponent implements OnInit {
     }
   }
   private createIngreso() {
+    console.log(this.respuesta);
+    this.ingreso.RespaldoIngresos = [];
+    this.ingreso.fecha = this.form.value.fecha;
+    this.ingreso.monto = this.form.value.monto;
+    this.ingreso.tipoPago = this.form.value.descripcion;
+    this.ingreso.cliente = this.form.value.cliente;
+    this.ingreso.idSucursal = this.form.value.idSucursal;
+    this.ingreso.idUsuario = this.form.value.idUsuario;
+    let cadena = '';
+    for (let i = 0; i < this.form.value.tipoIngreso.length; i++) {
+      cadena = cadena + ' ' + this.form.value.tipoIngreso[i];
+    }
+    for (let i = 0; i < this.respuesta.length; i++) {
+      this.ingreso.RespaldoIngresos.push({ url: this.respuesta[i] });
+    }
+    this.ingreso.tipoIngreso = cadena;
+
     this.ingresoService
-      .create(this.form.value)
+      .create(this.ingreso)
       .pipe(first())
       .subscribe(
         (data) => {

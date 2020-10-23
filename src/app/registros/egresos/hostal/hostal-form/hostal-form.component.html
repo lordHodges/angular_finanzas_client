@@ -109,12 +109,15 @@
 
       <div class="form-row">
         <!-- respaldo de documantacion -->
-        <app-respaldos></app-respaldos>
+        <app-respaldos
+          (listo)="envv($event)"
+          (respuesta)="resp($event)"
+        ></app-respaldos>
         <!-- respaldo de documantacion -->
       </div>
       <div class="form-row">
         <div class="form-group">
-          <button [disabled]="loading" class="btn btn-primary">
+          <button #guardar [disabled]="loading" class="btn btn-primary">
             <span
               *ngIf="loading"
               class="spinner-border spinner-border-sm mr-1"

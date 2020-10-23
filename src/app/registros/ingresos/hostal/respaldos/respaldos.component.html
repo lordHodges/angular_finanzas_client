@@ -109,7 +109,7 @@
     <div>
       <div>
         Progreso Cola:
-        <div class="progress" style="">
+        <div class="progress">
           <div
             class="progress-bar"
             role="progressbar"
@@ -150,9 +150,17 @@
 <div class="row">
   <div class="col-md-12">
     <div class="panel panel-default">
-      <div class="panel-heading">Response</div>
+      <div class="panel-heading">Archivos</div>
       <div class="panel-body">
-        {{ response }}
+        <!-- TODO {{ response }} -->
+
+        <button
+          class="btn btn-cyan"
+          *ngFor="let r of response"
+          (click)="decargar(r)"
+        >
+          {{ r }}
+        </button>
       </div>
     </div>
   </div>

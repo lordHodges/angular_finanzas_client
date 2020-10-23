@@ -26,6 +26,7 @@
           <label for="tipoIngreso">Tipo Ingreso</label>
           <select
             class="custom-select"
+            multiple
             name="tipoIngreso"
             id="tipoIngreso"
             formControlName="tipoIngreso"
@@ -33,10 +34,10 @@
             [ngClass]="{ 'is-invalid': submitted && f.tipoIngreso.errors }"
           >
             <option value="">Seleccionar</option>
-            <option value="1">Alojamiento</option>
-            <option value="2">Desayuno</option>
-            <option value="3">Almuerzo</option>
-            <option value="4">Cena</option>
+            <option value="Alojamiento">Alojamiento</option>
+            <option value="Desayuno">Desayuno</option>
+            <option value="Almuerzo">Almuerzo</option>
+            <option value="Cena">Cena</option>
           </select>
         </div>
       </div>
@@ -116,7 +117,10 @@
       </div>
       <div class="form-row">
         <!-- respaldo de documantacion -->
-        <app-respaldos></app-respaldos>
+        <app-respaldos
+          (listo)="envv($event)"
+          (respuesta)="resp($event)"
+        ></app-respaldos>
         <!-- respaldo de documantacion -->
       </div>
       <div class="form-row">

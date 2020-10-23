@@ -1,9 +1,14 @@
-import { Component } from '@angular/core';
-import { Dir } from '@app/_models';
+import {
+  Component,
+  ElementRef,
+  Input,
+  Output,
+  EventEmitter,
+} from '@angular/core';
+import { EgresoHostalService } from '@app/_services';
 import { FileUploader, FileSelectDirective } from 'ng2-file-upload';
-import { first } from 'rxjs/operators';
 
-const UploadURL = 'http://localhost:3001/api/upload';
+const UploadURL = 'http://localhost:3000/api/egresoHostal/upload';
 
 @Component({
   selector: 'app-respaldos',
@@ -11,40 +16,48 @@ const UploadURL = 'http://localhost:3001/api/upload';
   styleUrls: ['./respaldos.component.less'],
 })
 export class RespaldosComponent {
+  @Output()
+  listo = new EventEmitter<boolean>();
+  @Output()
+  respuesta = new EventEmitter<[]>();
+  response;
+
+  fileName;
   public uploader: FileUploader;
   hasBaseDropZoneOver: boolean;
   hasAnotherDropZoneOver: boolean;
-  response;
-  public dir: Dir;
-  public uris: Dir[] = [];
-  constructor() {
+  public uris: any[] = [];
+
+  constructor(private service: EgresoHostalService) {
     this.uploader = new FileUploader({
       url: UploadURL,
       itemAlias: 'photo',
     });
-
     this.hasBaseDropZoneOver = false;
     this.hasAnotherDropZoneOver = false;
 
-    this.uploader.response
-      .pipe()
+    this.uploader.onCompleteItem = (
+      item: any,
+      response: any,
+      status: any,
+      headers: any
+    ) => {
+      console.log('ImageUpload:uploaded:', item.alias, status, response);
+      this.uris.push(response);
+    };
 
-      .subscribe((res) => {
-        this.response = res;
-
-        this.uris.push(this.response as Dir);
-        console.log(this.uris);
-      });
-
-    /* this.uploader.response.subscribe((res) => {
-      this.response = res;
-      console.log(this.response);
-
-      let length = this.uris.push(this.response);
-      console.log(this.uris);
-    }); */
+    this.uploader.onCompleteAll = () => {
+      this.response = this.uris;
+      alert(
+        'Archivos exitosamente subidos:' + this.response.length + ' registros'
+      );
+      this.listo.emit(false);
+      this.respuesta.emit(this.response);
+    };
   }
-
+  decargar(r) {
+    let h = this.service.getFiles(r);
+  }
   public fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
   }

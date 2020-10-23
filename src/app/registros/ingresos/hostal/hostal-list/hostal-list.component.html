@@ -13,55 +13,45 @@
   <h5 class="col">Mostrar Listado</h5>
 </div>
 <div class="row" *ngIf="mostrarList">
-  <table class="table table-striped col-12">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>fecha</th>
-        <th>monto</th>
-        <th>tipoIngreso</th>
-        <th>tipoPago</th>
-        <th>sucursal</th>
-        <th>usuario</th>
+  <button class="btn btn-outline-success" (click)="getSelectedRows()">
+    Calcular Filtro: {{ total | currency: "CLP" }}
+  </button>
+  <button (click)="exportAsXLSX()" class="btn btn-success">
+    <i class="fa fa-arrow-alt-circle-down"> </i>
+    Exportar Datos
+  </button>
+  <button
+    (click)="deleteIngreso()"
+    disabled
+    class="btn btn-danger ml-4 right-align"
+  >
+    <i class="fa fa-trash"> </i>
+    Eliminar Datos
+  </button>
+  <button (click)="detalleIngreso()" class="btn btn-primary ml-4 right-align">
+    <i class="fa fa-eye"> </i>
+    explorar Datos
+  </button>
+  <!--  -->
+  <jw-modal [row]="rowFind" id="custom-modal-1">
+    <h1>Respaldos</h1>
 
-        <th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let ingreso of ingresos">
-        <td>{{ ingreso.id }}</td>
-        <td>{{ ingreso.fecha }}</td>
-        <td>{{ ingreso.monto }}</td>
-        <td>{{ ingreso.tipoIngreso }}</td>
-        <td>{{ ingreso.tipoPago }}</td>
-        <td>{{ ingreso.Sucursal.razonSocial }}</td>
-        <td>{{ ingreso.Usuario.nombre }}</td>
-
-        <td style="white-space: nowrap">
-          <a
-            routerLink="edit/{{ ingreso.id }}/{{ idEmpresa }}"
-            class="btn btn-sm btn-primary mr-1"
-            >Editar</a
-          >
-          <button
-            (click)="deleteIngreso(ingreso.id)"
-            class="btn btn-sm btn-danger btn-delete-sucursal"
-            [disabled]="ingreso.isDeleting"
-          >
-            <span
-              *ngIf="ingreso.isDeleting"
-              class="spinner-border spinner-border-sm"
-            ></span>
-            <span *ngIf="!ingreso.isDeleting">Eliminar</span>
-            <br />
-          </button>
-        </td>
-      </tr>
-      <tr *ngIf="!ingresos">
-        <td colspan="4" class="text-center">
-          <span class="spinner-border spinner-border-lg align-center"></span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <button (click)="closeModal('custom-modal-1')" class="btn btn-danger">
+      Close
+    </button>
+  </jw-modal>
+  <!--  -->
+  <ag-grid-angular
+    #agGrid
+    id="agGrid"
+    style="width: 100%; height: 500px"
+    class="ag-theme-material"
+    [rowData]="rowData | async"
+    (gridReady)="onGridReady($event)"
+    [columnDefs]="columnDefs"
+    [animateRows]="true"
+    rowSelection="multiple"
+  >
+  </ag-grid-angular>
+  
 </div>

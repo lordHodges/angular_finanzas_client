@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -9,7 +15,8 @@ import {
   EgresoHostalService,
 } from '@app/_services';
 import { first } from 'rxjs/operators';
-import { Empresa, Sucursal, User } from '@app/_models';
+import { EgresosHostal, Empresa, Sucursal, User } from '@app/_models';
+import { RespaldosComponent } from '@app/registros/ingresos/hostal/respaldos/respaldos.component';
 
 @Component({
   selector: 'app-hostal-form',
@@ -25,9 +32,11 @@ export class HostalFormComponent implements OnInit {
   isAddMode: boolean;
   idEmpresa = null;
   submitted = false;
-  loading = false;
+  loading = true;
   usuario: User;
   idUsuario = null;
+  egreso = new EgresosHostal();
+  respuesta;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -41,7 +50,12 @@ export class HostalFormComponent implements OnInit {
     this.usuario = this.accountService.userValue;
     this.idUsuario = this.usuario.id;
   }
-
+  envv(e) {
+    this.loading = e;
+  }
+  resp(e) {
+    this.respuesta = e;
+  }
   ngOnInit() {
     this.idEmpresa = this.route.snapshot.params['idEmpresa'];
     this.id = this.route.snapshot.params['id'];
@@ -111,9 +125,24 @@ export class HostalFormComponent implements OnInit {
       this.updateEgreso();
     }
   }
+
   private createEgreso() {
+    console.log(this.respuesta);
+    this.egreso.RespaldoEgresos = [];
+    this.egreso.fecha = this.form.value.fecha;
+    this.egreso.monto = this.form.value.monto;
+    this.egreso.descripcion = this.form.value.descripcion;
+    this.egreso.responsable = this.form.value.responsable;
+    this.egreso.idSucursal = this.form.value.idSucursal;
+    this.egreso.idUsuario = this.form.value.idUsuario;
+    this.egreso.tipoEgreso = this.form.value.tipoEgreso;
+    for (let i = 0; i < this.respuesta.length; i++) {
+      this.egreso.RespaldoEgresos.push({ url: this.respuesta[i] });
+    }
+
+    console.log(this.egreso);
     this.egresoHostalService
-      .create(this.form.value)
+      .create(this.egreso)
       .pipe(first())
       .subscribe(
         (data) => {
@@ -121,7 +150,6 @@ export class HostalFormComponent implements OnInit {
             keepAfterRouteChange: true,
           });
           this.loading = false;
-          this.router.navigate(['', { relativeTo: this.route }]);
         },
         (error) => {
           this.alertService.error(error);
