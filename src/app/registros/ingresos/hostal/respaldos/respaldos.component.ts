@@ -2,7 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { IngresoHostalService } from '@app/_services';
 import { FileUploader } from 'ng2-file-upload';
 
-const UploadURL = 'http://localhost:3000/api/ingresoHostal/upload';
+const UploadURL = 'https://localhost:3000/api/ingresoHostal/upload';
 
 @Component({
   selector: 'app-respaldos',
