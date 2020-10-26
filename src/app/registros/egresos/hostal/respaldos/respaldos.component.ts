@@ -35,7 +35,9 @@ export class RespaldosComponent {
     });
     this.hasBaseDropZoneOver = false;
     this.hasAnotherDropZoneOver = false;
-
+    this.uploader.onAfterAddingFile = (file) => {
+      file.withCredentials = false;
+    };
     this.uploader.onCompleteItem = (
       item: any,
       response: any,
