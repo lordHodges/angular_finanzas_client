@@ -11,6 +11,7 @@ export class IngresosHostal {
   tipoCliente: string;
   cliente: string;
   tipoIngreso: string;
+  descripcionIngreso: string;
   Sucursal: Sucursal[];
   Usuario: User[];
   RespaldoIngresos: any[];

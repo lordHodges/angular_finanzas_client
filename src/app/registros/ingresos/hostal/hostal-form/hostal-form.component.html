@@ -43,6 +43,28 @@
       </div>
       <div class="form-row">
         <div class="form-group col">
+          <label for="descripcionIngreso">Descripcion Ingreso</label>
+          <input
+            type="text"
+            formControlName="descripcionIngreso"
+            class="form-control"
+            value="{{ f.descripcionIngreso }}"
+            [ngClass]="{
+              'is-invalid': submitted && f.descripcionIngreso.errors
+            }"
+          />
+          <div
+            *ngIf="submitted && f.descripcionIngreso.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.descripcionIngreso.errors.required">
+              este campo es requerido
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col">
           <label for="fecha">Fecha</label>
           <input
             type="date"
@@ -92,8 +114,8 @@
             [ngClass]="{ 'is-invalid': submitted && f.tipoCliente.errors }"
           >
             <option value="">Seleccionar</option>
-            <option value="1">Particular</option>
-            <option value="2">Empresa</option>
+            <option value="Particular">Particular</option>
+            <option value="Empresa">Empresa</option>
           </select>
         </div>
       </div>

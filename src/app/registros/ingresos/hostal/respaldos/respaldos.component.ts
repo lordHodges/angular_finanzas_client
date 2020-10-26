@@ -1,8 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { IngresoHostalService } from '@app/_services';
 import { FileUploader } from 'ng2-file-upload';
+import { environment } from '../../../../../environments/environment';
 
-const UploadURL = 'https://localhost:3000/api/ingresoHostal/upload';
+const UploadURL = `${environment.apiUrl}/ingresoHostal/upload`;
 
 @Component({
   selector: 'app-respaldos',
@@ -38,6 +39,9 @@ export class RespaldosComponent implements OnInit {
     ) => {
       console.log('ImageUpload:uploaded:', item.alias, status, response);
       this.uris.push(response);
+    };
+    this.uploader.onAfterAddingFile = (file) => {
+      file.withCredentials = false;
     };
 
     this.uploader.onCompleteAll = () => {

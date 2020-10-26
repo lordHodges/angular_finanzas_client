@@ -80,6 +80,7 @@ export class HostalFormComponent implements OnInit {
       tipoCliente: ['', Validators.required],
       tipoPago: ['', Validators.required],
       idSucursal: ['', Validators.required],
+      descripcionIngreso: ['', Validators.required],
       idUsuario: this.idUsuario,
     });
 
@@ -139,6 +140,7 @@ export class HostalFormComponent implements OnInit {
     this.ingreso.tipoPago = this.form.value.descripcion;
     this.ingreso.cliente = this.form.value.cliente;
     this.ingreso.idSucursal = this.form.value.idSucursal;
+    this.ingreso.descripcionIngreso = this.form.value.descripcionIngreso;
     this.ingreso.idUsuario = this.form.value.idUsuario;
     let cadena = '';
     for (let i = 0; i < this.form.value.tipoIngreso.length; i++) {
@@ -154,11 +156,11 @@ export class HostalFormComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          this.alertService.success('Sucursal creado con exito', {
+          this.alertService.success('Ingreso Hostal creado con exito', {
             keepAfterRouteChange: true,
           });
           this.loading = false;
-          this.router.navigate(['', { relativeTo: this.route }]);
+          // this.router.navigate(['#', { relativeTo: this.route }]);
         },
         (error) => {
           this.alertService.error(error);
