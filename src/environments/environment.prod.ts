@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://localhost:3000/api',
+  apiUrl: 'https://www.imlchile.cl:3000/api',
 };
