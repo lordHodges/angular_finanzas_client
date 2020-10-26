@@ -11,6 +11,7 @@ export class IngresosHostal {
   tipoCliente: string;
   cliente: string;
   tipoIngreso: string;
+  nDocumento: string;
   descripcionIngreso: string;
   Sucursal: Sucursal[];
   Usuario: User[];

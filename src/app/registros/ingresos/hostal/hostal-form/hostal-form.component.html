@@ -136,6 +136,38 @@
             <option value="3">Transferencia</option>
           </select>
         </div>
+        <div class="form-group col">
+          <label for="estadoPago">Estado Pago</label>
+          <select
+            class="custom-select"
+            name="estadoPago"
+            id="estadoPago"
+            formControlName="estadoPago"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f.estadoPago.errors }"
+          >
+            <option value="PENDIENTE">PENDIENTE</option>
+            <option value="PAGADO">PAGADO</option>
+          </select>
+        </div>
+        <div class="form-group col">
+          <label for="nDocumento">Numero Documento</label>
+          <input
+            type="text"
+            formControlName="nDocumento"
+            class="form-control"
+            placeholder="F:123 o B:123"
+            [ngClass]="{ 'is-invalid': submitted && f.nDocumento.errors }"
+          />
+          <div
+            *ngIf="submitted && f.nDocumento.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.nDocumento.errors.required">
+              este campo es requerido
+            </div>
+          </div>
+        </div>
       </div>
       <div class="form-row">
         <!-- respaldo de documantacion -->

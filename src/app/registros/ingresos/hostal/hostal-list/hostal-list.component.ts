@@ -34,7 +34,11 @@ export class HostalListComponent implements OnInit {
     },
     { field: 'fecha', sortable: true, filter: true },
     { field: 'monto', sortable: true, filter: true },
+    { field: 'nDocumento', sortable: true, filter: true },
+
+    { field: 'estadoPago', sortable: true, filter: true },
     { field: 'cliente', sortable: true, filter: true },
+
     { field: 'tipoIngreso', sortable: true, filter: true },
 
     {
