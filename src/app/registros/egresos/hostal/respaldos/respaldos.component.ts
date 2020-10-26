@@ -7,8 +7,9 @@ import {
 } from '@angular/core';
 import { EgresoHostalService } from '@app/_services';
 import { FileUploader, FileSelectDirective } from 'ng2-file-upload';
+import { environment } from '../../../../../environments/environment';
 
-const UploadURL = 'https://localhost:3000/api/egresoHostal/upload';
+const UploadURL = `${environment.apiUrl}/egresoHostal/upload`;
 
 @Component({
   selector: 'app-respaldos',
