@@ -17,14 +17,19 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": ["lodash"],
+            "allowedCommonJsDependencies": [
+              "lodash"
+            ],
             "outputPath": "dist/angular-registration-login-example",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.less",
@@ -99,7 +104,10 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.less",
@@ -115,7 +123,6 @@
               "node_modules/datatables.net-buttons/js/dataTables.buttons.js",
               "node_modules/datatables.net-buttons/js/buttons.colVis.js",
               "node_modules/datatables.net-buttons/js/buttons.flash.js",
-
               "node_modules/datatables.net-buttons/js/buttons.html5.js",
               "node_modules/datatables.net-buttons/js/buttons.print.js"
             ]
@@ -129,7 +136,9 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "e2e": {
@@ -147,5 +156,8 @@
       }
     }
   },
-  "defaultProject": "angular-registration-login-example"
+  "defaultProject": "angular-registration-login-example",
+  "cli": {
+    "analytics": "983b602e-7c6f-433f-986f-230e2e844f89"
+  }
 }

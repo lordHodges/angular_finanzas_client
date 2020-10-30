@@ -73,6 +73,7 @@ export class ModalComponent implements OnInit, OnDestroy {
     this.gridColumnApi = params.columnApi;
 
     params.api.expandAll();
+    
   }
   onSelectionChanged() {
     var selectedRows = this.gridApi.getSelectedRows();
@@ -89,6 +90,7 @@ export class ModalComponent implements OnInit, OnDestroy {
     this.service.getById(row).subscribe((x) => {
       this.rowData = x[0].RespaldoEgresos;
       console.log(this.rowData);
+      
     });
     this.element.style.display = 'block';
     document.body.classList.add('jw-modal-open');
