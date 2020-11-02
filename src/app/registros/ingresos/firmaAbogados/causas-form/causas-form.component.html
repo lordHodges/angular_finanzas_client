@@ -1,0 +1,141 @@
+<div class="card">
+  <div class="card-header">
+    <h5>Agregar Causas</h5>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group col">
+          <label for="codigo">Codigo Causa</label>
+          <input
+            type="text"
+            formControlName="codigo"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && f.codigo.errors
+            }"
+          />
+
+          <div *ngIf="submitted && f.codigo.errors" class="invalid-feedback">
+            <div *ngIf="f.codigo.errors.required">este campo es requerido</div>
+          </div>
+        </div>
+        <div class="form-group col">
+          <label for="titulo">Titulo</label>
+          <input
+            type="text"
+            id="titulo"
+            formControlName="titulo"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && f.titulo.errors
+            }"
+          />
+          <div *ngIf="submitted && f.titulo.errors" class="invalid-feedback">
+            <div *ngIf="f.titulo.errors.required">este campo es requerido</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col">
+          <select class="form-control" formControlName="sucursal">
+            <option selected value="">Seleccionar Sucursal</option>
+          </select>
+        </div>
+        <div class="form-group col">
+          <select multiple class="form-control" formControlName="abogado">
+            <option value="">Seleccionar Equipo</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col">
+          <label for="montoCausa">Monto Total Servicio</label>
+          <input
+            type="number"
+            id="montoCausa"
+            formControlName="montoCausa"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && f.montoCausa.errors
+            }"
+          />
+          <div
+            *ngIf="submitted && f.montoCausa.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.montoCausa.errors.required">
+              este campo es requerido
+            </div>
+          </div>
+        </div>
+        <div class="form-group col">
+          <label for="diaPago">Monto Total Servicio</label>
+          <select
+            type="number"
+            id="diaPago"
+            formControlName="diaPago"
+            class="form-control"
+            aria-valuemax="31"
+            [ngClass]="{
+              'is-invalid': submitted && f.diaPago.errors
+            }"
+          >
+            <option value="{{ dia }}" *ngFor="let dia of dias">
+              {{ dia }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col">
+          <label for="cantidadCuotas">Cantidad Cuotas</label>
+          <div class="input-group mb-3">
+            <input
+              #cantidadCuotas
+              id="cantidadCuotas"
+              formControlName="cantidadCuotas"
+              type="number"
+              class="form-control"
+              placeholder="Ingresar cantidadCuotas Causa"
+              aria-describedby="button-calcular"
+            />
+
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-primary"
+                type="button"
+                id="button-calcular"
+                (click)="calcularCuotas()"
+              >
+                Calcular
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row" *ngFor="let c of cuotas">
+        <div class="form-groupo col">
+          <input
+            type="text"
+            id="fecha"
+            formControlName="fecha"
+            placeholder="{{ c.fecha }}"
+            value="{{ c.fecha }}"
+            class="form-control"
+          />
+        </div>
+        <div class="form-group col">
+          <input
+            type="number"
+            id="montoCuota"
+            formControlName="montoCuota"
+            placeholder="{{ c.montoCuota | currency: 'CLP' }}"
+            value="{{ c.montoCuota }}"
+            class="form-control"
+          />
+        </div>
+      </div>
+
+      <button class="btn btn-success">Agregar</button>
+    </form>
+  </div>
+</div>

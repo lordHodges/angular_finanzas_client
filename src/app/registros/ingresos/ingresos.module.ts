@@ -17,9 +17,12 @@ import { RentacarFormComponent } from './rentacar/rentacar-form/rentacar-form.co
 import { RentacarListComponent } from './rentacar/rentacar-list/rentacar-list.component';
 import { RespaldosComponent } from './hostal/respaldos/respaldos.component';
 import { FileSelectDirective, FileUploadModule } from 'ng2-file-upload';
-import { ModalModule } from './hostal/_modal';
+import { ModalModule } from '@app/_modal';
 import { AgGridModule } from 'ag-grid-angular';
 import { ExcelService } from '@app/_services';
+import { CausasListComponent } from './firmaAbogados/causas-list/causas-list.component';
+import { CausasFormComponent } from './firmaAbogados/causas-form/causas-form.component';
+
 @NgModule({
   declarations: [
     LayoutComponent,
@@ -36,6 +39,8 @@ import { ExcelService } from '@app/_services';
     RentacarFormComponent,
     RentacarListComponent,
     RespaldosComponent,
+    CausasListComponent,
+    CausasFormComponent,
   ],
   imports: [
     CommonModule,
