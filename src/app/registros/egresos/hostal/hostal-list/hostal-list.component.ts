@@ -56,11 +56,9 @@ export class HostalListComponent implements OnInit {
       sortable: true,
       filter: true,
     },
-    {
-      headerName: 'Respaldo',
-      field: 'RespaldoEgresos',
-      children: [{ field: 'RespaldoEgresos.url' }],
-    },
+    { field: 'tipoEgreso', sortable: true, filter: true },
+
+   
     {
       headerName: 'Usuario',
       field: 'Usuario.nombreUsuario',
