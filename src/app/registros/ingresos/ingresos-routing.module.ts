@@ -9,23 +9,19 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-  },
-  {
-    path: ':idEmpresa',
-    component: LayoutComponent,
     children: [
       {
-        path: 'hostal/:idEmpresa',
+        path: 'hostal',
         component: HostalListComponent,
         children: [
           { path: 'add/:idEmpresa', component: HostalFormComponent },
           {
-            path: 'edit/:id/:idEmpresa',
+            path: 'edit/',
             component: HostalFormComponent,
           },
         ],
       },
-      { path: 'abogados/:idEmpresa', component: FirmaAbogadosFormComponent },
+      { path: 'abogados', component: FirmaAbogadosFormComponent },
     ],
   },
 ];

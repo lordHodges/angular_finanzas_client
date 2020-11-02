@@ -1,12 +1,128 @@
 <div class="card">
-    <div class="card-header">
+  <div class="card-header">
     <h5>Ingresos FIRMA ABOGADOS CHILE</h5>
-    </div>
-    <div class="card-body">
-      <p>contenido clientes</p>
-      <p>formulario agregar causas</p>
-      <p>lista causas x cliente</p> 
-      
-        
-    </div>
+  </div>
+  <div class="card-body">
+    <!-- buscar clientes agregar a tabla -->
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group col">
+          <label for="rut">RUT Cliente</label>
+          <div class="input-group mb-3">
+            <input
+              #rut
+              id="rut"
+              formControlName="rut"
+              type="text"
+              class="form-control"
+              placeholder="Ingresar rut Cliente"
+              aria-describedby="button-buscarcliente"
+            />
+
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-primary"
+                type="button"
+                id="button-buscarcliente"
+                (click)="buscarExistencia()"
+              >
+                Buscar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col">
+          <label for="nombreCliente">Nombre Cliente</label>
+          <input
+            type="text"
+            formControlName="nombreCliente"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && f.nombreCliente.errors
+            }"
+          />
+
+          <div
+            *ngIf="submitted && f.nombreCliente.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.nombreCliente.errors.required">
+              este campo es requerido
+            </div>
+          </div>
+        </div>
+        <div class="form-group col">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && f.email.errors
+            }"
+          />
+          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+            <div *ngIf="f.email.errors.required">este campo es requerido</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col">
+          <label for="fono">Telefono</label>
+          <input
+            type="text"
+            formControlName="fono"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && f.fono.errors
+            }"
+          />
+          <div *ngIf="submitted && f.fono.errors" class="invalid-feedback">
+            <div *ngIf="f.fono.errors.required">este campo es requerido</div>
+          </div>
+        </div>
+        <div class="form-group col">
+          <label for="direccion">Dirección</label>
+          <input
+            type="text"
+            formControlName="direccion"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && f.direccion.errors
+            }"
+          />
+          <div *ngIf="submitted && f.direccion.errors" class="invalid-feedback">
+            <div *ngIf="f.direccion.errors.required">
+              este campo es requerido
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-success">Guardar</button>
+
+      <!--TODO agregar span con cantidad de causas del cliente -->
+    </form>
+  </div>
+  <jw-modal id="causas_modal">
+    <h1>works!!!</h1>
+
+    <app-causas-list [idCliente]="elPadreDice"></app-causas-list>
+
+    <button class="btn btn-success" (click)="openModal('addCausas')">
+      + Causas
+    </button>
+    <jw-modal id="addCausas">
+      <app-causas-form [idCliente]="elPadreDice"></app-causas-form>
+    </jw-modal>
+  </jw-modal>
+  <button class="btn btn-primary btn-fluid" (click)="openModal('causas_modal')">
+    Causas
+  </button>
+
+  <!-- contenido clientes -->
+  <!-- formulario agregar causas -->
+  <!-- lista causas x cliente -->
 </div>

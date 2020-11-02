@@ -9,11 +9,11 @@ const routes: Routes = [
     component: LayoutComponent,
   },
   {
-    path: ':idEmpresa',
+    path: '',
     component: LayoutComponent,
     children: [
       {
-        path: 'hostal/:idEmpresa',
+        path: 'hostal',
         component: HostalListComponent,
         children: [
           { path: 'add/:idEmpresa', component: HostalFormComponent },

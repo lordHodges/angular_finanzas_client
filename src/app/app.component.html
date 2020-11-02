@@ -21,10 +21,15 @@
           >Registrar Ingresos</a
         >
         <ul class="collapse list-unstyled" id="registrarIngresos">
-          <li *ngFor="let e of empresas">
-            <a routerLink="/ingresos/{{ e.id }}" routerLinkActive="active">{{
-              e.razonSocial
-            }}</a>
+          <li>
+            <a routerLink="/ingresos/hostal/" routerLinkActive="active"
+              >HOSTAL PLAZA MAULE</a
+            >
+          </li>
+          <li>
+            <a routerLink="/ingresos/abogados" routerLinkActive="active"
+              >FIRMA ABOGADOS CHILE</a
+            >
           </li>
           <li>
             <a routerLink="/ingresos/lubricentro" routerLinkActive="active">Lubricentro</a>
@@ -39,13 +44,9 @@
         >
         <ul class="collapse list-unstyled" id="registrarEgresos">
           <li *ngFor="let e of empresas">
-            <a routerLink="/egresos/{{ e.id }}" routerLinkActive="active">{{
+            <a routerLink="/egresos/hostal" routerLinkActive="active">{{
               e.razonSocial
             }}</a>
-          </li>
-
-          <li>
-            <a href="#">...Ngfor(Empresas)</a>
           </li>
         </ul>
       </li>

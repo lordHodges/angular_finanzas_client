@@ -3,7 +3,7 @@ import { ExcelService, IngresoHostalService } from '@app/_services';
 import { first } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AgGridAngular } from 'ag-grid-angular';
-import { ModalService } from '../_modal';
+import { ModalService } from '@app/_modal';
 
 @Component({
   selector: 'app-hostal-list',
@@ -14,6 +14,7 @@ export class HostalListComponent implements OnInit {
   @ViewChild('agGrid') agGrid: AgGridAngular;
 
   private gridApi: any;
+  private gridApi2: any;
   private gridColumnApi: any;
   rowFind;
   selectedRows: any[];
@@ -54,6 +55,20 @@ export class HostalListComponent implements OnInit {
       filter: true,
     },
   ];
+
+  //tabla modal
+  rowData2: any;
+  columnDefs2 = [
+    {
+      headerName: 'Archivo',
+      field: 'url',
+      sortable: true,
+      filter: true,
+      checkboxSelection: false,
+    },
+  ];
+  //
+
   constructor(
     private ingresoService: IngresoHostalService,
     private route: ActivatedRoute,
@@ -78,8 +93,18 @@ export class HostalListComponent implements OnInit {
     //TODO campos de configuracion de datatable jq.
     this.rowData = this.ingresoService.getAll();
   }
+  onSelectionChanged() {
+    var selectedRows = this.gridApi2.getSelectedRows();
+    this.ingresoService.getFiles(selectedRows[0].url);
+  }
   closeModal(id: string) {
     this.modalService.close(id);
+  }
+  onGridReady2(params) {
+    this.gridApi2 = params.api;
+    this.gridColumnApi = params.columnApi;
+
+    params.api.expandAll();
   }
   onGridReady(params) {
     this.gridApi = params.api;
@@ -126,17 +151,25 @@ export class HostalListComponent implements OnInit {
   }
   async detalleIngreso() {
     let rowView;
-
     this.selectedRows = [];
-    await this.agGrid.api
-      .getSelectedRows()
-      .forEach((x) => this.selectedRows.push(x));
+    this.agGrid.api.getSelectedRows().forEach((x) => this.selectedRows.push(x));
+    this.modalService.open('modal_detalle');
 
     if (this.selectedRows.length <= 1 && this.selectedRows.length > 0) {
-      await this.selectedRows.forEach((x) => {
+      this.selectedRows.forEach((x) => {
         rowView = x.id;
         this.rowFind = rowView;
-        this.modalService.open('custom-modal-1', rowView);
+        this.ingresoService
+          .getById(rowView)
+          .pipe()
+          .subscribe((x) => {
+            this.rowData2 = x[0].RespaldoIngresos;
+          });
+
+        console.log('data2', this.rowData2);
+
+        if (this.rowData2) {
+        }
       });
     } else {
       alert(
