@@ -12,3 +12,5 @@ export * from './dir';
 export * from './respaldo-egreso';
 export * from './registros/registrosHostal/egresos-hostal';
 export * from '@app/_models/registros/registrosAbogados/cuotasCausa';
+export * from './cliente';
+export * from './registros/registrosAbogados/causa';

@@ -1,4 +1,6 @@
-<h1>{{ mPadre }}</h1>
+<br />
+<h5>{{ rowData }}</h5>
+<button class="btn btn-primary" (click)="cargar()">Registrar Pago</button>
 <ag-grid-angular
   #agGrid
   id="agGrid"
@@ -8,5 +10,9 @@
   [rowData]="rowData"
   [columnDefs]="columnDefs"
   [animateRows]="true"
-  rowSelection="multiple"
 ></ag-grid-angular>
+<!-- rowSelection="multiple"  -->
+<jw-modal id="modal_pagoCausa">
+  <h1>{{ row }}</h1>
+  <app-pago-causa [row]="row" [causa]="causa"></app-pago-causa>
+</jw-modal>

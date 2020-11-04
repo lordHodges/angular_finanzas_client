@@ -1,23 +1,31 @@
 <div class="card">
   <div class="card-header">
     <h5>Agregar Causas</h5>
+    <p>{{ msje }}</p>
   </div>
   <div class="card-body">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="form-row">
         <div class="form-group col">
           <label for="codigo">Codigo Causa</label>
-          <input
-            type="text"
-            formControlName="codigo"
-            class="form-control"
-            [ngClass]="{
-              'is-invalid': submitted && f.codigo.errors
-            }"
-          />
-
-          <div *ngIf="submitted && f.codigo.errors" class="invalid-feedback">
-            <div *ngIf="f.codigo.errors.required">este campo es requerido</div>
+          <div class="input-group">
+            <input
+              type="text"
+              aria-describedby="button-buscarCausa"
+              formControlName="codigo"
+              class="form-control"
+              placeholder="ROL/RUC"
+            />
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-primary"
+                type="button"
+                id="button-buscarCausa"
+                (click)="buscarCausa()"
+              >
+                Buscar
+              </button>
+            </div>
           </div>
         </div>
         <div class="form-group col">
@@ -40,6 +48,18 @@
         <div class="form-group col">
           <select class="form-control" formControlName="sucursal">
             <option selected value="">Seleccionar Sucursal</option>
+            <option *ngFor="let s of empresa.Sucursals" value="{{ s.id }}">
+              {{ s.razonSocial }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col">
+          <select class="form-control" formControlName="materia">
+            <option value="" default>Seleccionar Materia</option>
+            <option value="PENAL" default>PENAL</option>
+            <option value="FAMILIA" default>FAMILIA</option>
+            <option value="LABORAL" default>LABORAL</option>
+            <option value="CIVIL" default>CIVIL</option>
           </select>
         </div>
         <div class="form-group col">
@@ -70,7 +90,7 @@
           </div>
         </div>
         <div class="form-group col">
-          <label for="diaPago">Monto Total Servicio</label>
+          <label for="diaPago">Dia de Pago</label>
           <select
             type="number"
             id="diaPago"
@@ -112,30 +132,21 @@
           </div>
         </div>
       </div>
-      <div class="form-row" *ngFor="let c of cuotas">
-        <div class="form-groupo col">
-          <input
-            type="text"
-            id="fecha"
-            formControlName="fecha"
-            placeholder="{{ c.fecha }}"
-            value="{{ c.fecha }}"
-            class="form-control"
-          />
-        </div>
-        <div class="form-group col">
-          <input
-            type="number"
-            id="montoCuota"
-            formControlName="montoCuota"
-            placeholder="{{ c.montoCuota | currency: 'CLP' }}"
-            value="{{ c.montoCuota }}"
-            class="form-control"
-          />
-        </div>
+      <div class="form-row">
+        <ul>
+          <li *ngFor="let c of cuotas">
+            {{ c.fechaPago }} a pagar {{ c.montoCuota | currency: "CLP" }}
+          </li>
+        </ul>
       </div>
 
-      <button class="btn btn-success">Agregar</button>
+      <button
+        *ngIf="rolExiste"
+        class="btn btn-success"
+        (click)="guardarCausa()"
+      >
+        Agregar
+      </button>
     </form>
   </div>
 </div>

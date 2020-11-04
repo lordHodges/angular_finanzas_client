@@ -8,7 +8,7 @@
       <div class="form-row">
         <div class="form-group col">
           <label for="rut">RUT Cliente</label>
-          <div class="input-group mb-3">
+          <div class="input-group">
             <input
               #rut
               id="rut"
@@ -101,28 +101,36 @@
           </div>
         </div>
       </div>
-      <button class="btn btn-success">Guardar</button>
+      <button class="btn btn-success" (click)="guardarCliente()">
+        Guardar
+      </button>
 
       <!--TODO agregar span con cantidad de causas del cliente -->
     </form>
   </div>
-  <jw-modal id="causas_modal">
-    <h1>works!!!</h1>
-
-    <app-causas-list [idCliente]="elPadreDice"></app-causas-list>
-
-    <button class="btn btn-success" (click)="openModal('addCausas')">
+  <div class="card-footer">
+    <h5>Acciones</h5>
+    <!-- llamando al modal con el listado de causas del cliente encontrado -->
+    <button class="btn btn-primary col-6" (click)="openModal()">Causas</button>
+    <!-- llamando al modal para agregar nuevas causas al cliente -->
+    <button class="btn btn-success col-6" (click)="openModal()">
       + Causas
     </button>
-    <jw-modal id="addCausas">
-      <app-causas-form [idCliente]="elPadreDice"></app-causas-form>
-    </jw-modal>
-  </jw-modal>
-  <button class="btn btn-primary btn-fluid" (click)="openModal('causas_modal')">
-    Causas
-  </button>
-
-  <!-- contenido clientes -->
-  <!-- formulario agregar causas -->
+  </div>
+  <ng-container class="mt-3" #componenteDinamico></ng-container>
   <!-- lista causas x cliente -->
+  <!-- 
+    <jw-modal id="causas_modal">
+    <h3>Causas Cliente</h3>
+    <app-causas-list [rowData]="causasCliente"></app-causas-list>
+  </jw-modal> -->
+  <!-- formulario agregar causas -->
+  <!-- 
+    <jw-modal id="addCausas">
+    <app-causas-form
+      [idEmpresa]="idEmpresa"
+      [idCliente]="idCliente"
+    ></app-causas-form>
+  </jw-modal> -->
+  <!-- contenido clientes -->
 </div>

@@ -22,6 +22,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { ExcelService } from '@app/_services';
 import { CausasListComponent } from './firmaAbogados/causas-list/causas-list.component';
 import { CausasFormComponent } from './firmaAbogados/causas-form/causas-form.component';
+import { PagoCausaComponent } from './firmaAbogados/pago-causa/pago-causa.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { CausasFormComponent } from './firmaAbogados/causas-form/causas-form.com
     RespaldosComponent,
     CausasListComponent,
     CausasFormComponent,
+    PagoCausaComponent,
   ],
   imports: [
     CommonModule,
@@ -51,6 +53,7 @@ import { CausasFormComponent } from './firmaAbogados/causas-form/causas-form.com
     ModalModule,
     AgGridModule,
   ],
+
   providers: [ExcelService],
 })
 export class IngresosModule {}

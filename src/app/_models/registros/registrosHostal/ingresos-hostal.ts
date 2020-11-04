@@ -13,6 +13,8 @@ export class IngresosHostal {
   tipoIngreso: string;
   nDocumento: string;
   descripcionIngreso: string;
+  nAutorizacion: string;
+  banco: string;
   Sucursal: Sucursal[];
   Usuario: User[];
   RespaldoIngresos: any[];

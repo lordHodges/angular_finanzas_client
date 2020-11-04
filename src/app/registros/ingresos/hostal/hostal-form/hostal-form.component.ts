@@ -83,34 +83,11 @@ export class HostalFormComponent implements OnInit {
       descripcionIngreso: ['', Validators.required],
       nDocumento: ['', Validators.required],
       estadoPago: ['', Validators.required],
+      nAutorizacion: ['', Validators.required],
+      banco: ['', Validators.required],
+
       idUsuario: this.idUsuario,
     });
-
-    if (!this.isAddMode) {
-      this.form = this.formBuilder.group({
-        fecha: [],
-        monto: [],
-        tipoIngreso: [],
-        cliente: [],
-        tipoCliente: [],
-        tipoPago: [],
-        idSucursal: [],
-        idUsuario: this.idUsuario,
-      });
-      this.ingresoService
-        .getById(this.id)
-        .pipe(first())
-        .subscribe((x) => {
-          this.f.fecha.setValue(x.fecha);
-          this.f.monto.setValue(x.monto);
-          this.f.tipoIngreso.setValue(x.tipoIngreso);
-          this.f.cliente.setValue(x.cliente);
-          this.f.tipoCliente.setValue(x.tipoCliente);
-          this.f.tipoPago.setValue(x.tipoPago);
-          this.f.idSucursal.setValue(x.idSucursal);
-          this.f.idUsuario.setValue(this.idUsuario);
-        });
-    }
   }
 
   get f() {
@@ -139,13 +116,17 @@ export class HostalFormComponent implements OnInit {
     this.ingreso.RespaldoIngresos = [];
     this.ingreso.fecha = this.form.value.fecha;
     this.ingreso.monto = this.form.value.monto;
-    this.ingreso.tipoPago = this.form.value.descripcion;
+    this.ingreso.tipoPago = this.form.value.tipoPago;
     this.ingreso.cliente = this.form.value.cliente;
+    this.ingreso.tipoCliente = this.form.value.tipoCliente;
     this.ingreso.idSucursal = this.form.value.idSucursal;
     this.ingreso.descripcionIngreso = this.form.value.descripcionIngreso;
     this.ingreso.nDocumento = this.form.value.nDocumento;
     this.ingreso.estadoPago = this.form.value.estadoPago;
     this.ingreso.idUsuario = this.form.value.idUsuario;
+    this.ingreso.nAutorizacion = this.form.value.nAutorizacion;
+    this.ingreso.banco = this.form.value.banco;
+
     let cadena = '';
     for (let i = 0; i < this.form.value.tipoIngreso.length; i++) {
       cadena = cadena + ' ' + this.form.value.tipoIngreso[i];

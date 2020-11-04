@@ -1,3 +1,5 @@
+<!--TODO se debe analzar el añadir la planilla completa de calculo entregada por danielaZuniaga  -->
+
 <div class="card">
   <div class="card-header">
     <h5 *ngIf="isAddMode">Agregar Ingresos {{ empresa.razonSocial }}</h5>
@@ -133,9 +135,11 @@
             [ngClass]="{ 'is-invalid': submitted && f.tipoPago.errors }"
           >
             <option value="">Seleccionar</option>
-            <option value="1">Efectivo</option>
-            <option value="2">TransBank</option>
-            <option value="3">Transferencia</option>
+            <option value="Efectivo">Efectivo</option>
+            <option value="TransBank">Debito</option>
+            <option value="TransBank">Credito</option>
+            <option value="Transferencia">Transferencia</option>
+            <option value="Cheque">Cheque</option>
           </select>
         </div>
         <div class="form-group col">
@@ -168,6 +172,39 @@
             <div *ngIf="f.nDocumento.errors.required">
               este campo es requerido
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col">
+          <label for="nAutorizacion">Numero Autorizacion</label>
+          <input
+            type="text"
+            formControlName="nAutorizacion"
+            class="form-control"
+            placeholder="indicar codigo de autorizacion"
+            [ngClass]="{ 'is-invalid': submitted && f.nAutorizacion.errors }"
+          />
+          <div
+            *ngIf="submitted && f.nAutorizacion.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.nAutorizacion.errors.required">
+              este campo es requerido
+            </div>
+          </div>
+        </div>
+        <div class="form-group col">
+          <label for="banco">Banco</label>
+          <input
+            type="text"
+            formControlName="banco"
+            class="form-control"
+            placeholder="indicar nombre de Banco"
+            [ngClass]="{ 'is-invalid': submitted && f.banco.errors }"
+          />
+          <div *ngIf="submitted && f.banco.errors" class="invalid-feedback">
+            <div *ngIf="f.banco.errors.required">este campo es requerido</div>
           </div>
         </div>
       </div>
