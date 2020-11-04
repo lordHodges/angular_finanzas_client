@@ -10,6 +10,7 @@ export class IngresosHostal {
   tipoPago: string;
   tipoCliente: string;
   cliente: string;
+  referenciaCliente: string;
   tipoIngreso: string;
   nDocumento: string;
   descripcionIngreso: string;

@@ -122,6 +122,26 @@
             <option value="Empresa">Empresa</option>
           </select>
         </div>
+        <div class="form-group col">
+          <label for="referenciaCliente">Referencia</label>
+          <select
+            class="custom-select"
+            name="referenciaCliente"
+            id="referenciaCliente"
+            formControlName="referenciaCliente"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && f.referenciaCliente.errors
+            }"
+          >
+            <option value="">Seleccionar</option>
+            <option value="Llamada">Llamada</option>
+            <option value="Booking">Booking</option>
+            <option value="Correo">Correo</option>
+            <option value="PaginaWeb">PaginaWeb</option>
+            <option value="Facebook">Facebook</option>
+          </select>
+        </div>
       </div>
       <div class="form-row">
         <div class="form-group col">
@@ -137,7 +157,7 @@
             <option value="">Seleccionar</option>
             <option value="Efectivo">Efectivo</option>
             <option value="TransBank">Debito</option>
-            <option value="TransBank">Credito</option>
+            <option value="Credito">Credito</option>
             <option value="Transferencia">Transferencia</option>
             <option value="Cheque">Cheque</option>
           </select>

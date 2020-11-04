@@ -83,8 +83,9 @@ export class HostalFormComponent implements OnInit {
       descripcionIngreso: ['', Validators.required],
       nDocumento: ['', Validators.required],
       estadoPago: ['', Validators.required],
-      nAutorizacion: ['', Validators.required],
-      banco: ['', Validators.required],
+      nAutorizacion: [''],
+      banco: [''],
+      referenciaCliente: [''],
 
       idUsuario: this.idUsuario,
     });
@@ -126,6 +127,7 @@ export class HostalFormComponent implements OnInit {
     this.ingreso.idUsuario = this.form.value.idUsuario;
     this.ingreso.nAutorizacion = this.form.value.nAutorizacion;
     this.ingreso.banco = this.form.value.banco;
+    this.ingreso.referenciaCliente = this.form.value.referenciaCliente;
 
     let cadena = '';
     for (let i = 0; i < this.form.value.tipoIngreso.length; i++) {
