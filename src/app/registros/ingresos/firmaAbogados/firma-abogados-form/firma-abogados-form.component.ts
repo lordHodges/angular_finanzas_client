@@ -100,6 +100,13 @@ export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
       .pipe(first())
       .subscribe((x) => {
         this.elPadreDice = x;
+        this.idCliente = this.elPadreDice.cliente.id;
+        this.causasService
+          .getCausasPorCliente(this.idCliente)
+
+          .subscribe((x) => {
+            this.causasCliente = x;
+          });
 
         if (!this.elPadreDice.created) {
           this.f.nombreCliente.setValue(this.elPadreDice.cliente.nombre);
@@ -114,14 +121,6 @@ export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
             'El Usuario no existe, complete la informacion y actualice los datos'
           );
         }
-        this.idCliente = this.elPadreDice.cliente.id;
-      });
-    this.idCliente = this.elPadreDice.cliente.id;
-    this.causasService
-      .getCausasPorCliente(this.idCliente)
-      .pipe(first())
-      .subscribe((x) => {
-        this.causasCliente = x;
       });
 
     //?  findorcrate de sequelize
@@ -170,14 +169,26 @@ export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
     return value;
   }
 
-  //!metodos de modal
-  openModal() {
-    this.miFactory = this.resolver.resolveComponentFactory(CausasListComponent);
-    this.componentRef = this.compDynamicContainer.createComponent(
-      this.miFactory
-    );
-    this.componentRef.instance.rowData = this.causasCliente;
-    this.componentRef.instance.data = this.elPadreDice.cliente.nombre;
+  //abrir componentes
+  qMostrar = true;
+  mostrarCausas() {
+    if (this.qMostrar) {
+      this.miFactory = this.resolver.resolveComponentFactory(
+        CausasListComponent
+      );
+      this.componentRef = this.compDynamicContainer.createComponent(
+        this.miFactory
+      );
+      this.componentRef.instance.rowData = this.causasCliente;
+      this.componentRef.instance.data = this.elPadreDice.cliente.nombre;
+      this.qMostrar = false;
+    } else {
+      this.componentRef.destroy();
+      this.qMostrar = true;
+    }
+  }
+  agregarCausas(id: string) {
+    this.modalService.open(id);
   }
 
   closeModal(id: string) {

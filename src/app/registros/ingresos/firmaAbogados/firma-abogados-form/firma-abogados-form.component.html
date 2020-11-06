@@ -111,13 +111,21 @@
   <div class="card-footer">
     <h5>Acciones</h5>
     <!-- llamando al modal con el listado de causas del cliente encontrado -->
-    <button class="btn btn-primary col-6" (click)="openModal()">Causas</button>
+    <button class="btn btn-primary col-6" (click)="mostrarCausas()">
+      Mostrar Causas
+    </button>
     <!-- llamando al modal para agregar nuevas causas al cliente -->
-    <button class="btn btn-success col-6" (click)="openModal()">
+    <button class="btn btn-success col-6" (click)="agregarCausas('addCausas')">
       + Causas
     </button>
   </div>
   <ng-container class="mt-3" #componenteDinamico></ng-container>
+  <jw-modal id="addCausas">
+    <app-causas-form
+      [idEmpresa]="idEmpresa"
+      [idCliente]="idCliente"
+    ></app-causas-form>
+  </jw-modal>
   <!-- lista causas x cliente -->
   <!-- 
     <jw-modal id="causas_modal">
@@ -126,11 +134,6 @@
   </jw-modal> -->
   <!-- formulario agregar causas -->
   <!-- 
-    <jw-modal id="addCausas">
-    <app-causas-form
-      [idEmpresa]="idEmpresa"
-      [idCliente]="idCliente"
-    ></app-causas-form>
-  </jw-modal> -->
+    -->
   <!-- contenido clientes -->
 </div>

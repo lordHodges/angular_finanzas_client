@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalService } from '@app/_modal';
@@ -16,13 +22,14 @@ import { first } from 'rxjs/operators';
   templateUrl: './causas-form.component.html',
   styleUrls: ['./causas-form.component.less'],
 })
-export class CausasFormComponent implements OnInit {
+export class CausasFormComponent implements OnChanges, OnInit {
   @Input()
   idCliente: string;
   @Input()
   idEmpresa: string;
   //
   //
+
   rolExiste = false;
   created = null;
   causa: Causa;
@@ -37,6 +44,9 @@ export class CausasFormComponent implements OnInit {
   idUsuario = null;
   form: FormGroup;
   dias = [5, 10, 15, 20, 30];
+  changelog: string[] = [];
+  nombreCliente: string;
+  idcli = null;
   constructor(
     private empresaService: EmpresaService,
     private route: ActivatedRoute,
@@ -51,19 +61,36 @@ export class CausasFormComponent implements OnInit {
     this.idUsuario = this.usuario.id;
   }
 
-  ngOnInit(): void {
-    //! este valor viaja en el router template es un valor estatico conocido
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('OnChanges');
+    console.log(JSON.stringify(changes));
 
-    //! cargando las sucursales de la empresa
+    for (const propName in changes) {
+      const change = changes[propName];
+      const to = JSON.stringify(change.currentValue);
+      const from = JSON.stringify(change.previousValue);
+      const changeLog = `${propName}: changed from ${from} to ${to} `;
+      this.changelog.push(changeLog);
+    }
+    this.obtenerEmpresa(this.idEmpresa);
+  }
 
+  obtenerEmpresa(id: string) {
     this.empresaService
-      .getByIdWithSucursales(this.idEmpresa)
+      .getByIdWithSucursales(id)
       .pipe(first())
       .subscribe((x) => {
         x['Sucursals'] = Object.values(x['Sucursals']);
 
         this.empresa = x;
       });
+  }
+
+  ngOnInit(): void {
+    console.log('OnInit');
+    //! este valor viaja en el router template es un valor estatico conocido
+
+    //! cargando las sucursales de la empresa
 
     this.form = this.formBuilder.group({
       codigo: ['', Validators.required],
@@ -92,8 +119,7 @@ export class CausasFormComponent implements OnInit {
         this.created = x;
         if (!this.created.created) {
           console.log(this.created.causa);
-          this.msje =
-            'el codigo ya esta registrado por favor revice sus registros';
+          this.msje = 'el codigo ya esta registrado por favor revizar codigo';
           this.rolExiste = false;
           this.f.titulo.setValue(this.created.causa.titulo);
           this.f.sucursal.setValue(this.created.causa.idSucursal);
@@ -102,9 +128,12 @@ export class CausasFormComponent implements OnInit {
           this.f.materia.setValue(this.created.causa.materia);
           //!agregar cuotas
           this.cuotas = this.created.causa.CuotasCausas;
+          this.nombreCliente = this.created.causa.Cliente.nombre;
+          console.log(this.created.causa);
         } else {
           this.msje = 'el codigo esta disponible por favor agregar informacion';
           this.rolExiste = true;
+          this.nombreCliente = '';
         }
       });
   }
@@ -117,6 +146,8 @@ export class CausasFormComponent implements OnInit {
     this.causa.idSucursal = this.f.sucursal.value;
     this.causa.CuotasCausas = this.cuotas;
     this.causa.montoCausa = this.f.montoCausa.value;
+    this.causa.saldoPendiente = this.f.montoCausa.value;
+    this.causa.estado = 'pendiednte';
     //!agregar abogados
     this.causa.materia = this.f.materia.value;
     let contenido = null;
@@ -127,7 +158,6 @@ export class CausasFormComponent implements OnInit {
         contenido = x;
         console.log(contenido);
       });
-    console.log(this.causa);
   }
   calcularCuotas() {
     this.cuotas = [];

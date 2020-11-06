@@ -91,11 +91,10 @@ export class CausasListComponent implements OnInit {
     this.agGrid.api.getSelectedRows().forEach((x) => this.selectedRows.push(x));
 
     this.selectedRows.forEach((x) => {
-      rowView = x.titulo;
+      rowView = x.id;
     });
     this.row = rowView;
 
-    this.causa = new Causa();
     this.causaService
       .getCausa(this.row)
       .pipe(first())

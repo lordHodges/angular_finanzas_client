@@ -1,3 +1,17 @@
-<p>pago-causa works!</p>
-<!-- {{ causa }} -->
-<button class="btn btn-success" (click)="mostrarCausa()">mostrar</button>
+<h5>Pago de Cuotas</h5>
+<p *ngIf="causa != null">
+  Causa: {{ causa.titulo }} Codigo: {{ causa.codigo }}
+</p>
+<ag-grid-angular
+  #agGrid
+  id="agGrid"
+  (gridReady)="onGridReady2($event)"
+  style="width: 850px; height: 300px"
+  class="ag-theme-material"
+  [rowData]="rowData2"
+  [columnDefs]="columnDefs2"
+  [animateRows]="true"
+  rowSelection="multiple"
+></ag-grid-angular>
+<!--   -->
+<button class="btn btn-success" (click)="mostrarCausa()">Procesar Pago</button>

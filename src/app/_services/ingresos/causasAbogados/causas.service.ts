@@ -21,7 +21,12 @@ export class CausasService {
   }
   getCausa(idCausa) {
     return this.http.get<Causa>(
-      `${environment.apiUrl}/causa/mostrarUna${idCausa}`
+      `${environment.apiUrl}/causa/mostrarUna/${idCausa}`
+    );
+  }
+  getCausaConCuota(idCausa) {
+    return this.http.get<Causa>(
+      `${environment.apiUrl}/causa/causaConCuota/${idCausa}`
     );
   }
 }
