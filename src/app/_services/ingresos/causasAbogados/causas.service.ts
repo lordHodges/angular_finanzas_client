@@ -29,4 +29,7 @@ export class CausasService {
       `${environment.apiUrl}/causa/causaConCuota/${idCausa}`
     );
   }
+  registrarPagoCuota(idCuota, cuota) {
+    return this.http.put(`${environment.apiUrl}/cuotasCausa/${idCuota}`, cuota);
+  }
 }

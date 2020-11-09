@@ -46,6 +46,7 @@ export class CausasFormComponent implements OnChanges, OnInit {
   dias = [5, 10, 15, 20, 30];
   changelog: string[] = [];
   nombreCliente: string;
+  rutCliente: string;
   idcli = null;
   constructor(
     private empresaService: EmpresaService,
@@ -129,6 +130,7 @@ export class CausasFormComponent implements OnChanges, OnInit {
           //!agregar cuotas
           this.cuotas = this.created.causa.CuotasCausas;
           this.nombreCliente = this.created.causa.Cliente.nombre;
+          this.rutCliente = this.created.causa.Cliente.rut;
           console.log(this.created.causa);
         } else {
           this.msje = 'el codigo esta disponible por favor agregar informacion';

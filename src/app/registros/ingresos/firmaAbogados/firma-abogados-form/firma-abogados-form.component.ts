@@ -179,14 +179,21 @@ export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
       this.componentRef = this.compDynamicContainer.createComponent(
         this.miFactory
       );
-      this.componentRef.instance.rowData = this.causasCliente;
-      this.componentRef.instance.data = this.elPadreDice.cliente.nombre;
-      this.qMostrar = false;
+      this.causasService
+        .getCausasPorCliente(this.idCliente)
+
+        .subscribe((x) => {
+          this.causasCliente = x;
+          this.componentRef.instance.rowData = this.causasCliente;
+          this.componentRef.instance.data = this.elPadreDice.cliente.nombre;
+          this.qMostrar = false;
+        });
     } else {
       this.componentRef.destroy();
       this.qMostrar = true;
     }
   }
+
   agregarCausas(id: string) {
     this.modalService.open(id);
   }

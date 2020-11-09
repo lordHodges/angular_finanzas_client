@@ -4,9 +4,11 @@ import {
   OnChanges,
   OnInit,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { Causa } from '@app/_models';
-import { CausasService } from '@app/_services';
+import { AlertService, CausasService } from '@app/_services';
+import { AgGridAngular } from 'ag-grid-angular';
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -15,6 +17,7 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./pago-causa.component.less'],
 })
 export class PagoCausaComponent implements OnChanges, OnInit {
+  @ViewChild('agGrid') agGrid: AgGridAngular;
   @Input()
   row: string;
   idCausa;
@@ -25,6 +28,7 @@ export class PagoCausaComponent implements OnChanges, OnInit {
   private gridApi: any;
   private gridColumnApi: any;
   rowData2: any;
+  selectedRows = null;
   columnDefs2 = [
     {
       headerName: 'ID',
@@ -58,7 +62,10 @@ export class PagoCausaComponent implements OnChanges, OnInit {
     params.api.expandAll();
   }
 
-  constructor(private causaService: CausasService) {}
+  constructor(
+    private causaService: CausasService,
+    private alertService: AlertService
+  ) {}
   ngOnChanges(changes: SimpleChanges) {
     console.log('OnChanges');
     console.log(JSON.stringify(changes));
@@ -87,10 +94,61 @@ export class PagoCausaComponent implements OnChanges, OnInit {
     //Add 'implements OnInit' to the class.
   }
 
-  mostrarCausa() {
-    console.log(this.row);
+  pagarCuota() {
+    let idCuota;
+    let cuota;
+    this.selectedRows = [];
+    this.agGrid.api.getSelectedRows().forEach((x) => this.selectedRows.push(x));
+    this.selectedRows.forEach((x) => {
+      idCuota = x.id;
+      cuota = x;
+    });
+    this.causaService
+      .registrarPagoCuota(idCuota, cuota)
+      .pipe()
+      .subscribe((x) => {
+        this.causaService
+          .getCausaConCuota(this.idCausa)
+          .pipe()
+          .subscribe((x) => {
+            this.causa = x;
+            this.rowData2 = x.CuotasCausas;
+
+            this.scrambleAndRefreshTopToBottom();
+          });
+        alert(x['msj']);
+      });
   }
-  obtenerCausa(id: string) {
-    let causa;
+  scrambleAndRefreshTopToBottom() {
+    var frame = 0;
+    var i;
+    var rowNode;
+    var api = this.gridApi;
+    for (i = 0; i < api.getPinnedTopRowCount(); i++) {
+      rowNode = api.getPinnedTopRow(i);
+      refreshRow(rowNode, api);
+    }
+    for (i = 0; i < this.gridApi.getDisplayedRowCount(); i++) {
+      rowNode = this.gridApi.getDisplayedRowAtIndex(i);
+      refreshRow(rowNode, api);
+    }
+    for (i = 0; i < this.gridApi.getPinnedBottomRowCount(); i++) {
+      rowNode = this.gridApi.getPinnedBottomRow(i);
+      refreshRow(rowNode, api);
+    }
+
+    function refreshRow(rowNode, api) {
+      var millis = frame++ * 100;
+      var rowNodes = [rowNode];
+      var params = {
+        rowNodes: rowNodes,
+      };
+      callRefreshAfterMillis(params, millis, api);
+    }
+    function callRefreshAfterMillis(params, millis, gridApi) {
+      setTimeout(function () {
+        gridApi.refreshCells(params);
+      }, millis);
+    }
   }
 }

@@ -96,7 +96,7 @@ export class CausasListComponent implements OnInit {
     this.row = rowView;
 
     this.causaService
-      .getCausa(this.row)
+      .getCausaConCuota(this.row)
       .pipe(first())
       .subscribe((x) => {
         this.causa = x;
