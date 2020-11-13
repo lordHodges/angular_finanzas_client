@@ -149,7 +149,7 @@ export class CausasFormComponent implements OnChanges, OnInit {
     this.causa.CuotasCausas = this.cuotas;
     this.causa.montoCausa = this.f.montoCausa.value;
     this.causa.saldoPendiente = this.f.montoCausa.value;
-    this.causa.estado = 'pendiednte';
+    this.causa.estado = 'pendiente';
     //!agregar abogados
     this.causa.materia = this.f.materia.value;
     let contenido = null;
@@ -187,7 +187,7 @@ export class CausasFormComponent implements OnChanges, OnInit {
       this.cuotas.push(this.cuota);
     }
   }
-  //TODO añadir metodos servicio
+
   onSubmit() {}
   get f() {
     return this.form.controls;

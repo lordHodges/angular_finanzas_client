@@ -17,9 +17,11 @@ import {
   AlertService,
   CausasService,
   ClienteService,
+  ContratoAbogadoService,
 } from '@app/_services';
 import { first } from 'rxjs/operators';
 import { CausasListComponent } from '../causas-list/causas-list.component';
+import { ContratosListComponent } from '../contratos-list/contratos-list.component';
 
 @Component({
   selector: 'app-firma-abogados-form',
@@ -28,7 +30,7 @@ import { CausasListComponent } from '../causas-list/causas-list.component';
 })
 export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
   miFactory: ComponentFactory<any>;
-  componentRef: ComponentRef<CausasListComponent> = null;
+  componentRef: ComponentRef<ContratosListComponent> = null;
   @ViewChild('componenteDinamico', { read: ViewContainerRef })
   compDynamicContainer: ViewContainerRef;
 
@@ -55,7 +57,8 @@ export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
     private router: Router,
     private clienteService: ClienteService,
     private alertService: AlertService,
-    private causasService: CausasService
+    private causasService: CausasService,
+    private contratoService: ContratoAbogadoService
   ) {
     this.usuario = this.accountService.userValue;
     this.idUsuario = this.usuario.id;
@@ -101,11 +104,12 @@ export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
       .subscribe((x) => {
         this.elPadreDice = x;
         this.idCliente = this.elPadreDice.cliente.id;
-        this.causasService
-          .getCausasPorCliente(this.idCliente)
+        this.contratoService
+          .obtenerContratosCliente(this.idCliente)
 
           .subscribe((x) => {
             this.causasCliente = x;
+            console.log(this.causasCliente);
           });
 
         if (!this.elPadreDice.created) {
@@ -151,9 +155,7 @@ export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
     }
     // TODO metodo de servicio UpdateCliente();
   }
-  detalleCausas() {
-    //this.modalService.open('causas_modal');
-  }
+
   formateaRut() {
     let value = this.f.rut.value.replace(/\./g, '').replace('-', '');
     if (value.match(/^(\d{2})(\d{3}){2}(\w{1})$/)) {
@@ -171,16 +173,16 @@ export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
 
   //abrir componentes
   qMostrar = true;
-  mostrarCausas() {
+  mostrarContratos() {
     if (this.qMostrar) {
       this.miFactory = this.resolver.resolveComponentFactory(
-        CausasListComponent
+        ContratosListComponent
       );
       this.componentRef = this.compDynamicContainer.createComponent(
         this.miFactory
       );
-      this.causasService
-        .getCausasPorCliente(this.idCliente)
+      this.contratoService
+        .obtenerContratosCliente(this.idCliente)
 
         .subscribe((x) => {
           this.causasCliente = x;

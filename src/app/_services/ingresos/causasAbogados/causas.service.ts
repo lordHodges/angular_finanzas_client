@@ -32,4 +32,22 @@ export class CausasService {
   registrarPagoCuota(idCuota, cuota) {
     return this.http.put(`${environment.apiUrl}/cuotasCausa/${idCuota}`, cuota);
   }
+  getFiles(fileName: string) {
+    let extencion = fileName.split('.');
+    let extend = extencion[1];
+    return this.http
+      .get(`${environment.apiUrl}/cuotasCausa/download/${fileName}`, {
+        responseType: 'blob',
+      })
+      .subscribe((res) => {
+        window.open(window.URL.createObjectURL(res));
+      });
+  }
+  public download(fileName: string): void {
+    this.http
+      .get('/files/${fileName}', { responseType: 'blob' })
+      .subscribe((res) => {
+        window.open(window.URL.createObjectURL(res));
+      });
+  }
 }

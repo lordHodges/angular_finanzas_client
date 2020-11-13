@@ -6,24 +6,21 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { Causa } from '@app/_models';
-import { AlertService, CausasService } from '@app/_services';
+import { ContratoAbogadoService } from '@app/_services';
 import { AgGridAngular } from 'ag-grid-angular';
-import { first } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-pago-causa',
-  templateUrl: './pago-causa.component.html',
-  styleUrls: ['./pago-causa.component.less'],
+  selector: 'app-pago-cuotas',
+  templateUrl: './pago-cuotas.component.html',
+  styleUrls: ['./pago-cuotas.component.less'],
 })
-export class PagoCausaComponent implements OnChanges, OnInit {
+export class PagoCuotasComponent implements OnInit, OnChanges {
   @ViewChild('agGrid') agGrid: AgGridAngular;
   @Input()
-  row: string;
-  idCausa;
-  changelog: string[] = [];
-  causa = null;
+  idContrato: number;
   loading = false;
+  //
+  //
   //definiendo tabla
   private gridApi: any;
   private gridColumnApi: any;
@@ -55,17 +52,8 @@ export class PagoCausaComponent implements OnChanges, OnInit {
       filter: true,
     },
   ];
-  onGridReady2(params) {
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-
-    params.api.expandAll();
-  }
-
-  constructor(
-    private causaService: CausasService,
-    private alertService: AlertService
-  ) {}
+  changelog: string[] = [];
+  constructor(private contratoService: ContratoAbogadoService) {}
   ngOnChanges(changes: SimpleChanges) {
     console.log('OnChanges');
     console.log(JSON.stringify(changes));
@@ -77,32 +65,26 @@ export class PagoCausaComponent implements OnChanges, OnInit {
       const changeLog = `${propName}: changed from ${from} to ${to} `;
       this.changelog.push(changeLog);
       if (!change.firstChange) {
-        this.idCausa = to;
-        this.causaService
-          .getCausaConCuota(this.idCausa)
+        const c = this.idContrato;
+        this.contratoService
+          .obtenerContratoNumero(c)
           .pipe()
           .subscribe((x) => {
-            this.causa = x;
-            this.rowData2 = x.CuotasCausas;
+            this.rowData2 = x['CuotasContratos'];
             console.log(this.rowData2);
           });
         this.loading = false;
       }
     }
   }
-  ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-  }
 
-  envv(e) {
-    this.loading = e;
-  }
-  respuesta = null;
-  resp(e) {
-    this.respuesta = e;
-  }
+  ngOnInit(): void {}
+  onGridReady2(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
 
+    params.api.expandAll();
+  }
   pagarCuota() {
     let idCuota;
     let cuota;
@@ -112,16 +94,16 @@ export class PagoCausaComponent implements OnChanges, OnInit {
       idCuota = x.id;
       cuota = x;
     });
-    this.causaService
-      .registrarPagoCuota(idCuota, cuota)
+    let body = { idCuota: idCuota };
+    this.contratoService
+      .registrarPago(body)
       .pipe()
       .subscribe((x) => {
-        this.causaService
-          .getCausaConCuota(this.idCausa)
+        this.contratoService
+          .obtenerContratoNumero(this.idContrato)
           .pipe()
           .subscribe((x) => {
-            this.causa = x;
-            this.rowData2 = x.CuotasCausas;
+            this.rowData2 = x['CuotasContratos'];
 
             this.scrambleAndRefreshTopToBottom();
           });

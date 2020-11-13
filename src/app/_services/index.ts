@@ -9,3 +9,4 @@ export * from './egresos/egreso-hostal.service';
 export * from './excel.service';
 export * from './cliente/cliente.service';
 export * from './ingresos/causasAbogados/causas.service';
+export * from './ingresos/causasAbogados/contrato-abogado.service';

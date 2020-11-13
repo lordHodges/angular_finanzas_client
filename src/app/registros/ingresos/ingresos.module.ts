@@ -23,9 +23,14 @@ import { ExcelService } from '@app/_services';
 import { CausasListComponent } from './firmaAbogados/causas-list/causas-list.component';
 import { CausasFormComponent } from './firmaAbogados/causas-form/causas-form.component';
 import { PagoCausaComponent } from './firmaAbogados/pago-causa/pago-causa.component';
+import { RespaldosCuotasComponent } from "./firmaAbogados/respaldos/respaldos-cuotas.component";
+import { ContratosListComponent } from './firmaAbogados/contratos-list/contratos-list.component';
+import { ContratosFormComponent } from './firmaAbogados/contratos-form/contratos-form.component';
+import { PagoCuotasComponent } from './firmaAbogados/pago-cuotas/pago-cuotas.component';
 
 @NgModule({
   declarations: [
+    RespaldosCuotasComponent,
     LayoutComponent,
     AgrofirmaFormComponent,
     AgrofirmaListComponent,
@@ -43,6 +48,9 @@ import { PagoCausaComponent } from './firmaAbogados/pago-causa/pago-causa.compon
     CausasListComponent,
     CausasFormComponent,
     PagoCausaComponent,
+    ContratosListComponent,
+    ContratosFormComponent,
+    PagoCuotasComponent,
   ],
   imports: [
     CommonModule,
