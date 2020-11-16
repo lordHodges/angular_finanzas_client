@@ -13,7 +13,7 @@ import { Observable, Subject, Subscription } from 'rxjs';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
 import { GridOptions } from 'ag-grid-community';
-import { ModalService } from '../_modal';
+import { ModalService } from '@app/_modal';
 
 @Component({
   selector: 'app-hostal-list',
@@ -24,6 +24,7 @@ export class HostalListComponent implements OnInit {
   @ViewChild('agGrid') agGrid: AgGridAngular;
 
   private gridApi: any;
+  private gridApi2: any;
   private gridColumnApi: any;
   selectedRows: any[];
   egresos: EgresosHostal[];
@@ -58,7 +59,6 @@ export class HostalListComponent implements OnInit {
     },
     { field: 'tipoEgreso', sortable: true, filter: true },
 
-   
     {
       headerName: 'Usuario',
       field: 'Usuario.nombreUsuario',
@@ -66,6 +66,18 @@ export class HostalListComponent implements OnInit {
       filter: true,
     },
   ];
+  //tabla modal
+  rowData2: any;
+  columnDefs2 = [
+    {
+      headerName: 'Archivo',
+      field: 'url',
+      sortable: true,
+      filter: true,
+      checkboxSelection: false,
+    },
+  ];
+  //
 
   constructor(
     private egresoService: EgresoHostalService,
@@ -103,9 +115,19 @@ export class HostalListComponent implements OnInit {
     this.modalService.close(id);
   }
   //
+  onSelectionChanged() {
+    var selectedRows = this.gridApi2.getSelectedRows();
+    this.egresoService.getFiles(selectedRows[0].url);
+  }
 
   onGridReady(params) {
     this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+
+    params.api.expandAll();
+  }
+  onGridReady2(params) {
+    this.gridApi2 = params.api;
     this.gridColumnApi = params.columnApi;
 
     params.api.expandAll();
@@ -141,12 +163,17 @@ export class HostalListComponent implements OnInit {
 
     this.selectedRows = [];
     this.agGrid.api.getSelectedRows().forEach((x) => this.selectedRows.push(x));
-
+    this.modalService.open('documentosEgresoHostal');
     if (this.selectedRows.length <= 1 && this.selectedRows.length > 0) {
       this.selectedRows.forEach((x) => {
         rowView = x.id;
         this.rowFind = rowView;
-        this.modalService.open('custom-modal-1', rowView);
+        this.egresoService
+          .getById(rowView)
+          .pipe()
+          .subscribe((x) => {
+            this.rowData2 = x[0].RespaldoEgresos;
+          });
       });
     } else {
       alert(

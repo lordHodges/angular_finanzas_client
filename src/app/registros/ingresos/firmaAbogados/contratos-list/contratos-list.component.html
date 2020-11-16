@@ -6,6 +6,12 @@
 <button class="btn btn-warning mr-2" (click)="openRepactar()">
   Repactar Cuotas
 </button>
+<button class="btn btn-success mr-2" (click)="exportAsXLSX()">
+  Exportar Datos
+</button>
+<!-- <button class="btn btn-success mr-2">
+  Agregar Causas Contrato 
+</button> -->
 <ag-grid-angular
   #agGrid
   id="agGrid"
@@ -15,6 +21,7 @@
   [rowData]="rowData"
   [columnDefs]="columnDefs"
   [animateRows]="true"
+  rowSelection="multiple"
 ></ag-grid-angular>
 <jw-modal id="pagoCuotas">
   <app-pago-cuotas [idContrato]="idContrato"> </app-pago-cuotas>

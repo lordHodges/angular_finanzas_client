@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalService } from '@app/_modal';
 import { CuotaInicial } from '@app/_models';
-import { ContratoAbogadoService } from '@app/_services';
+import { ContratoAbogadoService, ExcelService } from '@app/_services';
 import { AgGridAngular } from 'ag-grid-angular';
 
 @Component({
@@ -79,7 +79,8 @@ export class ContratosListComponent {
   constructor(
     private modalService: ModalService,
     private constratoService: ContratoAbogadoService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private excelService: ExcelService
   ) {
     this.form = this.formBuilder.group({
       nCuotasNuevas: ['', Validators.required],
@@ -153,5 +154,24 @@ export class ContratosListComponent {
       .subscribe((x) => {
         console.log(x);
       });
+  }
+  exportAsXLSX(): void {
+    let data = this.rowData;
+    data.forEach((x) => {
+      const fechaF = new Date(x['createdAt']);
+      const fechaG = new Date(x['updatedAt']);
+      const formato = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+      };
+      x['createdAt'] = fechaF.toLocaleDateString('es-GB', formato);
+      x['updatedAt'] = fechaF.toLocaleDateString('es-GB', formato);
+    });
+    this.excelService.exportAsExcelFile(data, 'sample');
   }
 }

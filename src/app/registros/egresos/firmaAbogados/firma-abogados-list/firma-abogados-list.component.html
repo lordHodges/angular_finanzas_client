@@ -1,5 +1,5 @@
-<h4>Egresos Hostal</h4>
-<a routerLink="add/1" class="btn btn-sm btn-success mb-2">Agregar Egresos</a>
+<h4>Egresos FIRMA ABOGADOS CHILE</h4>
+<a routerLink="add/2" class="btn btn-sm btn-success mb-2">Agregar Egresos</a>
 <router-outlet></router-outlet>
 <br />
 <!-- Rounded switch -->
@@ -31,7 +31,7 @@
     Explorar Datos
   </button>
   <!--  -->
-  <jw-modal id="documentosEgresoHostal">
+  <jw-modal id="documentosEgresoFirma">
     <h1>Respaldos</h1>
     <ag-grid-angular
       #agGrid2
@@ -46,8 +46,9 @@
       rowSelection="multiple"
     >
     </ag-grid-angular>
+
     <button
-      (click)="closeModal('documentosEgresoHostal')"
+      (click)="closeModal('documentosEgresoFirma')"
       class="btn btn-danger"
     >
       Close
