@@ -45,7 +45,10 @@ export class FirmaAbogadosFormComponent implements OnInit {
     private alertService: AlertService,
     private accountService: AccountService,
     private egresoService: EgresoFirmaService
-  ) {}
+  ) {
+    this.usuario = this.accountService.userValue;
+    this.idUsuario = this.usuario.id;
+  }
   envv(e) {
     this.loading = e;
   }
