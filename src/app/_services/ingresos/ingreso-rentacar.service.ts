@@ -11,4 +11,9 @@ export class IngresoRentacarService {
   getArriendos() {
     return this.http.get<[]>(`${environment.apiUrl}/rentacar/arriendos`);
   }
+  getDetallePago(idArriendo) {
+    return this.http.get<[]>(
+      `${environment.apiUrl}/rentacar/detallePago/${idArriendo}`
+    );
+  }
 }
