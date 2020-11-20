@@ -5,6 +5,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { HostalFormComponent } from './hostal/hostal-form/hostal-form.component';
 import { FirmaAbogadosFormComponent } from './firmaAbogados/firma-abogados-form/firma-abogados-form.component';
 import { HostalListComponent } from './hostal/hostal-list/hostal-list.component';
+import { RentacarListComponent } from './rentacar/rentacar-list/rentacar-list.component';
 const routes: Routes = [
   {
     path: '',
@@ -22,6 +23,7 @@ const routes: Routes = [
         ],
       },
       { path: 'abogados', component: FirmaAbogadosFormComponent },
+      { path: 'rentacar', component: RentacarListComponent },
     ],
   },
 ];
