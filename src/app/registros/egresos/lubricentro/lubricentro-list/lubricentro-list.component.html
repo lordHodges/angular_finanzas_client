@@ -1,0 +1,66 @@
+<h4>Egresos Lubricentro</h4>
+<a routerLink="add/2" class="btn btn-sm btn-success mb-2">Agregar Egresos</a>
+<router-outlet></router-outlet>
+<br />
+<!-- Rounded switch -->
+<div class="row">
+  <label class="switch">
+    <input type="checkbox" (change)="mostrar($event)" />
+    <span class="slider round"></span>
+  </label>
+  <h5 class="col">Mostrar Listado</h5>
+</div>
+<div *ngIf="mostrarList">
+  <button class="btn btn-outline-success" (click)="getSelectedRows()">
+    Calcular Filtro: {{ total | currency: "CLP" }}
+  </button>
+  <button (click)="exportAsXLSX()" class="btn btn-success">
+    <i class="fa fa-arrow-alt-circle-down"> </i>
+    Exportar Datos
+  </button>
+  <button
+    (click)="deleteEgreso()"
+    disabled
+    class="btn btn-danger ml-4 right-align"
+  >
+    <i class="fa fa-trash"> </i>
+    Eliminar Datos
+  </button>
+  <button (click)="detalleEgreso()" class="btn btn-primary ml-4 right-align">
+    <i class="fa fa-eye"> </i>
+    explorar Datos
+  </button>
+  <!--  -->
+  <jw-modal [row]="rowFind" id="modal_detalle">
+    <h1>Respaldos</h1>
+    <ag-grid-angular
+      #agGrid2
+      id="agGrid2"
+      style="width: 100%; height: 500px"
+      class="ag-theme-material"
+      [rowData]="rowData2"
+      (gridReady)="onGridReady2($event)"
+      [columnDefs]="columnDefs2"
+      [animateRows]="true"
+      (selectionChanged)="onSelectionChanged()"
+      rowSelection="multiple"
+    >
+    </ag-grid-angular>
+    <button (click)="closeModal('modal_detalle')" class="btn btn-danger">
+      Cerrar
+    </button>
+  </jw-modal>
+  <!--  -->
+  <ag-grid-angular
+    #agGrid
+    id="agGrid"
+    style="width: 100%; height: 500px"
+    class="ag-theme-material"
+    [rowData]="rowData | async"
+    (gridReady)="onGridReady($event)"
+    [columnDefs]="columnDefs"
+    [animateRows]="true"
+    rowSelection="multiple"
+  >
+  </ag-grid-angular>
+</div>
