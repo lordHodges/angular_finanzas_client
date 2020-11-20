@@ -1,0 +1,16 @@
+<h5>Pago de Cuotas</h5>
+
+<ag-grid-angular
+  #agGrid
+  id="agGrid"
+  (gridReady)="onGridReady2($event)"
+  style="width: 850px; height: 300px"
+  class="ag-theme-material"
+  [rowData]="rowData2"
+  [columnDefs]="columnDefs2"
+  [animateRows]="true"
+></ag-grid-angular>
+<button [disabled]="loading" (click)="pagarCuota()" class="btn btn-success">
+  <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+  Procesar Pago
+</button>

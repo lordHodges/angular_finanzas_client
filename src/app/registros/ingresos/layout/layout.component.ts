@@ -23,21 +23,5 @@ export class LayoutComponent implements OnInit {
       .getAll()
       .pipe(first())
       .subscribe((empresas) => (this.empresas = empresas));
-
-    this.idEmpresa = this.route.snapshot.params['idEmpresa'];
-    this.statics = !this.idEmpresa;
-    if (this.idEmpresa == '1') {
-      this.router.navigate([
-        `/ingresos/${this.idEmpresa}/hostal/${this.idEmpresa}`,
-      ]);
-    }
-    if (this.idEmpresa == '2') {
-      this.router.navigate([
-        `/ingresos/${this.idEmpresa}/abogados/${this.idEmpresa}`,
-      ]);
-    }
-    if (this.idEmpresa == '5') {
-      this.router.navigate(['/empresas', { relativeTo: this.route }]);
-    }
   }
 }

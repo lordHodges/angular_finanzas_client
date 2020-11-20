@@ -1,0 +1,130 @@
+<br /><br />
+<h5>Contratos Cliente: {{ data }}</h5>
+<button class="btn btn-primary mr-2" (click)="registrarPago()">
+  Registrar Pago
+</button>
+<button class="btn btn-warning mr-2" (click)="openRepactar()">
+  Repactar Cuotas
+</button>
+<button class="btn btn-success mr-2" (click)="exportAsXLSX()">
+  Exportar Datos
+</button>
+<!-- <button class="btn btn-success mr-2">
+  Agregar Causas Contrato 
+</button> -->
+<ag-grid-angular
+  #agGrid
+  id="agGrid"
+  (gridReady)="onGridReady($event)"
+  style="width: 100%; height: 500px"
+  class="ag-theme-material"
+  [rowData]="rowData"
+  [columnDefs]="columnDefs"
+  [animateRows]="true"
+  rowSelection="multiple"
+></ag-grid-angular>
+<jw-modal id="pagoCuotas">
+  <app-pago-cuotas [idContrato]="idContrato"> </app-pago-cuotas>
+</jw-modal>
+<jw-modal id="repactar">
+  <div class="card" *ngIf="contratoR">
+    <div class="card-header">
+      <h5>Repactando Contrato N°:{{ contratoR.nContrato }}</h5>
+    </div>
+
+    <div class="card-body">
+      <h5>Saldo Pendiente: {{ contratoR.saldoPendiente }}</h5>
+      <p>Estado Cuotas</p>
+      <hr />
+
+      <table class="table table-hover">
+        <tr>
+          <td>FECHA</td>
+          <td>MONTO</td>
+          <td>ESTADO</td>
+        </tr>
+        <tr *ngFor="let cuota of contratoR.CuotasContratos">
+          <td>{{ cuota.fechaPago }}</td>
+          <td>{{ cuota.montoCuota }}</td>
+          <td>{{ cuota.estado }}</td>
+        </tr>
+      </table>
+      <form class="" [formGroup]="form">
+        <div class="form-row">
+          <div class="form-group col">
+            <label for="nuevaFechaInicio">nuevaFechaInicio</label>
+            <input
+              type="date"
+              id="nuevaFechaInicio"
+              formControlName="nuevaFechaInicio"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': submitted && f.nuevaFechaInicio.errors
+              }"
+            />
+            <div
+              *ngIf="submitted && f.nuevaFechaInicio.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.nuevaFechaInicio.errors.required">
+                este campo es requerido
+              </div>
+            </div>
+          </div>
+          <div class="form-group col">
+            <label for="nuevoMontoInicial">Monto Proxima</label>
+            <input
+              type="number"
+              id="nuevoMontoInicial"
+              formControlName="nuevoMontoInicial"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid': submitted && f.nuevoMontoInicial.errors
+              }"
+            />
+            <div
+              *ngIf="submitted && f.nuevoMontoInicial.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.nuevoMontoInicial.errors.required">
+                este campo es requerido
+              </div>
+            </div>
+          </div>
+          <div class="form-group col">
+            <label for="nCuotasNuevas">Cantidad Cuotas</label>
+            <div class="input-group mb-3">
+              <input
+                #nCuotasNuevas
+                id="nCuotasNuevas"
+                formControlName="nCuotasNuevas"
+                type="number"
+                class="form-control"
+                aria-describedby="button-calcular"
+              />
+
+              <div class="input-group-append">
+                <button
+                  class="btn btn-outline-primary"
+                  type="button"
+                  id="button-calcular"
+                  (click)="calcularCuotas()"
+                >
+                  Calcular
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul>
+          <li *ngFor="let c of cuotas">
+            {{ c.fechaPago }} a pagar {{ c.montoCuota | currency: "CLP" }}
+          </li>
+        </ul>
+        <button type="button" class="btn btn-warning" (click)="repactar()">
+          Guardar
+        </button>
+      </form>
+    </div>
+  </div>
+</jw-modal>

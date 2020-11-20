@@ -17,11 +17,20 @@ import { RentacarFormComponent } from './rentacar/rentacar-form/rentacar-form.co
 import { RentacarListComponent } from './rentacar/rentacar-list/rentacar-list.component';
 import { RespaldosComponent } from './hostal/respaldos/respaldos.component';
 import { FileSelectDirective, FileUploadModule } from 'ng2-file-upload';
-import { ModalModule } from './hostal/_modal';
+import { ModalModule } from '@app/_modal';
 import { AgGridModule } from 'ag-grid-angular';
 import { ExcelService } from '@app/_services';
+import { CausasListComponent } from './firmaAbogados/causas-list/causas-list.component';
+import { CausasFormComponent } from './firmaAbogados/causas-form/causas-form.component';
+import { PagoCausaComponent } from './firmaAbogados/pago-causa/pago-causa.component';
+import { RespaldosCuotasComponent } from "./firmaAbogados/respaldos/respaldos-cuotas.component";
+import { ContratosListComponent } from './firmaAbogados/contratos-list/contratos-list.component';
+import { ContratosFormComponent } from './firmaAbogados/contratos-form/contratos-form.component';
+import { PagoCuotasComponent } from './firmaAbogados/pago-cuotas/pago-cuotas.component';
+
 @NgModule({
   declarations: [
+    RespaldosCuotasComponent,
     LayoutComponent,
     AgrofirmaFormComponent,
     AgrofirmaListComponent,
@@ -36,6 +45,12 @@ import { ExcelService } from '@app/_services';
     RentacarFormComponent,
     RentacarListComponent,
     RespaldosComponent,
+    CausasListComponent,
+    CausasFormComponent,
+    PagoCausaComponent,
+    ContratosListComponent,
+    ContratosFormComponent,
+    PagoCuotasComponent,
   ],
   imports: [
     CommonModule,
@@ -46,6 +61,7 @@ import { ExcelService } from '@app/_services';
     ModalModule,
     AgGridModule,
   ],
+
   providers: [ExcelService],
 })
 export class IngresosModule {}

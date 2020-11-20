@@ -1,7 +1,5 @@
 <h4>Egresos Hostal</h4>
-<a routerLink="add/{{ idEmpresa }}" class="btn btn-sm btn-success mb-2"
-  >Agregar Egresos</a
->
+<a routerLink="add/1" class="btn btn-sm btn-success mb-2">Agregar Egresos</a>
 <router-outlet></router-outlet>
 <br />
 <!-- Rounded switch -->
@@ -30,13 +28,28 @@
   </button>
   <button (click)="detalleEgreso()" class="btn btn-primary ml-4 right-align">
     <i class="fa fa-eye"> </i>
-    explorar Datos
+    Explorar Datos
   </button>
   <!--  -->
-  <jw-modal [row]="rowFind" id="custom-modal-1">
+  <jw-modal id="documentosEgresoHostal">
     <h1>Respaldos</h1>
-
-    <button (click)="closeModal('custom-modal-1')" class="btn btn-danger">
+    <ag-grid-angular
+      #agGrid2
+      id="agGrid2"
+      style="width: 100%; height: 500px"
+      class="ag-theme-material"
+      [rowData]="rowData2"
+      (gridReady)="onGridReady2($event)"
+      [columnDefs]="columnDefs2"
+      [animateRows]="true"
+      (selectionChanged)="onSelectionChanged()"
+      rowSelection="multiple"
+    >
+    </ag-grid-angular>
+    <button
+      (click)="closeModal('documentosEgresoHostal')"
+      class="btn btn-danger"
+    >
       Close
     </button>
   </jw-modal>

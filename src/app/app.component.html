@@ -11,7 +11,7 @@
     </div>
 
     <ul class="list-unstyled components">
-      <p>Cabecera Publicitaria</p>
+      <!--  <p>Cabecera Publicitaria</p> -->
       <li class="active">
         <a
           href="#registrarIngresos"
@@ -21,10 +21,20 @@
           >Registrar Ingresos</a
         >
         <ul class="collapse list-unstyled" id="registrarIngresos">
-          <li *ngFor="let e of empresas">
-            <a routerLink="/ingresos/{{ e.id }}" routerLinkActive="active">{{
-              e.razonSocial
-            }}</a>
+          <li>
+            <a routerLink="/ingresos/hostal/" routerLinkActive="active"
+              >HOSTAL PLAZA MAULE</a
+            >
+          </li>
+          <li>
+            <a routerLink="/ingresos/abogados" routerLinkActive="active"
+              >FIRMA ABOGADOS CHILE</a
+            >
+          </li>
+          <li>
+            <a routerLink="/ingresos/rentacar" routerLinkActive="active"
+              >RENT A CAR</a
+            >
           </li>
         </ul>
         <a
@@ -35,14 +45,15 @@
           >Registrar Egresos</a
         >
         <ul class="collapse list-unstyled" id="registrarEgresos">
-          <li *ngFor="let e of empresas">
-            <a routerLink="/egresos/{{ e.id }}" routerLinkActive="active">{{
-              e.razonSocial
-            }}</a>
-          </li>
-
           <li>
-            <a href="#">...Ngfor(Empresas)</a>
+            <a routerLink="/egresos/hostal" routerLinkActive="active"
+              >HOSTAL PLAZA MAULE</a
+            >
+          </li>
+          <li>
+            <a routerLink="/egresos/firmaAbogado" routerLinkActive="active"
+              >FIRMA ABOGADOS CHILE</a
+            >
           </li>
         </ul>
       </li>

@@ -4,7 +4,7 @@ var express = require("express");
 
 const path = require("path");
 
-var DIR = "./uploads/egresoHostal";
+var DIR = "../uploads/egresoHostal";
 express.static(DIR);
 let storage = multer.diskStorage({
   destination: (req, file, cb) => {

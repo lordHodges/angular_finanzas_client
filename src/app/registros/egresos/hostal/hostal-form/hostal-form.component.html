@@ -33,11 +33,11 @@
             [ngClass]="{ 'is-invalid': submitted && f.tipoEgreso.errors }"
           >
             <option value="">Seleccionar</option>
-            <option value="1">Gastos</option>
-            <option value="2">Costos</option>
-            <option value="3">Remuneraciones</option>
-            <option value="4">Bancarios</option>
-            <option value="4">Impuestos</option>
+            <option value="Gastos">Gastos</option>
+            <option value="Costos">Costos</option>
+            <option value="Remuneraciones">Remuneraciones</option>
+            <option value="Bancarios">Bancarios</option>
+            <option value="Impuestos">Impuestos</option>
           </select>
         </div>
       </div>
@@ -110,6 +110,7 @@
       <div class="form-row">
         <!-- respaldo de documantacion -->
         <app-respaldos
+          [idEmpresa]="idEmpresa"
           (listo)="envv($event)"
           (respuesta)="resp($event)"
         ></app-respaldos>

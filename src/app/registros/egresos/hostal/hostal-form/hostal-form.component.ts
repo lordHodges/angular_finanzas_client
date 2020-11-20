@@ -16,7 +16,7 @@ import {
 } from '@app/_services';
 import { first } from 'rxjs/operators';
 import { EgresosHostal, Empresa, Sucursal, User } from '@app/_models';
-import { RespaldosComponent } from '@app/registros/ingresos/hostal/respaldos/respaldos.component';
+//import { RespaldosComponent } from '@app/registros/ingresos/hostal/respaldos/respaldos.component';
 
 @Component({
   selector: 'app-hostal-form',

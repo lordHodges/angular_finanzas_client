@@ -10,9 +10,12 @@ export class IngresosHostal {
   tipoPago: string;
   tipoCliente: string;
   cliente: string;
+  referenciaCliente: string;
   tipoIngreso: string;
   nDocumento: string;
   descripcionIngreso: string;
+  nAutorizacion: string;
+  banco: string;
   Sucursal: Sucursal[];
   Usuario: User[];
   RespaldoIngresos: any[];

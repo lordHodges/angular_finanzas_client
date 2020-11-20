@@ -1,0 +1,180 @@
+<div class="card">
+  <div class="card-header">
+    <h5>Agregar Contratos</h5>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group col">
+          <label for="fechaContrato">fechaContrato</label>
+          <input
+            type="date"
+            id="fechaContrato"
+            formControlName="fechaContrato"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && f.fechaContrato.errors
+            }"
+          />
+          <div
+            *ngIf="submitted && f.fechaContrato.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.fechaContrato.errors.required">
+              este campo es requerido
+            </div>
+          </div>
+        </div>
+        <div class="form-group col">
+          <label for="">Sucursal</label>
+          <select class="form-control" formControlName="sucursal">
+            <option selected value="">Seleccionar Sucursal</option>
+            <option *ngFor="let s of empresa.Sucursals" value="{{ s.id }}">
+              {{ s.razonSocial }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col">
+          <label for="montoContrato">Monto Total Servicio</label>
+          <input
+            type="number"
+            id="montoContrato"
+            formControlName="montoContrato"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && f.montoContrato.errors
+            }"
+          />
+          <div
+            *ngIf="submitted && f.montoContrato.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.montoContrato.errors.required">
+              este campo es requerido
+            </div>
+          </div>
+        </div>
+        <div class="form-group col">
+          <label for="nContrato">N° Contrato</label>
+          <div class="input-group">
+            <input
+              type="text"
+              aria-describedby="button-buscarCausa"
+              formControlName="nContrato"
+              class="form-control"
+              placeholder="numero Contrato"
+            />
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-primary"
+                type="button"
+                id="button-buscarCausa"
+                (click)="validarContrato()"
+              >
+                Validar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr />
+      <div class="form-row">
+        <!-- <div class="form-group col">
+          <label for="diasPago">Seleccionar dias de Pago</label>
+          <select
+            type="number"
+            id="diasPago"
+            formControlName="diasPago"
+            class="form-control"
+            aria-valuemax="31"
+            [ngClass]="{
+              'is-invalid': submitted && f.diasPago.errors
+            }"
+          >
+            <option value="{{ dia }}" *ngFor="let dia of dias">
+              {{ dia }}
+            </option>
+          </select>
+        </div> -->
+        <div class="form-group col">
+          <label for="fechaInicio">fechaInicio</label>
+          <input
+            type="date"
+            id="fechaInicio"
+            formControlName="fechaInicio"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && f.fechaInicio.errors
+            }"
+          />
+          <div
+            *ngIf="submitted && f.fechaInicio.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.fechaInicio.errors.required">
+              este campo es requerido
+            </div>
+          </div>
+        </div>
+        <div class="form-group col">
+          <label for="montoInicial">Monto PrimeraCuota</label>
+          <input
+            type="number"
+            id="montoInicial"
+            formControlName="montoInicial"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': submitted && f.montoInicial.errors
+            }"
+          />
+          <div
+            *ngIf="submitted && f.montoInicial.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.montoInicial.errors.required">
+              este campo es requerido
+            </div>
+          </div>
+        </div>
+        <div class="form-group col">
+          <label for="nCuotas">Cantidad Cuotas</label>
+          <div class="input-group mb-3">
+            <input
+              #nCuotas
+              id="nCuotas"
+              formControlName="nCuotas"
+              type="number"
+              class="form-control"
+              placeholder="Ingresar nCuotas Causa"
+              aria-describedby="button-calcular"
+            />
+
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-primary"
+                type="button"
+                id="button-calcular"
+                (click)="calcularCuotas()"
+              >
+                Calcular
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <ul>
+          <li *ngFor="let c of cuotas">
+            {{ c.fechaPago }} a pagar {{ c.montoCuota | currency: "CLP" }}
+          </li>
+        </ul>
+      </div>
+
+      <button class="btn btn-success" (click)="guardarContrato()">
+        Agregar
+      </button>
+    </form>
+  </div>
+  <div class="card-footer"></div>
+</div>
