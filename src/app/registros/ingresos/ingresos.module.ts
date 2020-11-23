@@ -16,6 +16,7 @@ import { LubricentroListComponent } from './lubricentro/lubricentro-list/lubrice
 import { RentacarFormComponent } from './rentacar/rentacar-form/rentacar-form.component';
 import { RentacarListComponent } from './rentacar/rentacar-list/rentacar-list.component';
 import { RespaldosComponent } from './hostal/respaldos/respaldos.component';
+import { RespaldoComponent } from './lubricentro/respaldo/respaldo.component';
 import { FileSelectDirective, FileUploadModule } from 'ng2-file-upload';
 import { ModalModule } from '@app/_modal';
 import { AgGridModule } from 'ag-grid-angular';
@@ -45,6 +46,7 @@ import { PagoCuotasComponent } from './firmaAbogados/pago-cuotas/pago-cuotas.com
     RentacarFormComponent,
     RentacarListComponent,
     RespaldosComponent,
+    RespaldoComponent,
     CausasListComponent,
     CausasFormComponent,
     PagoCausaComponent,

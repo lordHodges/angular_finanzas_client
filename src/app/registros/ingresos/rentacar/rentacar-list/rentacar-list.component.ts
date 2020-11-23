@@ -84,19 +84,6 @@ export class RentacarListComponent implements OnInit {
       .getArriendos()
       .pipe()
       .subscribe((x) => {
-        for (let i = 0; i < x['data'].length; i++) {
-          x['data'][i]['pagosArriendos'].forEach((pago) => {
-            pago['pagos'].forEach((subpago) => {
-              this.subtotalPago += subpago['total_pago'];
-            });
-          });
-          x['data'][i].totalArriendo = this.subtotalPago;
-          this.subtotalPago = 0;
-        }
-        /* this.subtotalPago =
-              this.subtotalPago +
-              pago['remplazo_pagoArriendo'] +
-              pago['subtotal_pagoArriendo']; */
         this.rowData = x['data'];
         console.log(this.rowData);
         this.totalArriendo = 0;
@@ -124,9 +111,12 @@ export class RentacarListComponent implements OnInit {
         second: 'numeric',
       };
       x['createdAt'] = fechaF.toLocaleDateString('es-GB', formato);
-      x['updatedAt'] = fechaF.toLocaleDateString('es-GB', formato);
+      x['updatedAt'] = fechaG.toLocaleDateString('es-GB', formato);
     });
     console.log(this.selectedRows);
     this.excelService.exportAsExcelFile(this.selectedRows, 'sample');
+  }
+  openDetalleModal() {
+    this.modalService.open('detallePagoArriendo');
   }
 }

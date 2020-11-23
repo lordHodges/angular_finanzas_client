@@ -1,6 +1,9 @@
 <div class="card">
   <div class="card-header">
     <h5>Arriendos RENT A CAR</h5>
+    <button class="btn btn-primary" (click)="openDetalleModal()">
+      Detalle Pago
+    </button>
   </div>
   <div class="card-body">
     <ag-grid-angular
@@ -17,3 +20,15 @@
     </ag-grid-angular>
   </div>
 </div>
+<jw-modal id="detallePagoArriendo" class>
+  <div class="card">
+    <img
+      class="card-img-top circularImagen resizeImg"
+      src="https://image.freepik.com/vector-gratis/composicion-isometrica-financiera-bancaria-imagenes-iconos-computadora-portatil-cartera-banco-ilustracion-vector-dinero_1284-30719.jpg"
+      alt="Girl in a jacket"
+    />
+    <div class="card-body">
+      <h4 class="card-title">Detalle Pago</h4>
+    </div>
+  </div>
+</jw-modal>

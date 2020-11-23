@@ -26,8 +26,17 @@ const routes: Routes = [
       },
       { path: 'abogados', component: FirmaAbogadosFormComponent },
       { path: 'rentacar', component: RentacarListComponent },
-      { path: 'lubricentro', component: LubricentroFormComponent },
-      { path: 'lubricentro', component: LubricentroListComponent },
+      {
+        path: 'lubricentro',
+        component: LubricentroListComponent,
+        children: [
+          { path: 'add/:idEmpresa', component: LubricentroFormComponent },
+          {
+            path: 'edit/',
+            component: LubricentroFormComponent,
+          },
+        ],
+      },
     ],
   },
 ];

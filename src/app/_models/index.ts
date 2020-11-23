@@ -8,14 +8,15 @@ export * from './empresa/empresa';
 export * from './sucursales/sucursal';
 export * from './registros/registrosAbogados/ingresos-abogados';
 export * from './registros/registrosHostal/ingresos-hostal';
+export * from '@app/_models/registros/registrosLubricentro/ingresos-lubricentro';
 export * from './dir';
 export * from './respaldo-egreso';
 export * from './registros/registrosHostal/egresos-hostal';
+export * from '@app/_models/registros/registrosLubricentro/egresos-lubricentro';
 export * from '@app/_models/registros/registrosAbogados/cuotasCausa';
 export * from './cliente';
 export * from './registros/registrosAbogados/causa';
 export * from '@app/_models/registros/registrosAbogados/cuota-inicial';
 export * from '@app/_models/registros/registrosAbogados/contrato-abogado';
 export * from '@app/_models/registros/registrosAbogados/egresosFirma';
-export * from '@app/_models/registros/registrosLubricentro/egresos-lubricentro';
-export * from '@app/_models/registros/registrosLubricentro/ingresos-lubricentro';
+

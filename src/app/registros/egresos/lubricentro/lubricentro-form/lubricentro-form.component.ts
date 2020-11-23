@@ -1,6 +1,9 @@
 import {
   Component,
+  Input,
   OnInit,
+  AfterViewInit,
+  ViewChild,
 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +16,6 @@ import {
 } from '@app/_services';
 import { first } from 'rxjs/operators';
 import { EgresosLubricentro, Empresa, Sucursal, User } from '@app/_models';
-import { RespaldoComponent } from '@app/registros/ingresos/lubricentro/respaldo/respaldo.component';
 
 @Component({
   selector: 'app-lubricentro-form',

@@ -1,5 +1,5 @@
-//import { RespaldoEgreso } from '@app/_models/respaldo-egreso';
-//import { Registro } from '../registro';
+import { RespaldoEgreso } from '@app/_models/respaldo-egreso';
+import { Registro } from '../registro';
 
 export class EgresosLubricentro {
     id: number;
