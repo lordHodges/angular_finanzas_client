@@ -11,7 +11,7 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
+      { path: 'hodgesnanco2121', component: RegisterComponent },
     ],
   },
 ];

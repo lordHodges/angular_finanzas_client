@@ -32,22 +32,26 @@ const routes: Routes = [
   {
     path: 'empresas',
     loadChildren: empresasModule,
+    canActivate: [AuthGuard],
   },
   {
     path: 'sucursales',
     loadChildren: sucursalModule,
+    canActivate: [AuthGuard],
   },
   {
     path: 'ingresos',
     loadChildren: ingresosModule,
+    canActivate: [AuthGuard],
   },
   {
     path: 'egresos',
     loadChildren: egresosModule,
+    canActivate: [AuthGuard],
   },
 
   // otherwise redirect to home
-  { path: '**', redirectTo: '' },
+  { path: '**', redirectTo: 'login' },
 ];
 
 @NgModule({
