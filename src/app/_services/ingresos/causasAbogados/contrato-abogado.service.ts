@@ -8,7 +8,11 @@ import { environment } from '../../../../environments/environment';
 })
 export class ContratoAbogadoService {
   constructor(private http: HttpClient, private router: Router) {}
-
+  obtenerContratos() {
+    return this.http.get<[]>(
+      `${environment.apiUrl}/contratoCienteAbogado/getContratos/`
+    );
+  }
   obtenerContratosCliente(idCliente) {
     return this.http.get<[]>(
       `${environment.apiUrl}/contratoCienteAbogado/contratosCliente/${idCliente}`

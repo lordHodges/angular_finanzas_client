@@ -4,10 +4,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { HostalFormComponent } from './hostal/hostal-form/hostal-form.component';
 import { FirmaAbogadosFormComponent } from './firmaAbogados/firma-abogados-form/firma-abogados-form.component';
+
 import { HostalListComponent } from './hostal/hostal-list/hostal-list.component';
 import { RentacarListComponent } from './rentacar/rentacar-list/rentacar-list.component';
 import { LubricentroFormComponent } from './lubricentro/lubricentro-form/lubricentro-form.component';
 import { LubricentroListComponent } from './lubricentro/lubricentro-list/lubricentro-list.component';
+import { FirmaAbogadosListComponent } from './firmaAbogados/firma-abogados-list/firma-abogados-list.component';
+import { ClientesComponent } from '@app/_components/clientes/clientes.component';
+import { ListaContratosComponent } from './firmaAbogados/lista-contratos/lista-contratos.component';
 const routes: Routes = [
   {
     path: '',
@@ -24,7 +28,20 @@ const routes: Routes = [
           },
         ],
       },
-      { path: 'abogados', component: FirmaAbogadosFormComponent },
+      {
+        path: 'abogados',
+        component: FirmaAbogadosFormComponent,
+        children: [
+          {
+            path: 'listaContratos',
+            component: ListaContratosComponent,
+          },
+          {
+            path: 'listaClientes',
+            component: ClientesComponent,
+          },
+        ],
+      },
       { path: 'rentacar', component: RentacarListComponent },
       {
         path: 'lubricentro',
