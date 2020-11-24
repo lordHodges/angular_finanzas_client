@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalService } from '@app/_modal';
+import { ModalService } from '@app/_components/_modal';
 import { Cliente, User } from '@app/_models';
 import {
   AccountService,

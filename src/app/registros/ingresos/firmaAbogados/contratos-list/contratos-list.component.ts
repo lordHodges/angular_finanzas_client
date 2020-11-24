@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalService } from '@app/_modal';
+import { ModalService } from '@app/_components/_modal';
 import { CuotaInicial } from '@app/_models';
 import { ContratoAbogadoService, ExcelService } from '@app/_services';
 import { AgGridAngular } from 'ag-grid-angular';

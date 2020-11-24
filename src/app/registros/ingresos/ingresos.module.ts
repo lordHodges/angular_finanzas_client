@@ -18,7 +18,7 @@ import { RentacarListComponent } from './rentacar/rentacar-list/rentacar-list.co
 import { RespaldosComponent } from './hostal/respaldos/respaldos.component';
 import { RespaldoComponent } from './lubricentro/respaldo/respaldo.component';
 import { FileSelectDirective, FileUploadModule } from 'ng2-file-upload';
-import { ModalModule } from '@app/_modal';
+import { ModalModule } from '@app/_components/_modal';
 import { AgGridModule } from 'ag-grid-angular';
 import { ExcelService } from '@app/_services';
 import { CausasListComponent } from './firmaAbogados/causas-list/causas-list.component';

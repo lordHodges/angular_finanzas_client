@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { ModalService } from '@app/_modal';
+import { ModalService } from '@app/_components/_modal';
 import { Causa } from '@app/_models';
 import { CausasService } from '@app/_services';
 import { AgGridAngular } from 'ag-grid-angular';

@@ -14,7 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileUploadModule } from 'ng2-file-upload';
 import { ExcelService } from '@app/_services';
 import { AgGridModule } from 'ag-grid-angular';
-import { ModalModule } from '@app/_modal';
+import { ModalModule } from '@app/_components/_modal';
 import { FirmaAbogadosFormComponent } from './firmaAbogados/firma-abogados-form/firma-abogados-form.component';
 import { FirmaAbogadosListComponent } from './firmaAbogados/firma-abogados-list/firma-abogados-list.component';
 import { RespaldoComponent } from '../egresos/lubricentro/respaldo/respaldo.component';

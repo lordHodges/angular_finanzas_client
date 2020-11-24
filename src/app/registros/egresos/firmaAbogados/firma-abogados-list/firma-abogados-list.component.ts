@@ -13,7 +13,7 @@ import { Observable, Subject, Subscription } from 'rxjs';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
 import { GridOptions } from 'ag-grid-community';
-import { ModalService } from '@app/_modal';
+import { ModalService } from '@app/_components/_modal';
 
 @Component({
   selector: 'app-firma-abogados-list',
@@ -35,7 +35,7 @@ export class FirmaAbogadosListComponent implements OnInit {
   mostrarList = true;
   subscripcion: Subscription;
   empresa: Empresa;
-  total: number = 0;
+  total = 0;
   ////
   ////
   //tabla List
@@ -67,7 +67,7 @@ export class FirmaAbogadosListComponent implements OnInit {
     },
   ];
   ////
-  //tabla modal
+  // tabla modal
   rowData2: any;
   columnDefs2 = [
     {
@@ -92,7 +92,7 @@ export class FirmaAbogadosListComponent implements OnInit {
     /* rescatar parametros de la ruta */
     this.idEmpresa = this.route.snapshot.params['idEmpresa'];
     this.id = this.route.snapshot.params['id'];
-    //extraer empresa y suscursales
+    // extraer empresa y suscursales
     this.empresaService
       .getByIdWithSucursales(this.idEmpresa)
       .pipe(first())

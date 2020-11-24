@@ -13,7 +13,7 @@ import { Observable, Subject, Subscription } from 'rxjs';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
 import { GridOptions } from 'ag-grid-community';
-import { ModalService } from '@app/_modal';
+import { ModalService } from '@app/_components/_modal';
 
 @Component({
   selector: 'app-hostal-list',

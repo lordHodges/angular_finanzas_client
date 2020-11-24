@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalService } from '@app/_modal';
+import { ModalService } from '@app/_components/_modal';
 import { ContratoAbogado, CuotaInicial, Empresa, User } from '@app/_models';
 import {
   AccountService,
@@ -48,9 +48,8 @@ export class ContratosFormComponent implements OnInit {
     this.usuario = this.accountService.userValue;
     this.idUsuario = this.usuario.id;
   }
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): any {
     console.log('OnChanges');
-    console.log(JSON.stringify(changes));
 
     for (const propName in changes) {
       const change = changes[propName];
@@ -85,8 +84,8 @@ export class ContratosFormComponent implements OnInit {
       idUsuario: this.idUsuario,
     });
   }
-  onSubmit() {}
-  validarContrato() {
+  onSubmit(): any {}
+  validarContrato(): any {
     this.contrato.montoContrato = this.f.montoContrato.value;
     this.contrato.fechaContrato = this.f.fechaContrato.value;
     this.contrato.idCliente = this.idCliente;
@@ -105,7 +104,7 @@ export class ContratosFormComponent implements OnInit {
         this.contrato = x['contrato'];
       });
   }
-  calcularCuotas() {
+  calcularCuotas(): any {
     this.cuotas = [];
     this.datos = new CuotaInicial();
     this.datos.idContrato = this.contrato.id;
@@ -120,7 +119,7 @@ export class ContratosFormComponent implements OnInit {
         console.log(this.cuotas);
       });
   }
-  guardarContrato() {
+  guardarContrato(): any {
     this.contratoService
       .guardarCuotas(this.cuotas)
       .pipe()
@@ -132,7 +131,7 @@ export class ContratosFormComponent implements OnInit {
   get f() {
     return this.form.controls;
   }
-  obtenerEmpresa(id: string) {
+  obtenerEmpresa(id: string): any {
     this.empresaService
       .getByIdWithSucursales(id)
       .pipe(first())

@@ -3,7 +3,7 @@ import { ExcelService, IngresoLubricentroService } from '@app/_services';
 import { first } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AgGridAngular } from 'ag-grid-angular';
-import { ModalService } from '@app/_modal';
+import { ModalService } from '@app/_components/_modal';
 
 @Component({
   selector: 'app-lubricentro-list',
@@ -107,7 +107,7 @@ export class LubricentroListComponent implements OnInit {
     var selectedRows = this.gridApi2.getSelectedRows();
     this.ingresoService.getFiles(selectedRows[0].url);
   }
-  
+
   closeModal(id: string) {
     this.modalService.close(id);
   }
@@ -178,7 +178,6 @@ export class LubricentroListComponent implements OnInit {
             console.log('data2', x);
           });
 
-
         if (this.rowData2) {
         }
       });
@@ -189,4 +188,3 @@ export class LubricentroListComponent implements OnInit {
     }
   }
 }
-

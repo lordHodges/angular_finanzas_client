@@ -3,7 +3,7 @@ import { ExcelService, IngresoHostalService } from '@app/_services';
 import { first } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AgGridAngular } from 'ag-grid-angular';
-import { ModalService } from '@app/_modal';
+import { ModalService } from '@app/_components/_modal';
 
 @Component({
   selector: 'app-hostal-list',
