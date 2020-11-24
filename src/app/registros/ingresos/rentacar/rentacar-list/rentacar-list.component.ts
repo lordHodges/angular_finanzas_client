@@ -13,6 +13,8 @@ export class RentacarListComponent implements OnInit {
   @ViewChild('agGrid') agGrid: AgGridAngular;
 
   totalArriendo = 0;
+  pagosArriendos = null;
+  totales = { totalCliente: '', totalRemplazo: '' };
   //
   //?configurando la tabla inicial
   private gridApi: any;
@@ -116,7 +118,29 @@ export class RentacarListComponent implements OnInit {
     console.log(this.selectedRows);
     this.excelService.exportAsExcelFile(this.selectedRows, 'sample');
   }
+
   openDetalleModal() {
-    this.modalService.open('detallePagoArriendo');
+    let rowView;
+    this.selectedRows = [];
+    this.agGrid.api.getSelectedRows().forEach((x) => this.selectedRows.push(x));
+
+    if (this.selectedRows.length <= 1 && this.selectedRows.length > 0) {
+      this.selectedRows.forEach((x) => {
+        rowView = x.id_arriendo;
+
+        this.rentacarService
+          .getDetallePago(rowView)
+          .pipe()
+          .subscribe((x) => {
+            this.pagosArriendos = x['pagosArriendos'];
+            this.totales = x['totales'];
+            this.modalService.open('detallePagoArriendo');
+          });
+      });
+    } else {
+      alert(
+        `Atencion: No es posible visualizar ${this.selectedRows.length} Registros`
+      );
+    }
   }
 }

@@ -1,8 +1,11 @@
 <div class="card">
   <div class="card-header">
     <h5>Arriendos RENT A CAR</h5>
-    <button class="btn btn-primary" (click)="openDetalleModal()">
+    <button class="btn btn-primary mr-2" (click)="openDetalleModal()">
       Detalle Pago
+    </button>
+    <button class="btn btn-success mr-2" (click)="exportAsXLSX()">
+      Exportar Datos
     </button>
   </div>
   <div class="card-body">
@@ -20,15 +23,66 @@
     </ag-grid-angular>
   </div>
 </div>
-<jw-modal id="detallePagoArriendo" class>
-  <div class="card">
-    <img
-      class="card-img-top circularImagen resizeImg"
-      src="https://image.freepik.com/vector-gratis/composicion-isometrica-financiera-bancaria-imagenes-iconos-computadora-portatil-cartera-banco-ilustracion-vector-dinero_1284-30719.jpg"
-      alt="Girl in a jacket"
-    />
-    <div class="card-body">
-      <h4 class="card-title">Detalle Pago</h4>
+<jw-modal id="detallePagoArriendo" class="">
+  <div class="constainer p-4">
+    <div class="row">
+      <h5>DETALLE PAGOS ARRIENDO</h5>
+    </div>
+    <div class="row justify-content-md-center">
+      <div class="card col mr-3">
+        <div class="card-header">
+          <h5>Detalle Pago Cliente</h5>
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID Pago Arriendo</th>
+                <th>Monto</th>
+                <th>Estado Pago</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pago of pagosArriendos">
+                <td>{{ pago.idPago }}</td>
+                <td>{{ pago.cliente.total_pago }}</td>
+                <td>{{ pago.cliente.estado_pago }}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <th>Total Pago</th>
+              <th>{{ totales.totalCliente }}</th>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+      <div class="card col">
+        <div class="card-header">
+          <h5>Detalle Pago Empresa CoPago</h5>
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID Pago Arriendo</th>
+                <th>Monto</th>
+                <th>Estado Pago</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pago of pagosArriendos">
+                <td>{{ pago.idPago }}</td>
+                <td>{{ pago.remplazo.total_pago }}</td>
+                <td>{{ pago.remplazo.estado_pago }}</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <th>Total Pago</th>
+              <th>{{ totales.totalRemplazo }}</th>
+            </tfoot>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </jw-modal>
