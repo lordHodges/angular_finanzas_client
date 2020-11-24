@@ -17,7 +17,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { ModalModule } from '@app/_modal';
 import { FirmaAbogadosFormComponent } from './firmaAbogados/firma-abogados-form/firma-abogados-form.component';
 import { FirmaAbogadosListComponent } from './firmaAbogados/firma-abogados-list/firma-abogados-list.component';
-import { RespaldoComponent } from '../ingresos/lubricentro/respaldo/respaldo.component';
+import { RespaldoComponent } from '../egresos/lubricentro/respaldo/respaldo.component';
 @NgModule({
   declarations: [
     LayoutComponent,

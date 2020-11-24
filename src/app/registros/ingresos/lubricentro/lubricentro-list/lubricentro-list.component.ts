@@ -46,6 +46,7 @@ export class LubricentroListComponent implements OnInit {
     { field: 'kmActual', sortable: true, filter: true },
     { field: 'kmProximo', sortable: true, filter: true },
     { field: 'tipoIngreso', sortable: true, filter: true },
+    { field: 'referenciaCliente', sortable: true, filter: true },
     { field: 'descripcionIngreso', sortable: true, filter: true },
     { field: 'estadoPago', sortable: true, filter: true },
     { field: 'nDocumento', sortable: true, filter: true },
@@ -106,6 +107,7 @@ export class LubricentroListComponent implements OnInit {
     var selectedRows = this.gridApi2.getSelectedRows();
     this.ingresoService.getFiles(selectedRows[0].url);
   }
+  
   closeModal(id: string) {
     this.modalService.close(id);
   }

@@ -18,7 +18,7 @@ export class IngresosLubricentro{
     modelo: string;
     anio: number;
     kmActual: number;
-    kmProximo: number;
+    kmProximo: string;
     referenciaCliente: string;
     tipoIngreso: string;
     nDocumento: string;

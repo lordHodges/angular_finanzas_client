@@ -98,6 +98,7 @@ export class LubricentroFormComponent implements OnInit {
       nAutorizacion: [''],
       banco: [''],
       referenciaCliente: [''],
+      referenciaOtros: [''],
 
       idUsuario: this.idUsuario,
     });
@@ -148,7 +149,12 @@ export class LubricentroFormComponent implements OnInit {
     this.ingreso.idUsuario = this.form.value.idUsuario;
     this.ingreso.nAutorizacion = this.form.value.nAutorizacion;
     this.ingreso.banco = this.form.value.banco;
-    this.ingreso.referenciaCliente = this.form.value.referenciaCliente;
+    
+    if (this.form.value.referenciaCliente = 'Otros'){
+      this.ingreso.referenciaCliente = this.form.value.referenciaOtros;
+    } else{
+      this.ingreso.referenciaCliente = this.form.value.referenciaCliente;
+    }
 
     let cadena = '';
 
