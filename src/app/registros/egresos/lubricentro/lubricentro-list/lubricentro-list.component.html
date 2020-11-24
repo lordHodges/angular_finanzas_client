@@ -1,33 +1,33 @@
-<h4>Ingresos Lubricentro</h4>
-<a routerLink="add/1" class="btn btn-sm btn-success mb-2">Agregar ingresos</a>
+<h4>Egresos Lubricentro</h4>
+<a routerLink="add/1" class="btn btn-sm btn-success mb-2">Agregar Egresos</a>
 <router-outlet></router-outlet>
 <br />
 <!-- Rounded switch -->
 <div class="row">
   <label class="switch">
-    <input type="checkbox" checked (change)="mostrar($event)" />
+    <input type="checkbox" (change)="mostrar($event)" />
     <span class="slider round"></span>
   </label>
   <h5 class="col">Mostrar Listado</h5>
 </div>
-<div class="row" *ngIf="mostrarList">
+<div *ngIf="mostrarList">
   <button class="btn btn-outline-success" (click)="getSelectedRows()">
     Calcular Filtro: {{ total | currency: "CLP" }}
   </button>
   <button (click)="exportAsXLSX()" class="btn btn-success">
-    <em class="fa fa-arrow-alt-circle-down"> </em>
+    <i class="fa fa-arrow-alt-circle-down"> </i>
     Exportar Datos
   </button>
   <button
-    (click)="deleteIngreso()"
+    (click)="deleteEgreso()"
     disabled
     class="btn btn-danger ml-4 right-align"
   >
-    <em class="fa fa-trash"> </em>
+    <i class="fa fa-trash"> </i>
     Eliminar Datos
   </button>
-  <button (click)="detalleIngreso()" class="btn btn-primary ml-4 right-align">
-    <em class="fa fa-eye"> </em>
+  <button (click)="detalleEgreso()" class="btn btn-primary ml-4 right-align">
+    <i class="fa fa-eye"> </i>
     explorar Datos
   </button>
   <!--  -->

@@ -6,6 +6,8 @@ import { HostalFormComponent } from './hostal/hostal-form/hostal-form.component'
 import { FirmaAbogadosFormComponent } from './firmaAbogados/firma-abogados-form/firma-abogados-form.component';
 import { HostalListComponent } from './hostal/hostal-list/hostal-list.component';
 import { RentacarListComponent } from './rentacar/rentacar-list/rentacar-list.component';
+import { LubricentroFormComponent } from './lubricentro/lubricentro-form/lubricentro-form.component';
+import { LubricentroListComponent } from './lubricentro/lubricentro-list/lubricentro-list.component';
 const routes: Routes = [
   {
     path: '',
@@ -24,6 +26,17 @@ const routes: Routes = [
       },
       { path: 'abogados', component: FirmaAbogadosFormComponent },
       { path: 'rentacar', component: RentacarListComponent },
+      {
+        path: 'lubricentro',
+        component: LubricentroListComponent,
+        children: [
+          { path: 'add/:idEmpresa', component: LubricentroFormComponent },
+          {
+            path: 'edit/',
+            component: LubricentroFormComponent,
+          },
+        ],
+      },
     ],
   },
 ];
