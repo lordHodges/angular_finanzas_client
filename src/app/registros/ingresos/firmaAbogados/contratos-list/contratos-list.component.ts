@@ -129,7 +129,7 @@ export class ContratosListComponent {
     this.selectedRows = [];
     this.agGrid.api.getSelectedRows().forEach((x) => this.selectedRows.push(x));
     this.selectedRows.forEach((x) => {
-      rowView = x.nContrato;
+      rowView = x.id;
     });
 
     this.idContrato = rowView;
@@ -154,7 +154,6 @@ export class ContratosListComponent {
       .pipe()
       .subscribe((x) => {
         this.cuotas = x;
-        console.log(this.cuotas);
       });
   }
   repactar() {
