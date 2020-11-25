@@ -27,6 +27,13 @@ export class ContratosListComponent {
       checkboxSelection: true,
     },
     {
+      headerName: 'Fecha Contrato',
+      field: 'fechaContrato',
+      sortable: true,
+      filter: true,
+    },
+
+    {
       headerName: 'N° Contrato',
       field: 'nContrato',
       sortable: true,
@@ -76,6 +83,9 @@ export class ContratosListComponent {
   submitted = false;
   form: FormGroup;
 
+  contratoR = null;
+  contratoId = null;
+
   constructor(
     private modalService: ModalService,
     private constratoService: ContratoAbogadoService,
@@ -90,24 +100,23 @@ export class ContratosListComponent {
     });
   }
 
-  onGridReady(params) {
+  onGridReady(params): void {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 
     params.api.expandAll();
   }
-  registrarPago() {
+  registrarPago(): void {
     let rowView;
     this.selectedRows = [];
     this.agGrid.api.getSelectedRows().forEach((x) => this.selectedRows.push(x));
     this.selectedRows.forEach((x) => {
-      rowView = x.nContrato;
+      rowView = x.id;
     });
     this.idContrato = rowView;
     this.modalService.open('pagoCuotas');
   }
-  contratoR = null;
-  contratoId = null;
+
   obtenerContrato(nContrato) {
     let res = null;
     this.constratoService.obtenerContratoNumero(nContrato).subscribe((x) => {

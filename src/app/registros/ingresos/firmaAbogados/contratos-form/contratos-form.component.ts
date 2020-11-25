@@ -85,7 +85,7 @@ export class ContratosFormComponent implements OnInit {
     });
   }
   onSubmit(): any {}
-  validarContrato(): any {
+  validarContrato(): void {
     this.contrato.montoContrato = this.f.montoContrato.value;
     this.contrato.fechaContrato = this.f.fechaContrato.value;
     this.contrato.idCliente = this.idCliente;
@@ -99,7 +99,6 @@ export class ContratosFormComponent implements OnInit {
       .crearSinoExiste(this.contrato)
       .pipe()
       .subscribe((x) => {
-        console.log(x);
         alert(`${x['respuesta']}`);
         this.contrato = x['contrato'];
       });
@@ -116,7 +115,6 @@ export class ContratosFormComponent implements OnInit {
       .pipe()
       .subscribe((x) => {
         this.cuotas = x;
-        console.log(this.cuotas);
       });
   }
   guardarContrato(): any {
@@ -128,7 +126,7 @@ export class ContratosFormComponent implements OnInit {
         this.modalService.close('addContratos');
       });
   }
-  get f() {
+  get f(): any {
     return this.form.controls;
   }
   obtenerEmpresa(id: string): any {
