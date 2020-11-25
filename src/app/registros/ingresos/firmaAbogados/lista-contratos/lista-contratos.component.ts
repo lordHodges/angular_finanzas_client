@@ -37,9 +37,13 @@ export class ListaContratosComponent implements OnInit {
 
     {
       field: 'sucursal',
+      sortable: true,
+      filter: true,
     },
     {
       field: 'usuario',
+      sortable: true,
+      filter: true,
     },
   ];
   selectedRows: any[];
