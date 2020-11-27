@@ -85,6 +85,8 @@ export class ContratosListComponent {
 
   contratoR = null;
   contratoId = null;
+  datos = null;
+  cuotas = null;
 
   constructor(
     private modalService: ModalService,
@@ -117,14 +119,12 @@ export class ContratosListComponent {
     this.modalService.open('pagoCuotas');
   }
 
-  obtenerContrato(nContrato) {
-    let res = null;
+  obtenerContrato(nContrato): void {
     this.constratoService.obtenerContratoNumero(nContrato).subscribe((x) => {
       this.contratoR = x;
     });
-    return res;
   }
-  openRepactar() {
+  openRepactar(): void {
     let rowView;
     this.selectedRows = [];
     this.agGrid.api.getSelectedRows().forEach((x) => this.selectedRows.push(x));
@@ -137,12 +137,11 @@ export class ContratosListComponent {
     this.modalService.open('repactar');
     this.repacto = true;
   }
-  get f() {
+  get f(): any {
     return this.form.controls;
   }
-  datos = null;
-  cuotas = null;
-  calcularCuotas() {
+
+  calcularCuotas(): void {
     this.cuotas = [];
     this.datos = new CuotaInicial();
     this.datos.idContrato = this.contratoR.id;
@@ -156,7 +155,7 @@ export class ContratosListComponent {
         this.cuotas = x;
       });
   }
-  repactar() {
+  repactar(): void {
     this.constratoService
       .repactarContrato(this.contratoR.CuotasContratos, this.cuotas)
       .subscribe((x) => {
@@ -164,10 +163,10 @@ export class ContratosListComponent {
       });
   }
   exportAsXLSX(): void {
-    let data = this.rowData;
+    const data = this.rowData;
     data.forEach((x) => {
-      const fechaF = new Date(x['createdAt']);
-      const fechaG = new Date(x['updatedAt']);
+      const fechaF = new Date(x.createdAt);
+      const fechaG = new Date(x.updatedAt);
       const formato = {
         weekday: 'long',
         year: 'numeric',
@@ -177,8 +176,8 @@ export class ContratosListComponent {
         minute: 'numeric',
         second: 'numeric',
       };
-      x['createdAt'] = fechaF.toLocaleDateString('es-GB', formato);
-      x['updatedAt'] = fechaF.toLocaleDateString('es-GB', formato);
+      x.createdAt = fechaF.toLocaleDateString('es-GB', formato);
+      x.updatedAt = fechaF.toLocaleDateString('es-GB', formato);
     });
     this.excelService.exportAsExcelFile(data, 'sample');
   }

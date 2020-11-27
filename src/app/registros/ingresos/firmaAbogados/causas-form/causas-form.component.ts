@@ -36,7 +36,7 @@ export class CausasFormComponent implements OnChanges, OnInit {
   empresa = new Empresa();
   mensaje;
   msje;
-  cantidadCuotas: number = 1;
+  cantidadCuotas = 1;
   cuotas = null;
   submitted = false;
   usuario: User;
@@ -62,11 +62,11 @@ export class CausasFormComponent implements OnChanges, OnInit {
     this.idUsuario = this.usuario.id;
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     console.log('OnChanges');
     console.log(JSON.stringify(changes));
 
-    for (const propName in changes) {
+    for (const propName of Object.keys(changes)) {
       const change = changes[propName];
       const to = JSON.stringify(change.currentValue);
       const from = JSON.stringify(change.previousValue);
@@ -76,12 +76,12 @@ export class CausasFormComponent implements OnChanges, OnInit {
     this.obtenerEmpresa(this.idEmpresa);
   }
 
-  obtenerEmpresa(id: string) {
+  obtenerEmpresa(id: string): void {
     this.empresaService
       .getByIdWithSucursales(id)
       .pipe(first())
       .subscribe((x) => {
-        x['Sucursals'] = Object.values(x['Sucursals']);
+        x.Sucursals = Object.values(x.Sucursals);
 
         this.empresa = x;
       });
@@ -89,9 +89,9 @@ export class CausasFormComponent implements OnChanges, OnInit {
 
   ngOnInit(): void {
     console.log('OnInit');
-    //! este valor viaja en el router template es un valor estatico conocido
+    // ! este valor viaja en el router template es un valor estatico conocido
 
-    //! cargando las sucursales de la empresa
+    // ! cargando las sucursales de la empresa
 
     this.form = this.formBuilder.group({
       codigo: ['', Validators.required],
@@ -109,7 +109,7 @@ export class CausasFormComponent implements OnChanges, OnInit {
     });
   }
 
-  buscarCausa() {
+  buscarCausa(): void {
     this.causa = new Causa();
     this.causa.codigo = this.f.codigo.value;
 
@@ -124,10 +124,10 @@ export class CausasFormComponent implements OnChanges, OnInit {
           this.rolExiste = false;
           this.f.titulo.setValue(this.created.causa.titulo);
           this.f.sucursal.setValue(this.created.causa.idSucursal);
-          //!agregr abogados
+          // !agregr abogados
           this.f.montoCausa.setValue(this.created.causa.montoCausa);
           this.f.materia.setValue(this.created.causa.materia);
-          //!agregar cuotas
+          // !agregar cuotas
           this.cuotas = this.created.causa.CuotasCausas;
           this.nombreCliente = this.created.causa.Cliente.nombre;
           this.rutCliente = this.created.causa.Cliente.rut;
@@ -139,7 +139,7 @@ export class CausasFormComponent implements OnChanges, OnInit {
         }
       });
   }
-  guardarCausa() {
+  guardarCausa(): void {
     this.causa = new Causa();
     this.causa.titulo = this.f.titulo.value;
     this.causa.codigo = this.f.codigo.value;
@@ -150,7 +150,7 @@ export class CausasFormComponent implements OnChanges, OnInit {
     this.causa.montoCausa = this.f.montoCausa.value;
     this.causa.saldoPendiente = this.f.montoCausa.value;
     this.causa.estado = 'pendiente';
-    //!agregar abogados
+    // !agregar abogados
     this.causa.materia = this.f.materia.value;
     let contenido = null;
     this.causaService
@@ -161,7 +161,7 @@ export class CausasFormComponent implements OnChanges, OnInit {
         console.log(contenido);
       });
   }
-  calcularCuotas() {
+  calcularCuotas(): void {
     this.cuotas = [];
     this.cantidadCuotas = 0;
 
@@ -188,8 +188,8 @@ export class CausasFormComponent implements OnChanges, OnInit {
     }
   }
 
-  onSubmit() {}
-  get f() {
+  onSubmit(): void {}
+  get f(): any {
     return this.form.controls;
   }
 }

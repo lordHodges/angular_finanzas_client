@@ -51,7 +51,7 @@ export class ContratosFormComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): any {
     console.log('OnChanges');
 
-    for (const propName in changes) {
+    for (const propName of Object.keys(changes)) {
       const change = changes[propName];
       const to = JSON.stringify(change.currentValue);
       const from = JSON.stringify(change.previousValue);
@@ -99,8 +99,8 @@ export class ContratosFormComponent implements OnInit {
       .crearSinoExiste(this.contrato)
       .pipe()
       .subscribe((x) => {
-        alert(`${x['respuesta']}`);
-        this.contrato = x['contrato'];
+        alert(`${x.respuesta}`);
+        this.contrato = x.contrato;
       });
   }
   calcularCuotas(): any {
@@ -134,7 +134,7 @@ export class ContratosFormComponent implements OnInit {
       .getByIdWithSucursales(id)
       .pipe(first())
       .subscribe((x) => {
-        x['Sucursals'] = Object.values(x['Sucursals']);
+        x.Sucursals = Object.values(x.Sucursals);
 
         this.empresa = x;
       });

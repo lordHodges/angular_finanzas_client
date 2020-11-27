@@ -1,42 +1,37 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ModalService } from '@app/_components';
+import { EgresosRentacar, Empresa } from '@app/_models';
 import {
-  EgresoHostalService,
+  EgresoRentacarService,
   EmpresaService,
   ExcelService,
 } from '@app/_services';
-import { first } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl } from '@angular/forms';
-import { EgresosHostal, Empresa } from '@app/_models';
-import { Observable, Subject, Subscription } from 'rxjs';
-
-import { HttpClient, HttpResponse } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
-import { GridOptions } from 'ag-grid-community';
-import { ModalService } from '@app/_components/_modal';
+import { first } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-hostal-list',
-  templateUrl: './hostal-list.component.html',
-  styleUrls: ['./hostal-list.component.less'],
+  selector: 'app-rentacar-list',
+  templateUrl: './rentacar-list.component.html',
+  styleUrls: ['./rentacar-list.component.less'],
 })
-export class HostalListComponent implements OnInit {
+export class RentacarListComponent implements OnInit {
   @ViewChild('agGrid') agGrid: AgGridAngular;
 
-  private gridApi: any;
-  private gridApi2: any;
-  private gridColumnApi: any;
-  selectedRows: any[];
-  egresos: EgresosHostal[];
-  egresosJQ: EgresosHostal[];
+  egresos: EgresosRentacar[];
+  egresosJQ: EgresosRentacar[];
   idEmpresa = null;
   id = null;
   mostrarList = true;
   empresa: Empresa;
   total = 0;
 
-  // mdtable
-
+  // configuraicion tabla AgGrid main
+  private gridApi: any;
+  private gridApi2: any;
+  private gridColumnApi: any;
+  selectedRows: any[];
   rowFind;
   rowData: any;
   columnDefs = [
@@ -64,7 +59,7 @@ export class HostalListComponent implements OnInit {
       filter: true,
     },
   ];
-  // tabla modal
+  // tabla AgGrid modal
   rowData2: any;
   columnDefs2 = [
     {
@@ -78,7 +73,7 @@ export class HostalListComponent implements OnInit {
   //
 
   constructor(
-    private egresoService: EgresoHostalService,
+    private egresoService: EgresoRentacarService,
     private route: ActivatedRoute,
     private empresaService: EmpresaService,
     private excelService: ExcelService,
@@ -87,7 +82,6 @@ export class HostalListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    /* rescatar parametros de la ruta */
     this.idEmpresa = this.route.snapshot.params.idEmpresa;
     this.id = this.route.snapshot.params.id;
     // extraer empresa y suscursales
@@ -106,17 +100,6 @@ export class HostalListComponent implements OnInit {
       .subscribe((x) => (this.egresosJQ = x));
     this.rowData = this.egresoService.getAll();
   }
-  // modal metodos
-
-  closeModal(id: string): void {
-    this.modalService.close(id);
-  }
-  //
-  onSelectionChanged(): void {
-    const selectedRows = this.gridApi2.getSelectedRows();
-    this.egresoService.getFiles(selectedRows[0].url);
-  }
-
   onGridReady(params): void {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -129,7 +112,14 @@ export class HostalListComponent implements OnInit {
 
     params.api.expandAll();
   }
-
+  closeModal(id: string): void {
+    this.modalService.close(id);
+  }
+  //
+  onSelectionChanged(): void {
+    const selectedRows = this.gridApi2.getSelectedRows();
+    this.egresoService.getFiles(selectedRows[0].url);
+  }
   getSelectedRows(): void {
     this.total = 0;
     this.selectedRows = [];
@@ -143,18 +133,6 @@ export class HostalListComponent implements OnInit {
     this.agGrid.api.getSelectedRows().forEach((x) => this.selectedRows.push(x));
     this.excelService.exportAsExcelFile(this.selectedRows, 'sample');
   }
-
-  ////////////////////////////////////
-  mostrar(e): void {
-    if (e.target.checked) {
-      this.mostrarList = true;
-      this.ngOnInit();
-    } else {
-      this.mostrarList = false;
-      this.ngOnInit();
-    }
-  }
-  ////////////////////////////
   detalleEgreso(): void {
     let rowView;
 
@@ -177,53 +155,14 @@ export class HostalListComponent implements OnInit {
         `Atencion: No es posible visualizar ${this.selectedRows.length} Registros`
       );
     }
-
-    /* const egreso = this.egresos.find((x) => x.id === id);
-    if (confirm('Esta seguro que desea eliminar el registro: ')) {
-      egreso.isDeleting = true;
-      this.egresoService
-        .delete(id)
-        .pipe(first())
-        .subscribe(() => {
-          this.egresos = this.egresos.filter((x) => x.id !== id);
-        });
-      egreso.isDeleting = false;
-    } */
   }
-  deleteEgreso(): void {
-    let rowToDel;
-    this.selectedRows = [];
-    this.agGrid.api.getSelectedRows().forEach((x) => this.selectedRows.push(x));
-    if (this.selectedRows.length <= 1 && this.selectedRows.length > 0) {
-      this.selectedRows.forEach((x) => {
-        rowToDel = x.id;
-      });
-      if (
-        confirm(`Esta seguro que desea eliminar el registro ID: ${rowToDel}`)
-      ) {
-        /*  this.egresoService
-          .delete(rowToDel)
-          .pipe(first())
-          .subscribe(() => {
-            this.rowData = this.egresoService.getAll();
-          }); */
-      }
+  mostrar(e): void {
+    if (e.target.checked) {
+      this.mostrarList = true;
+      this.ngOnInit();
     } else {
-      alert(
-        `Atencion: No es posible eliminar ${this.selectedRows.length} Registros`
-      );
+      this.mostrarList = false;
+      this.ngOnInit();
     }
-
-    /* const egreso = this.egresos.find((x) => x.id === id);
-    if (confirm('Esta seguro que desea eliminar el registro: ')) {
-      egreso.isDeleting = true;
-      this.egresoService
-        .delete(id)
-        .pipe(first())
-        .subscribe(() => {
-          this.egresos = this.egresos.filter((x) => x.id !== id);
-        });
-      egreso.isDeleting = false;
-    } */
   }
 }

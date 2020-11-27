@@ -38,12 +38,12 @@ export class LubricentroFormComponent implements OnInit {
     private empresaService: EmpresaService,
     private alertService: AlertService,
     private ingresoService: IngresoLubricentroService,
-    private accountService: AccountService,
+    private accountService: AccountService
   ) {
     this.usuario = this.accountService.userValue;
     this.idUsuario = this.usuario.id;
   }
-  
+
   envv(e) {
     this.loading = e;
   }
@@ -51,7 +51,7 @@ export class LubricentroFormComponent implements OnInit {
   resp(e) {
     this.respuesta = e;
   }
- 
+
   ngOnInit() {
     this.idEmpresa = this.route.snapshot.params['idEmpresa'];
     this.id = this.route.snapshot.params['id'];
@@ -149,17 +149,17 @@ export class LubricentroFormComponent implements OnInit {
     this.ingreso.idUsuario = this.form.value.idUsuario;
     this.ingreso.nAutorizacion = this.form.value.nAutorizacion;
     this.ingreso.banco = this.form.value.banco;
-    
-    if (this.form.value.referenciaCliente = 'Otros'){
+
+    if (this.form.value.referenciaCliente == 'Otros') {
       this.ingreso.referenciaCliente = this.form.value.referenciaOtros;
-    } else{
+    } else {
       this.ingreso.referenciaCliente = this.form.value.referenciaCliente;
     }
 
     let cadena = '';
 
     for (let i = 0; i < this.form.value.tipoIngreso.length; i++) {
-      cadena = cadena + ' ' + this.form.value.tipoIngreso[i];
+      cadena = cadena + '' + this.form.value.tipoIngreso[i];
     }
 
     for (let i = 0; i < this.respuesta.length; i++) {
@@ -172,9 +172,12 @@ export class LubricentroFormComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          this.alertService.success('Los ingresos de Lubricentro han sido creados con exito', {
-            keepAfterRouteChange: true,
-          });
+          this.alertService.success(
+            'Los ingresos de Lubricentro han sido creados con exito',
+            {
+              keepAfterRouteChange: true,
+            }
+          );
           this.loading = false;
           // this.router.navigate(['#', { relativeTo: this.route }]);
         },

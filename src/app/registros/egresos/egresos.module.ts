@@ -18,6 +18,8 @@ import { ModalModule } from '@app/_components/_modal';
 import { FirmaAbogadosFormComponent } from './firmaAbogados/firma-abogados-form/firma-abogados-form.component';
 import { FirmaAbogadosListComponent } from './firmaAbogados/firma-abogados-list/firma-abogados-list.component';
 import { RespaldoComponent } from '../egresos/lubricentro/respaldo/respaldo.component';
+import { RentacarListComponent } from './rentacar/rentacar-list/rentacar-list.component';
+import { RentacarFormComponent } from './rentacar/rentacar-form/rentacar-form.component';
 @NgModule({
   declarations: [
     LayoutComponent,
@@ -32,6 +34,8 @@ import { RespaldoComponent } from '../egresos/lubricentro/respaldo/respaldo.comp
     RespaldoComponent,
     FirmaAbogadosFormComponent,
     FirmaAbogadosListComponent,
+    RentacarListComponent,
+    RentacarFormComponent,
   ],
   imports: [
     CommonModule,

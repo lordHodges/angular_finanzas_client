@@ -7,6 +7,8 @@ import { LubricentroListComponent } from './lubricentro/lubricentro-list/lubrice
 import { LubricentroFormComponent } from './lubricentro/lubricentro-form/lubricentro-form.component';
 import { FirmaAbogadosListComponent } from './firmaAbogados/firma-abogados-list/firma-abogados-list.component';
 import { FirmaAbogadosFormComponent } from './firmaAbogados/firma-abogados-form/firma-abogados-form.component';
+import { RentacarListComponent } from '../egresos/rentacar/rentacar-list/rentacar-list.component';
+import { RentacarFormComponent } from '../egresos/rentacar/rentacar-form/rentacar-form.component';
 const routes: Routes = [
   {
     path: '',
@@ -47,6 +49,13 @@ const routes: Routes = [
             path: 'edit/:id/:idEmpresa',
             component: LubricentroFormComponent,
           },
+        ],
+      },
+      {
+        path: 'rentacar',
+        component: RentacarListComponent,
+        children: [
+          { path: 'add/:idEmpresa', component: RentacarFormComponent },
         ],
       },
     ],

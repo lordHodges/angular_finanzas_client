@@ -70,7 +70,7 @@ export class PagoCausaComponent implements OnChanges, OnInit {
     console.log('OnChanges');
     console.log(JSON.stringify(changes));
 
-    for (const propName in changes) {
+    for (const propName of Object.keys(changes)) {
       const change = changes[propName];
       const to = JSON.stringify(change.currentValue);
       const from = JSON.stringify(change.previousValue);

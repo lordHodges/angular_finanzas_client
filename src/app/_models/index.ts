@@ -19,4 +19,5 @@ export * from './registros/registrosAbogados/causa';
 export * from '@app/_models/registros/registrosAbogados/cuota-inicial';
 export * from '@app/_models/registros/registrosAbogados/contrato-abogado';
 export * from '@app/_models/registros/registrosAbogados/egresosFirma';
-
+export * from '@app/_models/registros/registrosRentacar/egresos-rentacar';
+export * from '@app/_models/registros/registrosRentacar/ingresos-rentacar';

@@ -54,11 +54,11 @@ export class PagoCuotasComponent implements OnInit, OnChanges {
   ];
   changelog: string[] = [];
   constructor(private contratoService: ContratoAbogadoService) {}
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     console.log('OnChanges');
     console.log(JSON.stringify(changes));
 
-    for (const propName in changes) {
+    for (const propName of Object.keys(changes)) {
       const change = changes[propName];
       const to = JSON.stringify(change.currentValue);
       const from = JSON.stringify(change.previousValue);
@@ -70,7 +70,7 @@ export class PagoCuotasComponent implements OnInit, OnChanges {
           .obtenerContratoNumero(c)
           .pipe()
           .subscribe((x) => {
-            this.rowData2 = x['CuotasContratos'];
+            this.rowData2 = x.CuotasContratos;
             console.log(this.rowData2);
           });
         this.loading = false;
@@ -85,7 +85,7 @@ export class PagoCuotasComponent implements OnInit, OnChanges {
 
     params.api.expandAll();
   }
-  pagarCuota() {
+  pagarCuota(): void {
     let idCuota;
     let cuota;
     this.selectedRows = [];
@@ -94,7 +94,7 @@ export class PagoCuotasComponent implements OnInit, OnChanges {
       idCuota = x.id;
       cuota = x;
     });
-    let body = { idCuota: idCuota };
+    const body = { idCuota };
     this.contratoService
       .registrarPago(body)
       .pipe()
@@ -103,18 +103,18 @@ export class PagoCuotasComponent implements OnInit, OnChanges {
           .obtenerContratoNumero(this.idContrato)
           .pipe()
           .subscribe((x) => {
-            this.rowData2 = x['CuotasContratos'];
+            this.rowData2 = x.CuotasContratos;
 
             this.scrambleAndRefreshTopToBottom();
           });
-        alert(x['msj']);
+        alert(x.msj);
       });
   }
-  scrambleAndRefreshTopToBottom() {
-    var frame = 0;
-    var i;
-    var rowNode;
-    var api = this.gridApi;
+  scrambleAndRefreshTopToBottom(): void {
+    let frame = 0;
+    let i;
+    let rowNode;
+    const api = this.gridApi;
     for (i = 0; i < api.getPinnedTopRowCount(); i++) {
       rowNode = api.getPinnedTopRow(i);
       refreshRow(rowNode, api);
@@ -128,16 +128,16 @@ export class PagoCuotasComponent implements OnInit, OnChanges {
       refreshRow(rowNode, api);
     }
 
-    function refreshRow(rowNode, api) {
-      var millis = frame++ * 100;
-      var rowNodes = [rowNode];
-      var params = {
-        rowNodes: rowNodes,
+    function refreshRow(rowNode, api): void {
+      const millis = frame++ * 100;
+      const rowNodes = [rowNode];
+      const params = {
+        rowNodes,
       };
       callRefreshAfterMillis(params, millis, api);
     }
-    function callRefreshAfterMillis(params, millis, gridApi) {
-      setTimeout(function () {
+    function callRefreshAfterMillis(params, millis, gridApi): void {
+      setTimeout(() => {
         gridApi.refreshCells(params);
       }, millis);
     }

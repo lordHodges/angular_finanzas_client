@@ -40,6 +40,15 @@
             <option value="Impuestos">Impuestos</option>
           </select>
         </div>
+        <div class="form-group col" *ngIf="f.tipoEgreso.value == 'Costos'">
+          <label for="idArriendo">Folio Arriendo</label>
+          <input
+            type="number"
+            formControlName="idArriendo"
+            class="form-control"
+            value="{{ f.idArriendo }}"
+          />
+        </div>
       </div>
       <div class="form-row">
         <div class="form-group col">
@@ -110,6 +119,7 @@
       <div class="form-row">
         <!-- respaldo de documantacion -->
         <app-respaldos
+          [idEmpresa]="idEmpresa"
           (listo)="envv($event)"
           (respuesta)="resp($event)"
         ></app-respaldos>
@@ -124,7 +134,7 @@
             ></span>
             Guardar
           </button>
-          <a routerLink="/egresos/firmaAbogado" class="btn btn-link">Cancelar</a>
+          <a routerLink="/egresos/rentacar" class="btn btn-link">Cancelar</a>
         </div>
       </div>
     </form>

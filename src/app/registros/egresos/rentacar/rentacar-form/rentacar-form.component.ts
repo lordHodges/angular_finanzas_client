@@ -1,28 +1,21 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  AfterViewInit,
-  ViewChild,
-} from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { EgresosRentacar, Empresa, User } from '@app/_models';
 import {
-  EmpresaService,
-  AlertService,
   AccountService,
-  EgresoHostalService,
+  AlertService,
+  EgresoRentacarService,
+  EmpresaService,
 } from '@app/_services';
 import { first } from 'rxjs/operators';
-import { EgresosHostal, Empresa, Sucursal, User } from '@app/_models';
 
 @Component({
-  selector: 'app-hostal-form',
-  templateUrl: './hostal-form.component.html',
-  styleUrls: ['./hostal-form.component.less'],
+  selector: 'app-rentacar-form',
+  templateUrl: './rentacar-form.component.html',
+  styleUrls: ['./rentacar-form.component.less'],
 })
-export class HostalFormComponent implements OnInit {
+export class RentacarFormComponent implements OnInit {
   form: FormGroup;
   id: string;
   empresas = null;
@@ -34,7 +27,7 @@ export class HostalFormComponent implements OnInit {
   loading = true;
   usuario: User;
   idUsuario = null;
-  egreso = new EgresosHostal();
+  egreso = new EgresosRentacar();
   respuesta;
 
   constructor(
@@ -43,18 +36,19 @@ export class HostalFormComponent implements OnInit {
     private router: Router,
     private empresaService: EmpresaService,
     private alertService: AlertService,
-    private egresoHostalService: EgresoHostalService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private egresoService: EgresoRentacarService
   ) {
     this.usuario = this.accountService.userValue;
     this.idUsuario = this.usuario.id;
   }
-  envv(e) {
+  envv(e): void {
     this.loading = e;
   }
-  resp(e) {
+  resp(e): void {
     this.respuesta = e;
   }
+
   ngOnInit(): void {
     this.idEmpresa = this.route.snapshot.params.idEmpresa;
     this.id = this.route.snapshot.params.id;
@@ -77,8 +71,6 @@ export class HostalFormComponent implements OnInit {
         this.empresa = x;
         console.log(this.empresa);
       });
-    /* TODO AGREGAR campos numeroBoleta, Tipo Documento(boleta, factura), documento */
-
     this.form = this.formBuilder.group({
       fecha: ['', Validators.required],
       monto: ['', Validators.required],
@@ -86,21 +78,9 @@ export class HostalFormComponent implements OnInit {
       descripcion: ['', Validators.required],
       responsable: ['', Validators.required],
       idSucursal: ['', Validators.required],
+      idArriendo: [''],
       idUsuario: this.idUsuario,
     });
-
-    if (!this.isAddMode) {
-      this.egresoHostalService
-        .getById(this.id)
-        .pipe(first())
-        .subscribe((x) => {
-          this.f.fecha.setValue(x.fecha);
-          this.f.monto.setValue(x.monto);
-          this.f.descripcion.setValue(x.descripcion);
-          this.f.idSucursal.setValue(x.idSucursal);
-          this.f.idUsuario.setValue(this.idUsuario);
-        });
-    }
   }
 
   get f(): any {
@@ -124,8 +104,7 @@ export class HostalFormComponent implements OnInit {
       this.updateEgreso();
     }
   }
-
-  private createEgreso() {
+  private createEgreso(): void {
     console.log(this.respuesta);
     this.egreso.RespaldoEgresos = [];
     this.egreso.fecha = this.form.value.fecha;
@@ -140,7 +119,7 @@ export class HostalFormComponent implements OnInit {
     }
 
     console.log(this.egreso);
-    this.egresoHostalService
+    this.egresoService
       .create(this.egreso)
       .pipe(first())
       .subscribe(
@@ -156,5 +135,5 @@ export class HostalFormComponent implements OnInit {
         }
       );
   }
-  private updateEgreso() {}
+  private updateEgreso(): void {}
 }
