@@ -1,7 +1,23 @@
 <div class="card">
   <div class="card-header">
     <h5>Ingresos FIRMA ABOGADOS CHILE</h5>
+    <a
+      class="btn btn-primary mr-2"
+      (click)="openAnexos('anexos')"
+      routerLink="listaContratos"
+    >
+      <i class="fa fa-archive" aria-hidden="true"></i> Contratos</a
+    >
+
+    <a
+      class="btn btn-primary mr-2"
+      (click)="openAnexos('anexos')"
+      routerLink="listaClientes"
+      ><i class="fa fa-address-book" aria-hidden="true"></i> Clientes</a
+    >
+    <!-- el outlet de estas rutas se encuentra al fuinal de este documento -->
   </div>
+
   <div class="card-body">
     <!-- buscar clientes agregar a tabla -->
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -112,14 +128,14 @@
     <h5>Acciones</h5>
     <!-- llamando al modal con el listado de causas del cliente encontrado -->
     <button class="btn btn-primary col-6" (click)="mostrarContratos()">
-      Mostrar Contratos
+      Mostrar Contratos Cliente
     </button>
     <!-- llamando al modal para agregar nuevas causas al cliente -->
     <button
       class="btn btn-success col-6"
       (click)="agregarCausas('addContratos')"
     >
-      + Contrato
+      + Contratos
     </button>
   </div>
   <ng-container class="mt-3" #componenteDinamico></ng-container>
@@ -130,3 +146,9 @@
     ></app-contratos-form>
   </jw-modal>
 </div>
+<jw-modal id="anexos">
+  <router-outlet></router-outlet>
+  <button type="button" class="btn btn-danger" (click)="closeModal('anexos')">
+    Cerrar
+  </button>
+</jw-modal>

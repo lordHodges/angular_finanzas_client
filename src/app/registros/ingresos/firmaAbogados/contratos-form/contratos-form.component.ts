@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalService } from '@app/_modal';
+import { ModalService } from '@app/_components/_modal';
 import { ContratoAbogado, CuotaInicial, Empresa, User } from '@app/_models';
 import {
   AccountService,
@@ -48,11 +48,10 @@ export class ContratosFormComponent implements OnInit {
     this.usuario = this.accountService.userValue;
     this.idUsuario = this.usuario.id;
   }
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): any {
     console.log('OnChanges');
-    console.log(JSON.stringify(changes));
 
-    for (const propName in changes) {
+    for (const propName of Object.keys(changes)) {
       const change = changes[propName];
       const to = JSON.stringify(change.currentValue);
       const from = JSON.stringify(change.previousValue);
@@ -85,8 +84,8 @@ export class ContratosFormComponent implements OnInit {
       idUsuario: this.idUsuario,
     });
   }
-  onSubmit() {}
-  validarContrato() {
+  onSubmit(): any {}
+  validarContrato(): void {
     this.contrato.montoContrato = this.f.montoContrato.value;
     this.contrato.fechaContrato = this.f.fechaContrato.value;
     this.contrato.idCliente = this.idCliente;
@@ -100,12 +99,11 @@ export class ContratosFormComponent implements OnInit {
       .crearSinoExiste(this.contrato)
       .pipe()
       .subscribe((x) => {
-        console.log(x);
-        alert(`${x['respuesta']}`);
-        this.contrato = x['contrato'];
+        alert(`${x.respuesta}`);
+        this.contrato = x.contrato;
       });
   }
-  calcularCuotas() {
+  calcularCuotas(): any {
     this.cuotas = [];
     this.datos = new CuotaInicial();
     this.datos.idContrato = this.contrato.id;
@@ -117,10 +115,9 @@ export class ContratosFormComponent implements OnInit {
       .pipe()
       .subscribe((x) => {
         this.cuotas = x;
-        console.log(this.cuotas);
       });
   }
-  guardarContrato() {
+  guardarContrato(): any {
     this.contratoService
       .guardarCuotas(this.cuotas)
       .pipe()
@@ -129,15 +126,15 @@ export class ContratosFormComponent implements OnInit {
         this.modalService.close('addContratos');
       });
   }
-  get f() {
+  get f(): any {
     return this.form.controls;
   }
-  obtenerEmpresa(id: string) {
+  obtenerEmpresa(id: string): any {
     this.empresaService
       .getByIdWithSucursales(id)
       .pipe(first())
       .subscribe((x) => {
-        x['Sucursals'] = Object.values(x['Sucursals']);
+        x.Sucursals = Object.values(x.Sucursals);
 
         this.empresa = x;
       });

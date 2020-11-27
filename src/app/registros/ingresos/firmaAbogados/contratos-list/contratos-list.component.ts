@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalService } from '@app/_modal';
+import { ModalService } from '@app/_components/_modal';
 import { CuotaInicial } from '@app/_models';
 import { ContratoAbogadoService, ExcelService } from '@app/_services';
 import { AgGridAngular } from 'ag-grid-angular';
@@ -26,6 +26,13 @@ export class ContratosListComponent {
       filter: true,
       checkboxSelection: true,
     },
+    {
+      headerName: 'Fecha Contrato',
+      field: 'fechaContrato',
+      sortable: true,
+      filter: true,
+    },
+
     {
       headerName: 'N° Contrato',
       field: 'nContrato',
@@ -76,6 +83,11 @@ export class ContratosListComponent {
   submitted = false;
   form: FormGroup;
 
+  contratoR = null;
+  contratoId = null;
+  datos = null;
+  cuotas = null;
+
   constructor(
     private modalService: ModalService,
     private constratoService: ContratoAbogadoService,
@@ -90,37 +102,34 @@ export class ContratosListComponent {
     });
   }
 
-  onGridReady(params) {
+  onGridReady(params): void {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 
     params.api.expandAll();
   }
-  registrarPago() {
+  registrarPago(): void {
     let rowView;
     this.selectedRows = [];
     this.agGrid.api.getSelectedRows().forEach((x) => this.selectedRows.push(x));
     this.selectedRows.forEach((x) => {
-      rowView = x.nContrato;
+      rowView = x.id;
     });
     this.idContrato = rowView;
     this.modalService.open('pagoCuotas');
   }
-  contratoR = null;
-  contratoId = null;
-  obtenerContrato(nContrato) {
-    let res = null;
+
+  obtenerContrato(nContrato): void {
     this.constratoService.obtenerContratoNumero(nContrato).subscribe((x) => {
       this.contratoR = x;
     });
-    return res;
   }
-  openRepactar() {
+  openRepactar(): void {
     let rowView;
     this.selectedRows = [];
     this.agGrid.api.getSelectedRows().forEach((x) => this.selectedRows.push(x));
     this.selectedRows.forEach((x) => {
-      rowView = x.nContrato;
+      rowView = x.id;
     });
 
     this.idContrato = rowView;
@@ -128,12 +137,11 @@ export class ContratosListComponent {
     this.modalService.open('repactar');
     this.repacto = true;
   }
-  get f() {
+  get f(): any {
     return this.form.controls;
   }
-  datos = null;
-  cuotas = null;
-  calcularCuotas() {
+
+  calcularCuotas(): void {
     this.cuotas = [];
     this.datos = new CuotaInicial();
     this.datos.idContrato = this.contratoR.id;
@@ -145,10 +153,9 @@ export class ContratosListComponent {
       .pipe()
       .subscribe((x) => {
         this.cuotas = x;
-        console.log(this.cuotas);
       });
   }
-  repactar() {
+  repactar(): void {
     this.constratoService
       .repactarContrato(this.contratoR.CuotasContratos, this.cuotas)
       .subscribe((x) => {
@@ -156,10 +163,10 @@ export class ContratosListComponent {
       });
   }
   exportAsXLSX(): void {
-    let data = this.rowData;
+    const data = this.rowData;
     data.forEach((x) => {
-      const fechaF = new Date(x['createdAt']);
-      const fechaG = new Date(x['updatedAt']);
+      const fechaF = new Date(x.createdAt);
+      const fechaG = new Date(x.updatedAt);
       const formato = {
         weekday: 'long',
         year: 'numeric',
@@ -169,8 +176,8 @@ export class ContratosListComponent {
         minute: 'numeric',
         second: 'numeric',
       };
-      x['createdAt'] = fechaF.toLocaleDateString('es-GB', formato);
-      x['updatedAt'] = fechaF.toLocaleDateString('es-GB', formato);
+      x.createdAt = fechaF.toLocaleDateString('es-GB', formato);
+      x.updatedAt = fechaF.toLocaleDateString('es-GB', formato);
     });
     this.excelService.exportAsExcelFile(data, 'sample');
   }

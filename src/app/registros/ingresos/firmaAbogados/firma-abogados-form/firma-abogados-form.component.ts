@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ModalService } from '@app/_modal';
+import { ModalService } from '@app/_components/_modal';
 import { Cliente, User } from '@app/_models';
 import {
   AccountService,
@@ -34,6 +34,8 @@ export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
   @ViewChild('componenteDinamico', { read: ViewContainerRef })
   compDynamicContainer: ViewContainerRef;
 
+  qMostrar = true;
+
   usuario: User;
   idUsuario = null;
   submitted = false;
@@ -42,12 +44,12 @@ export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
   idCliente = null;
   causasCliente = null;
 
-  //! este valor se debe definir con el cliente creado o actualizado
+  // !este valor se debe definir con el cliente creado o actualizado
   elPadreDice = null;
   // !ngmodels
-  //?investigar por la necesidad de seguir utilizando ngmodel en formularios reactivos
+  // ?investigar por la necesidad de seguir utilizando ngmodel en formularios reactivos
   cliente: Cliente;
-  //! fin ngmodel
+  // !fin ngmodel
   constructor(
     private resolver: ComponentFactoryResolver,
     private formBuilder: FormBuilder,
@@ -66,7 +68,7 @@ export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
   idEmpresa = null;
 
   ngOnInit(): void {
-    //?forzando la consulta a FirmaAbogados
+    // ?forzando la consulta a FirmaAbogados
     this.idEmpresa = '2';
 
     this.form = this.formBuilder.group({
@@ -79,19 +81,19 @@ export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
     });
     this.cliente = new Cliente();
   }
-  get f() {
+  get f(): any {
     return this.form.controls;
   }
   ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
+    // Called once, before the instance is destroyed.
+    // Add 'implements OnDestroy' to the class.
   }
 
-  buscarExistencia() {
+  buscarExistencia(): void {
     // this.rutFormat = this.formateaRut();
     this.cliente = new Cliente();
     this.f.rut.setValue(this.formateaRut());
-    //TODO agregar metodo de servicio
+    // TODO agregar metodo de servicio
     this.cliente.nombre = this.f.nombreCliente.value;
     this.cliente.email = this.f.email.value;
     this.cliente.direccion = this.f.direccion.value;
@@ -107,8 +109,8 @@ export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
         this.contratoService
           .obtenerContratosCliente(this.idCliente)
 
-          .subscribe((x) => {
-            this.causasCliente = x;
+          .subscribe((contratos) => {
+            this.causasCliente = contratos;
             console.log(this.causasCliente);
           });
 
@@ -127,9 +129,9 @@ export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
         }
       });
 
-    //?  findorcrate de sequelize
+    // ?  findorcrate de sequelize
   }
-  guardarCliente() {
+  guardarCliente(): void {
     this.cliente = new Cliente();
     this.cliente.nombre = this.f.nombreCliente.value;
     this.cliente.idUsuario = this.idUsuario;
@@ -147,7 +149,7 @@ export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
       });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.submitted = true;
 
     if (this.form.invalid) {
@@ -156,7 +158,7 @@ export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
     // TODO metodo de servicio UpdateCliente();
   }
 
-  formateaRut() {
+  formateaRut(): any {
     let value = this.f.rut.value.replace(/\./g, '').replace('-', '');
     if (value.match(/^(\d{2})(\d{3}){2}(\w{1})$/)) {
       value = value.replace(/^(\d{2})(\d{3})(\d{3})(\w{1})$/, '$1.$2.$3-$4');
@@ -171,8 +173,7 @@ export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
     return value;
   }
 
-  //abrir componentes
-  qMostrar = true;
+  // abrir componentes
   mostrarContratos() {
     if (this.qMostrar) {
       this.miFactory = this.resolver.resolveComponentFactory(
@@ -202,5 +203,8 @@ export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
 
   closeModal(id: string) {
     this.modalService.close(id);
+  }
+  openAnexos(id: string) {
+    this.modalService.open(id);
   }
 }

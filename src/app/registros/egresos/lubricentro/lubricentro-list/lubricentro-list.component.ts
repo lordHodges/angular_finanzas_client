@@ -13,7 +13,7 @@ import { Observable, Subject, Subscription } from 'rxjs';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { AgGridAngular } from 'ag-grid-angular';
 import { GridOptions } from 'ag-grid-community';
-import { ModalService } from '@app/_modal';
+import { ModalService } from '@app/_components/_modal';
 
 @Component({
   selector: 'app-lubricentro-list',
@@ -71,11 +71,11 @@ export class LubricentroListComponent implements OnInit {
   rowData2: any;
   columnDefs2 = [
     {
-    headerName: 'Archivo',
-    field: 'url',
-    sortable: true,
-    filter: true,
-    checkboxSelection: false,
+      headerName: 'Archivo',
+      field: 'url',
+      sortable: true,
+      filter: true,
+      checkboxSelection: false,
     },
   ];
 
@@ -119,7 +119,7 @@ export class LubricentroListComponent implements OnInit {
     var selectedRows = this.gridApi2.getSelectedRows();
     this.egresoService.getFiles(selectedRows[0].url);
   }
-   
+
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -147,7 +147,7 @@ export class LubricentroListComponent implements OnInit {
     this.excelService.exportAsExcelFile(this.selectedRows, 'sample');
   }
 
-  //////////////////////////////////// 
+  ////////////////////////////////////
   mostrar(e) {
     if (e.target.checked) {
       this.mostrarList = true;

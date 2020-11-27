@@ -10,10 +10,13 @@ import { Cliente } from '@app/_models';
 export class ClienteService {
   constructor(private http: HttpClient, private router: Router) {}
 
-  crearSinoExiste(rut: string, cliente: Cliente) {
+  crearSinoExiste(rut: string, cliente: Cliente): any {
     return this.http.post<[]>(`${environment.apiUrl}/cliente/${rut}`, cliente);
   }
-  guardarCliente(rut: string, cliente: Cliente) {
+  guardarCliente(rut: string, cliente: Cliente): any {
     return this.http.put(`${environment.apiUrl}/cliente/${rut}`, cliente);
+  }
+  obtenerClientes(): any {
+    return this.http.get<[]>(`${environment.apiUrl}/cliente/getCLientes`);
   }
 }

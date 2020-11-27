@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalService } from '@app/_modal';
+import { ModalService } from '@app/_components/_modal';
 import { ExcelService, IngresoRentacarService } from '@app/_services';
 import { AgGridAngular } from 'ag-grid-angular';
 import { first } from 'rxjs/operators';
@@ -16,7 +16,7 @@ export class RentacarListComponent implements OnInit {
   pagosArriendos = null;
   totales = { totalCliente: '', totalRemplazo: '' };
   //
-  //?configurando la tabla inicial
+  // ?configurando la tabla inicial
   private gridApi: any;
   private gridColumnApi: any;
   rowData: any;

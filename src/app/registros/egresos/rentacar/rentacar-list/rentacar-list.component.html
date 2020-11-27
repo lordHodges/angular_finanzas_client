@@ -1,5 +1,5 @@
-<h4>Egresos Lubricentro</h4>
-<a routerLink="add/3" class="btn btn-sm btn-success mb-2">Agregar Egresos</a>
+<h4>Egresos Rent a Car</h4>
+<a routerLink="add/4" class="btn btn-sm btn-success mb-2">Agregar Egresos</a>
 <router-outlet></router-outlet>
 <br />
 <!-- Rounded switch -->
@@ -18,21 +18,19 @@
     <i class="fa fa-arrow-alt-circle-down"> </i>
     Exportar Datos
   </button>
-  <!-- llamando al modal para agregar nuevas costos asociados a un -->
-  <button
+  <!-- <button
     (click)="deleteEgreso()"
     disabled
     class="btn btn-danger ml-4 right-align"
   >
     <i class="fa fa-trash"> </i>
-    Asociar Costo
-  </button>
+    Eliminar Datos
+  </button> -->
   <button (click)="detalleEgreso()" class="btn btn-primary ml-4 right-align">
     <i class="fa fa-eye"> </i>
-    explorar Datos
+    Explorar Datos
   </button>
-  <!--  -->
-  <jw-modal id="modal_detalle">
+  <jw-modal id="documentosEgresoHostal">
     <h1>Respaldos</h1>
     <ag-grid-angular
       #agGrid2
@@ -47,11 +45,13 @@
       rowSelection="multiple"
     >
     </ag-grid-angular>
-    <button (click)="closeModal('modal_detalle')" class="btn btn-danger">
-      Cerrar
+    <button
+      (click)="closeModal('documentosEgresoHostal')"
+      class="btn btn-danger"
+    >
+      Close
     </button>
   </jw-modal>
-  <!--  -->
   <ag-grid-angular
     #agGrid
     id="agGrid"

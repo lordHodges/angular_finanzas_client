@@ -1,31 +1,25 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { EgresosHostal } from '@app/_models';
+
 @Injectable({
   providedIn: 'root',
 })
-export class EgresoHostalService {
-  private egresosHostalSubject: BehaviorSubject<EgresosHostal>;
-  private egresosHostal: Observable<EgresosHostal>;
+export class EgresoRentacarService {
   constructor(private http: HttpClient, private router: Router) {}
-  public get EgresosHostalValue(): EgresosHostal {
-    return this.egresosHostalSubject.value;
-  }
-  create(EgresosHostal: EgresosHostal): any {
+  create(egreso): any {
     return this.http.post(
-      `${environment.apiUrl}/egresoHostal/conRespaldo`,
-      EgresosHostal
+      `${environment.apiUrl}/egresoRentacar/conRespaldo`,
+      egreso
     );
   }
   getAll(): any {
-    return this.http.get<[]>(`${environment.apiUrl}/egresoHostal`);
+    return this.http.get<[]>(`${environment.apiUrl}/egresoRentacar`);
   }
   getFiles(fileName: string): any {
     return this.http
-      .get(`${environment.apiUrl}/egresoHostal/download/${fileName}`, {
+      .get(`${environment.apiUrl}/egresoRentacar/download/${fileName}`, {
         responseType: 'blob',
       })
       .subscribe((res) => {
@@ -41,8 +35,6 @@ export class EgresoHostalService {
   }
 
   getById(id: string): any {
-    return this.http.get<EgresosHostal>(
-      `${environment.apiUrl}/egresoHostal/${id}`
-    );
+    return this.http.get(`${environment.apiUrl}/egresoRentacar/${id}`);
   }
 }

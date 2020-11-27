@@ -8,39 +8,43 @@ import { environment } from '../../../../environments/environment';
 })
 export class ContratoAbogadoService {
   constructor(private http: HttpClient, private router: Router) {}
-
-  obtenerContratosCliente(idCliente) {
+  obtenerContratos(): any {
+    return this.http.get<[]>(
+      `${environment.apiUrl}/contratoCienteAbogado/getContratos/`
+    );
+  }
+  obtenerContratosCliente(idCliente): any {
     return this.http.get<[]>(
       `${environment.apiUrl}/contratoCienteAbogado/contratosCliente/${idCliente}`
     );
   }
-  calcularCuotas(data) {
+  calcularCuotas(data): any {
     return this.http.post<[]>(
       `${environment.apiUrl}/cuotasContrato/calcularCuotas`,
       data
     );
   }
-  crearSinoExiste(contrato) {
+  crearSinoExiste(contrato): any {
     return this.http.post<[]>(
       `${environment.apiUrl}/contratoCienteAbogado/`,
       contrato
     );
   }
-  guardarCuotas(cuotas) {
+  guardarCuotas(cuotas): any {
     return this.http.post<[]>(`${environment.apiUrl}/cuotasContrato/`, cuotas);
   }
-  obtenerContratoNumero(nContrato) {
+  obtenerContratoNumero(nContrato): any {
     return this.http.get<[]>(
       `${environment.apiUrl}/contratoCienteAbogado/contratosNumero/${nContrato}`
     );
   }
-  registrarPago(idCuota) {
+  registrarPago(idCuota): any {
     return this.http.post<[]>(
       `${environment.apiUrl}/cuotasContrato/registrarPago/`,
       idCuota
     );
   }
-  repactarContrato(excuotas, newcuotas) {
+  repactarContrato(excuotas, newcuotas): any {
     return this.http.post<[]>(
       `${environment.apiUrl}/cuotasContrato/repactarContrato/`,
       { excuotas: excuotas, newcuotas: newcuotas }
