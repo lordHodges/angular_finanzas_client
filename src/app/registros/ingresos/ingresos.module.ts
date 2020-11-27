@@ -13,6 +13,7 @@ import { InmobiliariaFormComponent } from './inmobiliaria/inmobiliaria-form/inmo
 import { InmobiliariaListComponent } from './inmobiliaria/inmobiliaria-list/inmobiliaria-list.component';
 import { LubricentroFormComponent } from './lubricentro/lubricentro-form/lubricentro-form.component';
 import { LubricentroListComponent } from './lubricentro/lubricentro-list/lubricentro-list.component';
+import { CostoLubricentroFormComponent } from './lubricentro/costo-lubricentro-form/costo-lubricentro-form.component';
 import { RentacarFormComponent } from './rentacar/rentacar-form/rentacar-form.component';
 import { RentacarListComponent } from './rentacar/rentacar-list/rentacar-list.component';
 import { RespaldosComponent } from './hostal/respaldos/respaldos.component';
@@ -53,6 +54,7 @@ import { PagoCuotasComponent } from './firmaAbogados/pago-cuotas/pago-cuotas.com
     ContratosListComponent,
     ContratosFormComponent,
     PagoCuotasComponent,
+    CostoLubricentroFormComponent,
   ],
   imports: [
     CommonModule,

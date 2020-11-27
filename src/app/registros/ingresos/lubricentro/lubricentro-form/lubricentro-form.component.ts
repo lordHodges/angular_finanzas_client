@@ -17,6 +17,7 @@ import { Empresa, IngresosLubricentro, Sucursal, User } from '@app/_models';
   styleUrls: ['./lubricentro-form.component.less'],
 })
 export class LubricentroFormComponent implements OnInit {
+  
   form: FormGroup;
   id: string;
   empresas = null;
@@ -28,6 +29,7 @@ export class LubricentroFormComponent implements OnInit {
   loading = true;
   usuario: User;
   idUsuario = null;
+  idEgreso = null;
   respuesta;
   ingreso = new IngresosLubricentro();
 
@@ -99,8 +101,8 @@ export class LubricentroFormComponent implements OnInit {
       banco: [''],
       referenciaCliente: [''],
       referenciaOtros: [''],
-
       idUsuario: this.idUsuario,
+      idEgreso: this.idEgreso,
     });
   }
 
@@ -149,17 +151,19 @@ export class LubricentroFormComponent implements OnInit {
     this.ingreso.idUsuario = this.form.value.idUsuario;
     this.ingreso.nAutorizacion = this.form.value.nAutorizacion;
     this.ingreso.banco = this.form.value.banco;
-    
-    if (this.form.value.referenciaCliente = 'Otros'){
+
+    if (this.form.value.referenciaCliente == 'Otros'){
       this.ingreso.referenciaCliente = this.form.value.referenciaOtros;
-    } else{
+    } 
+    else
+    {
       this.ingreso.referenciaCliente = this.form.value.referenciaCliente;
     }
 
     let cadena = '';
 
     for (let i = 0; i < this.form.value.tipoIngreso.length; i++) {
-      cadena = cadena + ' ' + this.form.value.tipoIngreso[i];
+      cadena = cadena + '' + this.form.value.tipoIngreso[i];
     }
 
     for (let i = 0; i < this.respuesta.length; i++) {
