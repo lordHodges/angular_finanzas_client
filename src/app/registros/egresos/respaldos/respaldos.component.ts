@@ -43,7 +43,7 @@ export class RespaldosComponent implements OnInit, OnChanges {
     private route: ActivatedRoute
   ) {
     let urlAPi = '';
-    this.idEmpresa = this.route.snapshot.params['idEmpresa'];
+    this.idEmpresa = this.route.snapshot.params.idEmpresa;
 
     switch (this.idEmpresa) {
       case '1':
@@ -51,6 +51,9 @@ export class RespaldosComponent implements OnInit, OnChanges {
         break;
       case '2':
         urlAPi = `${environment.apiUrl}/egresoFirma/upload`;
+        break;
+      case '4':
+        urlAPi = `${environment.apiUrl}/egresoRentacar/upload`;
         break;
       default:
         break;

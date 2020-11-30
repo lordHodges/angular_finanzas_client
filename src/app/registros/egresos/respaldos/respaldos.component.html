@@ -159,11 +159,7 @@
       <div class="panel-body">
         <!-- TODO {{ response }} -->
 
-        <button
-          class="btn btn-cyan"
-          *ngFor="let r of response"
-          (click)="decargar(r)"
-        >
+        <button class="btn btn-cyan" *ngFor="let r of response">
           {{ r }}
         </button>
       </div>

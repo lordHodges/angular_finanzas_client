@@ -114,6 +114,8 @@ export class RentacarFormComponent implements OnInit {
     this.egreso.idSucursal = this.form.value.idSucursal;
     this.egreso.idUsuario = this.form.value.idUsuario;
     this.egreso.tipoEgreso = this.form.value.tipoEgreso;
+    this.egreso.idArriendo = this.form.value.idArriendo;
+
     for (let i = 0; i < this.respuesta.length; i++) {
       this.egreso.RespaldoEgresos.push({ url: this.respuesta[i] });
     }

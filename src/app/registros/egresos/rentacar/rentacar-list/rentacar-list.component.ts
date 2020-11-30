@@ -156,6 +156,30 @@ export class RentacarListComponent implements OnInit {
       );
     }
   }
+  detalle = null;
+  getDetalleEgreso(): void {
+    let rowView;
+
+    this.selectedRows = [];
+    this.agGrid.api.getSelectedRows().forEach((x) => this.selectedRows.push(x));
+    this.modalService.open('detalleEgreso');
+    if (this.selectedRows.length <= 1 && this.selectedRows.length > 0) {
+      this.selectedRows.forEach((x) => {
+        rowView = x.id;
+        this.rowFind = rowView;
+        this.egresoService
+          .getDetalleEgreso(rowView)
+          .pipe()
+          .subscribe((x) => {
+            this.detalle = x;
+          });
+      });
+    } else {
+      alert(
+        `Atencion: No es posible visualizar ${this.selectedRows.length} Registros`
+      );
+    }
+  }
   mostrar(e): void {
     if (e.target.checked) {
       this.mostrarList = true;
