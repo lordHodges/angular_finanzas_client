@@ -9,6 +9,8 @@ import { FirmaAbogadosListComponent } from './firmaAbogados/firma-abogados-list/
 import { FirmaAbogadosFormComponent } from './firmaAbogados/firma-abogados-form/firma-abogados-form.component';
 import { RentacarListComponent } from '../egresos/rentacar/rentacar-list/rentacar-list.component';
 import { RentacarFormComponent } from '../egresos/rentacar/rentacar-form/rentacar-form.component';
+import { InmobiliariaListComponent } from './inmobiliaria/inmobiliaria-list/inmobiliaria-list.component';
+import { InmobiliariaFormComponent } from './inmobiliaria/inmobiliaria-form/inmobiliaria-form.component';
 const routes: Routes = [
   {
     path: '',
@@ -56,6 +58,17 @@ const routes: Routes = [
         component: RentacarListComponent,
         children: [
           { path: 'add/:idEmpresa', component: RentacarFormComponent },
+        ],
+      },
+      {
+        path: 'inmobiliaria',
+        component: InmobiliariaListComponent,
+        children: [
+          { path: 'add/:idEmpresa', component: InmobiliariaFormComponent },
+          {
+            path: 'edit/:id/:idEmpresa',
+            component: InmobiliariaFormComponent,
+          },
         ],
       },
     ],

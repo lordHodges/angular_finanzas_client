@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LubricentroFormComponent } from './costo-lubricentro-form.component';
+import { InmobiliariaListComponent } from './inmobiliaria-list.component';
 
-describe('LubricentroFormComponent', () => {
-  let component: LubricentroFormComponent;
-  let fixture: ComponentFixture<LubricentroFormComponent>;
+describe('InmobiliariaListComponent', () => {
+  let component: InmobiliariaListComponent;
+  let fixture: ComponentFixture<InmobiliariaListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LubricentroFormComponent ]
+      declarations: [ InmobiliariaListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LubricentroFormComponent);
+    fixture = TestBed.createComponent(InmobiliariaListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

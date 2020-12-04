@@ -1,9 +1,7 @@
-<!--TODO se debe analzar el añadir la planilla completa de calculo entregada por danielaZuniaga  -->
-
 <div class="card">
     <div class="card-header">
-      <h5 *ngIf="isAddMode">Agregar Ingresos {{ empresa.razonSocial }}</h5>
-      <h5 *ngIf="!isAddMode">Editar Ingresos {{ empresa.razonSocial }}</h5>
+      <h5 *ngIf="isAddMode">Agregar Egresos {{ empresa.razonSocial }}</h5>
+      <h5 *ngIf="!isAddMode">Editar Egresos {{ empresa.razonSocial }}</h5>
     </div>
     <div class="card-body">
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -43,65 +41,37 @@
               <option value="Valles de Santa Fe">Valles de Santa Fe</option>
               <option value="Casa Jardin del Este">Casa Jardin del Este</option>
               <option value="Cerezos">Cerezos</option>
-              <option value="Otros">Otra</option>
+              <option value="Otra">Otra</option>
             </select>
           </div>
-          <div *ngIf="f.propiedad.value == 'Otros' ">
-            <label for="otraPropiedad">Otra Propiedad</label>
-                <input
-                  type="text"
-                  formControlName="otraPropiedad"
-                  class="form-control"
-                />
+          <div *ngIf="f.propiedad.value == 'Otra' ">
+          <label for="otraPropiedad">Otra Propiedad</label>
+              <input
+                type="text"
+                formControlName="otraPropiedad"
+                class="form-control"
+              />
           </div>
         </div>
         <div class="form-row">
           <div class="form-group col">
-            <label for="tipoIngreso">Tipo Ingreso</label>
+            <label for="tipoEgreso">Tipo Egreso</label>
             <select
               class="custom-select"
-              name="tipoIngreso"
-              id="tipoIngreso"
-              formControlName="tipoIngreso"
+              name="tipoEgreso"
+              id="tipoEgreso"
+              formControlName="tipoEgreso"
               class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f.tipoIngreso.errors }"
+              [ngClass]="{ 'is-invalid': submitted && f.tipoEgreso.errors }"
             >
               <option value="">Seleccionar</option>
-              <option value="Venta">Venta</option>
-              <option value="Arriendo">Arriendo</option>
-              <option value="Otros">Otro</option>
+              <option value="Gastos">Gastos</option>
+              <option value="Costos">Costos</option>
+              <option value="Remuneraciones">Remuneraciones</option>
+              <option value="Bancarios">Bancarios</option>
+              <option value="Impuestos">Impuestos</option>
             </select>
           </div>
-          <div *ngIf="f.tipoIngreso.value == 'Otros' ">
-            <label for="ingresoOtros">Otro Ingreso</label>
-                <input
-                  type="text"
-                  formControlName="ingresoOtros"
-                  class="form-control"
-                />
-          </div>
-          <div class="form-group col">
-            <label for="descripcionIngreso">Descripcion Ingreso</label>
-            <input
-              type="text"
-              formControlName="descripcionIngreso"
-              class="form-control"
-              value="{{ f.descripcionIngreso }}"
-              [ngClass]="{
-                'is-invalid': submitted && f.descripcionIngreso.errors
-              }"
-            />
-            <div
-              *ngIf="submitted && f.descripcionIngreso.errors"
-              class="invalid-feedback"
-            >
-              <div *ngIf="f.descripcionIngreso.errors.required">
-                este campo es requerido
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="form-row">
           <div class="form-group col">
             <label for="fecha">Fecha</label>
             <input
@@ -129,6 +99,45 @@
           </div>
         </div>
         <div class="form-row">
+          <div class="form-group col">
+            <label for="responsable">Responsable</label>
+            <input
+              type="text"
+              formControlName="responsable"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.responsable.errors }"
+            />
+            <div
+              *ngIf="submitted && f.responsable.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.responsable.errors.required">
+                este campo es requerido
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col">
+            <label for="descripcion">Descripcion</label>
+            <input
+              type="text"
+              formControlName="descripcion"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.descripcion.errors }"
+            />
+            <div
+              *ngIf="submitted && f.descripcion.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.descripcion.errors.required">
+                este campo es requerido
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="form-row">
           <!-- respaldo de documentacion -->
           <app-respald
             (listo)="envv($event)"
@@ -138,14 +147,14 @@
         </div>
         <div class="form-row">
           <div class="form-group">
-            <button [disabled]="loading" class="btn btn-primary">
+            <button #guardar [disabled]="loading" class="btn btn-primary">
               <span
                 *ngIf="loading"
                 class="spinner-border spinner-border-sm mr-1"
               ></span>
               Guardar
             </button>
-            <a routerLink="/ingresos/inmobiliaria" class="btn btn-link">Cancelar</a>
+            <a routerLink="/egresos" class="btn btn-link">Cancelar</a>
           </div>
         </div>
       </form>

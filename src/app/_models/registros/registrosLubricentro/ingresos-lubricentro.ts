@@ -28,4 +28,5 @@ export class IngresosLubricentro{
     Sucursal: Sucursal[];
     Usuario: User[];
     RespaldoIngresoLubricentros: any[];
+    idCosto: number;
 }

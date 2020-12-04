@@ -15,3 +15,6 @@ export * from '@app/_services/ingresos/causasAbogados/contrato-abogado.service';
 export * from '@app/_services/egresos/egreso-firma.service';
 export * from '@app/_services/ingresos/ingreso-rentacar.service';
 export * from '@app/_services/egresos/egreso-rentacar.service';
+export * from '@app/_services/ingresos/costo-lubricentro.service';
+export * from '@app/_services/ingresos/ingreso-inmobiliaria.service';
+export * from '@app/_services/egresos/egreso-inmobiliaria.service';

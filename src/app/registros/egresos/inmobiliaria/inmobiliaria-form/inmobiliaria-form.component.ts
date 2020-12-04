@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -6,17 +6,16 @@ import {
   EmpresaService,
   AlertService,
   AccountService,
-  EgresoLubricentroService,
+  EgresoInmobiliariaService,
 } from '@app/_services';
 import { first } from 'rxjs/operators';
-import { EgresosLubricentro, Empresa, Sucursal, User } from '@app/_models';
-
+import { EgresosInmobiliaria, Empresa, Sucursal, User } from '@app/_models';
 @Component({
-  selector: 'app-lubricentro-form',
-  templateUrl: './lubricentro-form.component.html',
-  styleUrls: ['./lubricentro-form.component.less'],
+  selector: 'app-inmobiliaria-form',
+  templateUrl: './inmobiliaria-form.component.html',
+  styleUrls: ['./inmobiliaria-form.component.less']
 })
-export class LubricentroFormComponent implements OnInit {
+export class InmobiliariaFormComponent implements OnInit {
   form: FormGroup;
   id: string;
   empresas = null;
@@ -28,7 +27,7 @@ export class LubricentroFormComponent implements OnInit {
   loading = true;
   usuario: User;
   idUsuario = null;
-  egreso = new EgresosLubricentro();
+  egreso = new EgresosInmobiliaria();
   respuesta;
 
   constructor(
@@ -37,7 +36,7 @@ export class LubricentroFormComponent implements OnInit {
     private router: Router,
     private empresaService: EmpresaService,
     private alertService: AlertService,
-    private egresoLubricentroService: EgresoLubricentroService,
+    private egresoInmobiliariaService: EgresoInmobiliariaService,
     private accountService: AccountService
   ) {
     this.usuario = this.accountService.userValue;
@@ -49,9 +48,9 @@ export class LubricentroFormComponent implements OnInit {
   resp(e) {
     this.respuesta = e;
   }
-  ngOnInit() {
-    this.idEmpresa = this.route.snapshot.params['idEmpresa'];
-    this.id = this.route.snapshot.params['id'];
+  ngOnInit(): void {
+    this.idEmpresa = this.route.snapshot.params.idEmpresa;
+    this.id = this.route.snapshot.params.id;
     this.isAddMode = !this.id;
     this.empresaService
       .getAll()
@@ -74,6 +73,8 @@ export class LubricentroFormComponent implements OnInit {
     /* TODO AGREGAR campos numeroBoleta, Tipo Documento(boleta, factura), documento */
 
     this.form = this.formBuilder.group({
+      propiedad: ['', Validators.required],
+      otraPropiedad: [''],
       fecha: ['', Validators.required],
       monto: ['', Validators.required],
       tipoEgreso: ['', Validators.required],
@@ -84,10 +85,11 @@ export class LubricentroFormComponent implements OnInit {
     });
 
     if (!this.isAddMode) {
-      this.egresoLubricentroService
+      this.egresoInmobiliariaService
         .getById(this.id)
         .pipe(first())
         .subscribe((x) => {
+          this.f.propiedad.setValue(x.propiedad)
           this.f.fecha.setValue(x.fecha);
           this.f.monto.setValue(x.monto);
           this.f.descripcion.setValue(x.descripcion);
@@ -97,10 +99,10 @@ export class LubricentroFormComponent implements OnInit {
     }
   }
 
-  get f() {
+  get f(): any {
     return this.form.controls;
   }
-  onSubmit() {
+  onSubmit(): void {
     this.submitted = true;
 
     // reset alerts on submit
@@ -121,7 +123,12 @@ export class LubricentroFormComponent implements OnInit {
 
   private createEgreso() {
     console.log(this.respuesta);
-    this.egreso.RespaldoEgresoLubricentros = [];
+    this.egreso.RespaldoEgresoInmobiliaria = [];
+    if (this.form.value.propiedad == 'Otra') {
+      this.egreso.propiedad = this.form.value.otraPropiedad;
+    } else {
+      this.egreso.propiedad = this.form.value.propiedad;
+    }
     this.egreso.fecha = this.form.value.fecha;
     this.egreso.monto = this.form.value.monto;
     this.egreso.descripcion = this.form.value.descripcion;
@@ -130,11 +137,11 @@ export class LubricentroFormComponent implements OnInit {
     this.egreso.idUsuario = this.form.value.idUsuario;
     this.egreso.tipoEgreso = this.form.value.tipoEgreso;
     for (let i = 0; i < this.respuesta.length; i++) {
-      this.egreso.RespaldoEgresoLubricentros.push({ url: this.respuesta[i] });
+      this.egreso.RespaldoEgresoInmobiliaria.push({ url: this.respuesta[i] });
     }
-
+    
     console.log(this.egreso);
-    this.egresoLubricentroService
+    this.egresoInmobiliariaService
       .create(this.egreso)
       .pipe(first())
       .subscribe(
@@ -150,21 +157,23 @@ export class LubricentroFormComponent implements OnInit {
         }
       );
   }
+  
   private updateEgreso() {
-    this.egresoLubricentroService
-      .update(this.id, this.form.value)
-      .pipe(first())
-      .subscribe(
-        (data) => {
-          this.alertService.success('Egreso editado con Exito', {
-            keepAfterRouteChange: true,
-          });
-          this.router.navigate(['..', { relativeTo: this.route }]);
-        },
-        (error) => {
-          this.alertService.error(error);
-          this.loading = false;
-        }
-      );
-  }
+    this.egresoInmobiliariaService
+    .update(this.id, this.form.value)
+    .pipe(first())
+    .subscribe(
+      (data) => {
+        this.alertService.success('Egreso editado con Exito', {
+          keepAfterRouteChange: true,
+        });
+        this.router.navigate(['..', { relativeTo: this.route }]);
+      },
+      (error) => {
+        this.alertService.error(error);
+        this.loading = false;
+      }
+    );
 }
+}
+

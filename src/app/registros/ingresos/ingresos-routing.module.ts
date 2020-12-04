@@ -9,13 +9,12 @@ import { HostalListComponent } from './hostal/hostal-list/hostal-list.component'
 import { RentacarListComponent } from './rentacar/rentacar-list/rentacar-list.component';
 import { LubricentroFormComponent } from './lubricentro/lubricentro-form/lubricentro-form.component';
 import { LubricentroListComponent } from './lubricentro/lubricentro-list/lubricentro-list.component';
-<<<<<<< HEAD
 import { CostoLubricentroFormComponent } from './lubricentro/costo-lubricentro-form/costo-lubricentro-form.component';
-=======
 import { FirmaAbogadosListComponent } from './firmaAbogados/firma-abogados-list/firma-abogados-list.component';
 import { ClientesComponent } from '@app/_components/clientes/clientes.component';
 import { ListaContratosComponent } from './firmaAbogados/lista-contratos/lista-contratos.component';
->>>>>>> 0f9da0ff3462b81f21162def1b383e11d3358211
+import { InmobiliariaFormComponent } from './inmobiliaria/inmobiliaria-form/inmobiliaria-form.component';
+import { InmobiliariaListComponent } from './inmobiliaria/inmobiliaria-list/inmobiliaria-list.component';
 const routes: Routes = [
   {
     path: '',
@@ -51,9 +50,21 @@ const routes: Routes = [
         path: 'lubricentro',
         component: LubricentroListComponent,
         children: [
-          { path: 'add/:idEmpresa', component: LubricentroFormComponent },
-          { path: 'lubricentro', component: CostoLubricentroFormComponent },
-          { path: 'edit/', component: LubricentroFormComponent,},
+            { path: 'add/:idEmpresa', component: LubricentroFormComponent },
+            { path: 'add/:idCosto', component: CostoLubricentroFormComponent },
+            { path: 'edit/', component: LubricentroFormComponent,
+          },
+        ],
+      },
+      {
+        path: 'inmobiliaria',
+        component: InmobiliariaListComponent,
+        children: [
+          { path: 'add/:idEmpresa', component: InmobiliariaFormComponent },
+          {
+            path: 'edit/',
+            component: InmobiliariaFormComponent,
+          },
         ],
       },
     ],

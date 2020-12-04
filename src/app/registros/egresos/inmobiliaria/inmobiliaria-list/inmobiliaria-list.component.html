@@ -1,5 +1,5 @@
-<h4>Egresos Lubricentro</h4>
-<a routerLink="add/3" class="btn btn-sm btn-success mb-2">Agregar Egresos</a>
+<h4>Egresos Inmobiliaria</h4>
+<a routerLink="add/4" class="btn btn-sm btn-success mb-2">Agregar Egresos</a>
 <router-outlet></router-outlet>
 <br />
 <!-- Rounded switch -->
@@ -10,7 +10,7 @@
   </label>
   <h5 class="col">Mostrar Listado</h5>
 </div>
-<div *ngIf="mostrarList">
+<div class="row" *ngIf="mostrarList">
   <button class="btn btn-outline-success" (click)="getSelectedRows()">
     Calcular Filtro: {{ total | currency: "CLP" }}
   </button>
@@ -18,7 +18,6 @@
     <i class="fa fa-arrow-alt-circle-down"> </i>
     Exportar Datos
   </button>
-  <!-- llamando al modal para agregar nuevas costos asociados a un -->
   <button
     (click)="deleteEgreso()"
     disabled
@@ -32,7 +31,7 @@
     Explorar Datos
   </button>
   <!--  -->
-  <jw-modal id="modal_detalle">
+  <jw-modal [row]="rowFind" id="modal_detalle">
     <h1>Respaldos</h1>
     <ag-grid-angular
       #agGrid2
@@ -47,7 +46,10 @@
       rowSelection="multiple"
     >
     </ag-grid-angular>
-    <button (click)="closeModal('modal_detalle')" class="btn btn-danger">
+    <button
+      (click)="closeModal('modal_detalle')"
+      class="btn btn-danger"
+    >
       Cerrar
     </button>
   </jw-modal>

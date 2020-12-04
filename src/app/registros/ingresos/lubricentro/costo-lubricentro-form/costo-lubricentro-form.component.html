@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-header">
-    <h5 *ngIf="isAddMode">Agregar Egresos {{ empresa.razonSocial }}</h5>
-    <h5 *ngIf="!isAddMode">Editar Egresos {{ empresa.razonSocial }}</h5>
+    <h5 *ngIf="isAddMode">Agregar Costos {{ empresa.razonSocial }}</h5>
+    <h5 *ngIf="!isAddMode">Editar Costos {{ empresa.razonSocial }}</h5>
   </div>
   <div class="card-body">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -23,21 +23,21 @@
           </select>
         </div>
         <div class="form-group col">
-          <label for="tipoEgreso">Tipo Egreso</label>
+          <label for="tipoCosto">Tipo Costo</label>
           <select
             class="custom-select"
-            name="tipoEgreso"
-            id="tipoEgreso"
-            formControlName="tipoEgreso"
+            name="tipoCosto"
+            id="tipoCosto"
+            formControlName="tipoCosto"
             class="form-control"
-            [ngClass]="{ 'is-invalid': submitted && f.tipoEgreso.errors }"
+            [ngClass]="{ 'is-invalid': submitted && f.tipoCosto.errors }"
           >
             <option value="">Seleccionar</option>
-            <option value="Gastos">Gastos</option>
-            <option value="Costos">Costos</option>
-            <option value="Remuneraciones">Remuneraciones</option>
-            <option value="Bancarios">Bancarios</option>
-            <option value="Impuestos">Impuestos</option>
+            <option value="Costo1">Costo1</option>
+            <option value="Costo2">Costo2</option>
+            <option value="Costo3">Costo3</option>
+            <option value="Costo4">Costo4</option>
+            <option value="Costo5">Costo5</option>
           </select>
         </div>
       </div>

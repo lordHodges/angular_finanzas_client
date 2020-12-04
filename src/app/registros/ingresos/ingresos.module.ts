@@ -14,6 +14,7 @@ import { InmobiliariaListComponent } from './inmobiliaria/inmobiliaria-list/inmo
 import { LubricentroFormComponent } from './lubricentro/lubricentro-form/lubricentro-form.component';
 import { LubricentroListComponent } from './lubricentro/lubricentro-list/lubricentro-list.component';
 import { CostoLubricentroFormComponent } from './lubricentro/costo-lubricentro-form/costo-lubricentro-form.component';
+import { CostoLubricentroListComponent } from './lubricentro/costo-lubricentro-list/costo-lubricentro-list.component';
 import { RentacarFormComponent } from './rentacar/rentacar-form/rentacar-form.component';
 import { RentacarListComponent } from './rentacar/rentacar-list/rentacar-list.component';
 import { RespaldosComponent } from './hostal/respaldos/respaldos.component';
@@ -31,6 +32,8 @@ import { PagoCuotasComponent } from './firmaAbogados/pago-cuotas/pago-cuotas.com
 import { importType } from '@angular/compiler/src/output/output_ast';
 import { ClientesComponent } from '@app/_components/clientes/clientes.component';
 import { ListaContratosComponent } from './firmaAbogados/lista-contratos/lista-contratos.component';
+import { RespaldComponent } from './inmobiliaria/respald/respald.component';
+
 
 @NgModule({
   declarations: [
@@ -50,17 +53,16 @@ import { ListaContratosComponent } from './firmaAbogados/lista-contratos/lista-c
     RentacarListComponent,
     RespaldosComponent,
     RespaldoComponent,
+    RespaldComponent,
     CausasListComponent,
     CausasFormComponent,
     PagoCausaComponent,
     ContratosListComponent,
     ContratosFormComponent,
     PagoCuotasComponent,
-<<<<<<< HEAD
     CostoLubricentroFormComponent,
-=======
     ListaContratosComponent,
->>>>>>> 0f9da0ff3462b81f21162def1b383e11d3358211
+    CostoLubricentroListComponent,
   ],
   imports: [
     CommonModule,

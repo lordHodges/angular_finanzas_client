@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  AfterViewInit,
-  ViewChild,
-} from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -12,10 +6,11 @@ import {
   EmpresaService,
   AlertService,
   AccountService,
-  EgresoLubricentroService,
+  CostoLubricentroService,
+
 } from '@app/_services';
 import { first } from 'rxjs/operators';
-import { EgresosLubricentro, Empresa, Sucursal, User } from '@app/_models';
+import { Empresa, CostoLubricentro, Sucursal, User } from '@app/_models';
 
 @Component({
   selector: 'app-costo-lubricentro-form',
@@ -23,6 +18,7 @@ import { EgresosLubricentro, Empresa, Sucursal, User } from '@app/_models';
   styleUrls: ['./costo-lubricentro-form.component.less'],
 })
 export class CostoLubricentroFormComponent implements OnInit {
+
   form: FormGroup;
   id: string;
   empresas = null;
@@ -34,8 +30,8 @@ export class CostoLubricentroFormComponent implements OnInit {
   loading = true;
   usuario: User;
   idUsuario = null;
-  idIngreso = null;
-  egreso = new EgresosLubricentro();
+  idCosto = null;
+  costo = new CostoLubricentro();
   respuesta;
 
   constructor(
@@ -44,12 +40,11 @@ export class CostoLubricentroFormComponent implements OnInit {
     private router: Router,
     private empresaService: EmpresaService,
     private alertService: AlertService,
-    private egresoLubricentroService: EgresoLubricentroService,
+    private costoLubricentroService: CostoLubricentroService,
     private accountService: AccountService
   ) {
     this.usuario = this.accountService.userValue;
     this.idUsuario = this.usuario.id;
-    this.idIngreso = this.idIngreso.id;
   }
   envv(e) {
     this.loading = e;
@@ -82,27 +77,19 @@ export class CostoLubricentroFormComponent implements OnInit {
     /* TODO AGREGAR campos numeroBoleta, Tipo Documento(boleta, factura), documento */
 
     this.form = this.formBuilder.group({
-      fecha: ['', Validators.required],
-      monto: ['', Validators.required],
-      tipoEgreso: ['', Validators.required],
-      descripcion: ['', Validators.required],
-      responsable: ['', Validators.required],
       idSucursal: ['', Validators.required],
       idUsuario: this.idUsuario,
-      idIngreso: this.idIngreso,
+      idCosto: this.idCosto,
     });
 
     if (!this.isAddMode) {
-      this.egresoLubricentroService
+      this.costoLubricentroService
         .getById(this.id)
         .pipe(first())
         .subscribe((x) => {
-          this.f.fecha.setValue(x.fecha);
-          this.f.monto.setValue(x.monto);
-          this.f.descripcion.setValue(x.descripcion);
           this.f.idSucursal.setValue(x.idSucursal);
           this.f.idUsuario.setValue(this.idUsuario);
-          this.f.idIngreso.setValue(this.idIngreso);
+          this.f.idCosto.setValue(this.idCosto);
         });
     }
   }
@@ -123,29 +110,24 @@ export class CostoLubricentroFormComponent implements OnInit {
 
     this.loading = true;
     if (this.isAddMode) {
-      this.createEgreso();
+      this.createCosto();
     } else {
-      this.updateEgreso();
+      this.updateCosto();
     }
   }
 
-  private createEgreso() {
+  private createCosto() {
     console.log(this.respuesta);
-    this.egreso.RespaldoEgresoLubricentros = [];
-    this.egreso.fecha = this.form.value.fecha;
-    this.egreso.monto = this.form.value.monto;
-    this.egreso.descripcion = this.form.value.descripcion;
-    this.egreso.responsable = this.form.value.responsable;
-    this.egreso.idSucursal = this.form.value.idSucursal;
-    this.egreso.idUsuario = this.form.value.idUsuario;
-    this.egreso.tipoEgreso = this.form.value.tipoEgreso;
+    this.costo.RespaldoCostoLubricentros = [];
+    this.costo.idSucursal = this.form.value.idSucursal;
+    this.costo.idUsuario = this.form.value.idUsuario;
     for (let i = 0; i < this.respuesta.length; i++) {
-      this.egreso.RespaldoEgresoLubricentros.push({ url: this.respuesta[i] });
+      this.costo.RespaldoCostoLubricentros.push({ url: this.respuesta[i] });
     }
 
-    console.log(this.egreso);
-    this.egresoLubricentroService
-      .create(this.egreso)
+    console.log(this.costo);
+    this.costoLubricentroService
+      .create(this.costo)
       .pipe(first())
       .subscribe(
         (data) => {
@@ -160,8 +142,8 @@ export class CostoLubricentroFormComponent implements OnInit {
         }
       );
   }
-  private updateEgreso() {
-    this.egresoLubricentroService
+  private updateCosto() {
+    this.costoLubricentroService
       .update(this.id, this.form.value)
       .pipe(first())
       .subscribe(

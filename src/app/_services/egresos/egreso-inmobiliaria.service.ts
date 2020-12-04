@@ -3,29 +3,29 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { EgresosLubricentro } from '@app/_models';
+import { EgresosInmobiliaria } from '@app/_models';
 @Injectable({
   providedIn: 'root',
 })
-export class EgresoLubricentroService {
-  private egresosLubricentroSubject: BehaviorSubject<EgresosLubricentro>;
-  private EgresosLubricentro: Observable<EgresosLubricentro>;
+export class EgresoInmobiliariaService {
+  private egresosInmobiliariaSubject: BehaviorSubject<EgresosInmobiliaria>;
+  private EgresosInmobiliaria: Observable<EgresosInmobiliaria>;
   constructor(private http: HttpClient, private router: Router) {}
-  public get EgresosLubricentroValue(): EgresosLubricentro {
-    return this.egresosLubricentroSubject.value;
+  public get EgresosInmobiliariaValue(): EgresosInmobiliaria {
+    return this.egresosInmobiliariaSubject.value;
   }
-  create(EgresosLubricentro: EgresosLubricentro) {
+  create(EgresosInmobiliaria: EgresosInmobiliaria) {
     return this.http.post(
-      `${environment.apiUrl}/egresoLubricentro/conRespaldo`,
-      EgresosLubricentro
+      `${environment.apiUrl}/egresoInmobiliaria/conRespaldo`,
+      EgresosInmobiliaria
     );
   }
   getAll() {
-    return this.http.get<[]>(`${environment.apiUrl}/egresoLubricentro`);
+    return this.http.get<[]>(`${environment.apiUrl}/egresoInmobiliaria`);
   }
   getFiles(fileName: string) {
     return this.http
-      .get(`${environment.apiUrl}/egresoLubricentro/download/${fileName}`, {
+      .get(`${environment.apiUrl}/egresoInmobiliaria/download/${fileName}`, {
         responseType: 'blob',
       })
       .subscribe((res) => {
@@ -40,9 +40,9 @@ export class EgresoLubricentroService {
       });
   }
 
-  getById(id: string) {
-    return this.http.get<EgresosLubricentro>(
-      `${environment.apiUrl}/egresoLubricentro/${id}`
+  getById(id: string):any {
+    return this.http.get<EgresosInmobiliaria>(
+      `${environment.apiUrl}/egresoInmobiliaria/${id}`
     );
   }
   update(id, params) {

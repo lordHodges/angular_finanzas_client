@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
-  EgresoLubricentroService,
+  EgresoInmobiliariaService,
   EmpresaService,
   ExcelService,
 } from '@app/_services';
 import { first } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
-import { EgresosLubricentro, Empresa } from '@app/_models';
+import { EgresosInmobiliaria, Empresa } from '@app/_models';
 import { Observable, Subject, Subscription } from 'rxjs';
 
 import { HttpClient, HttpResponse } from '@angular/common/http';
@@ -16,28 +16,28 @@ import { GridOptions } from 'ag-grid-community';
 import { ModalService } from '@app/_components/_modal';
 
 @Component({
-  selector: 'app-lubricentro-list',
-  templateUrl: './lubricentro-list.component.html',
-  styleUrls: ['./lubricentro-list.component.less'],
+  selector: 'app-inmobiliaria-list',
+  templateUrl: './inmobiliaria-list.component.html',
+  styleUrls: ['./inmobiliaria-list.component.less']
 })
-export class LubricentroListComponent implements OnInit {
+export class InmobiliariaListComponent implements OnInit {
   @ViewChild('agGrid') agGrid: AgGridAngular;
 
   private gridApi: any;
   private gridApi2: any;
   private gridColumnApi: any;
   selectedRows: any[];
-  egresos: EgresosLubricentro[];
-  _egreso: EgresosLubricentro;
-  egresosJQ: EgresosLubricentro[];
+  egresos: EgresosInmobiliaria[];
+  _egreso: EgresosInmobiliaria;
+  egresosJQ: EgresosInmobiliaria[];
   idEmpresa = null;
   id = null;
   mostrarList = true;
-  subscripcion: Subscription;
   empresa: Empresa;
-  total: number = 0;
+  total = 0;
 
   // mdtable
+
   rowFind;
   rowData: any;
   columnDefs = [
@@ -48,9 +48,10 @@ export class LubricentroListComponent implements OnInit {
       filter: true,
       checkboxSelection: true,
     },
+    { field: 'propiedad', sortable: true, filter: true },
     { field: 'fecha', sortable: true, filter: true },
     { field: 'monto', sortable: true, filter: true },
-    { field: 'responsable', sortable: true, filter: true },
+    { field: 'tipoEgreso', sortable: true, filter: true },
     { field: 'descripcion', sortable: true, filter: true },
     {
       headerName: 'Sucursal',
@@ -58,7 +59,6 @@ export class LubricentroListComponent implements OnInit {
       sortable: true,
       filter: true,
     },
-    { field: 'tipoEgreso', sortable: true, filter: true },
 
     {
       headerName: 'Usuario',
@@ -67,7 +67,7 @@ export class LubricentroListComponent implements OnInit {
       filter: true,
     },
   ];
-  // Tabla Modal
+  // tabla modal
   rowData2: any;
   columnDefs2 = [
     {
@@ -78,9 +78,10 @@ export class LubricentroListComponent implements OnInit {
       checkboxSelection: false,
     },
   ];
+  //
 
   constructor(
-    private egresoService: EgresoLubricentroService,
+    private egresoService: EgresoInmobiliariaService,
     private route: ActivatedRoute,
     private empresaService: EmpresaService,
     private excelService: ExcelService,
@@ -88,10 +89,10 @@ export class LubricentroListComponent implements OnInit {
     private modalService: ModalService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     /* rescatar parametros de la ruta */
-    this.idEmpresa = this.route.snapshot.params['idEmpresa'];
-    this.id = this.route.snapshot.params['id'];
+    this.idEmpresa = this.route.snapshot.params.idEmpresa;
+    this.id = this.route.snapshot.params.id;
     // extraer empresa y suscursales
     this.empresaService
       .getByIdWithSucursales(this.idEmpresa)
@@ -106,34 +107,33 @@ export class LubricentroListComponent implements OnInit {
       .getAll()
       .pipe(first())
       .subscribe((x) => (this.egresosJQ = x));
-    // TODO campos de configuracion de datatable jq.
     this.rowData = this.egresoService.getAll();
   }
   // modal metodos
 
-  closeModal(id: string) {
+  closeModal(id: string): void {
     this.modalService.close(id);
   }
   //
-  onSelectionChanged() {
-    var selectedRows = this.gridApi2.getSelectedRows();
+  onSelectionChanged(): void {
+    const selectedRows = this.gridApi2.getSelectedRows();
     this.egresoService.getFiles(selectedRows[0].url);
   }
 
-  onGridReady(params) {
+  onGridReady(params): void {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 
     params.api.expandAll();
   }
-  onGridReady2(params) {
+  onGridReady2(params): void {
     this.gridApi2 = params.api;
     this.gridColumnApi = params.columnApi;
 
     params.api.expandAll();
   }
 
-  getSelectedRows() {
+  getSelectedRows(): void {
     this.total = 0;
     this.selectedRows = [];
     this.agGrid.api.getSelectedRows().forEach((x) => this.selectedRows.push(x));
@@ -148,7 +148,7 @@ export class LubricentroListComponent implements OnInit {
   }
 
   ////////////////////////////////////
-  mostrar(e) {
+  mostrar(e): void {
     if (e.target.checked) {
       this.mostrarList = true;
       this.ngOnInit();
@@ -158,7 +158,7 @@ export class LubricentroListComponent implements OnInit {
     }
   }
   ////////////////////////////
-  detalleEgreso() {
+  detalleEgreso(): void {
     let rowView;
 
     this.selectedRows = [];
@@ -172,7 +172,7 @@ export class LubricentroListComponent implements OnInit {
           .getById(rowView)
           .pipe()
           .subscribe((x) => {
-            this.rowData2 = x[0].RespaldoEgresoLubricentros;
+            this.rowData2 = x[0].RespaldoEgresoInmobiliaria;
           });
       });
     } else {
@@ -191,11 +191,10 @@ export class LubricentroListComponent implements OnInit {
           this.egresos = this.egresos.filter((x) => x.id !== id);
         });
       egreso.isDeleting = false;
-    } */
+    } 
   }
-  deleteEgreso() {
+  deleteEgreso(): void {
     let rowToDel;
-
     this.selectedRows = [];
     this.agGrid.api.getSelectedRows().forEach((x) => this.selectedRows.push(x));
     if (this.selectedRows.length <= 1 && this.selectedRows.length > 0) {
@@ -210,7 +209,7 @@ export class LubricentroListComponent implements OnInit {
           .pipe(first())
           .subscribe(() => {
             this.rowData = this.egresoService.getAll();
-          });
+          }); 
       }
     } else {
       alert(

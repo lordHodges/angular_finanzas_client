@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
-  EgresoLubricentroService,
+  CostoLubricentroService,
   EmpresaService,
   ExcelService,
 } from '@app/_services';
 import { first } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
-import { EgresosLubricentro, Empresa } from '@app/_models';
+import { CostoLubricentro, Empresa } from '@app/_models';
 import { Observable, Subject, Subscription } from 'rxjs';
 
 import { HttpClient, HttpResponse } from '@angular/common/http';
@@ -16,20 +16,20 @@ import { GridOptions } from 'ag-grid-community';
 import { ModalService } from '@app/_components/_modal';
 
 @Component({
-  selector: 'app-lubricentro-list',
-  templateUrl: './lubricentro-list.component.html',
-  styleUrls: ['./lubricentro-list.component.less'],
+  selector: 'app-costo-lubricentro-list',
+  templateUrl: './costo-lubricentro-list.component.html',
+  styleUrls: ['./costo-lubricentro-list.component.less'],
 })
-export class LubricentroListComponent implements OnInit {
+export class CostoLubricentroListComponent implements OnInit {
   @ViewChild('agGrid') agGrid: AgGridAngular;
 
   private gridApi: any;
   private gridApi2: any;
   private gridColumnApi: any;
   selectedRows: any[];
-  egresos: EgresosLubricentro[];
-  _egreso: EgresosLubricentro;
-  egresosJQ: EgresosLubricentro[];
+  costo: CostoLubricentro[];
+  _costo: CostoLubricentro;
+  costoJQ: CostoLubricentro[];
   idEmpresa = null;
   id = null;
   mostrarList = true;
@@ -48,17 +48,13 @@ export class LubricentroListComponent implements OnInit {
       filter: true,
       checkboxSelection: true,
     },
-    { field: 'fecha', sortable: true, filter: true },
-    { field: 'monto', sortable: true, filter: true },
-    { field: 'responsable', sortable: true, filter: true },
-    { field: 'descripcion', sortable: true, filter: true },
     {
       headerName: 'Sucursal',
       field: 'Sucursal.razonSocial',
       sortable: true,
       filter: true,
     },
-    { field: 'tipoEgreso', sortable: true, filter: true },
+    { field: 'tipoCosto', sortable: true, filter: true },
 
     {
       headerName: 'Usuario',
@@ -80,7 +76,7 @@ export class LubricentroListComponent implements OnInit {
   ];
 
   constructor(
-    private egresoService: EgresoLubricentroService,
+    private costoService: CostoLubricentroService,
     private route: ActivatedRoute,
     private empresaService: EmpresaService,
     private excelService: ExcelService,
@@ -97,17 +93,17 @@ export class LubricentroListComponent implements OnInit {
       .getByIdWithSucursales(this.idEmpresa)
       .pipe(first())
       .subscribe((x) => {
-        x.Sucursals = Object.values(x.Sucursals);
+        x['Sucursals'] = Object.values(x['Sucursals']);
 
         this.empresa = x;
       });
     // consultar registros ingresados
-    this.egresoService
+    this.costoService
       .getAll()
       .pipe(first())
-      .subscribe((x) => (this.egresosJQ = x));
+      .subscribe((x) => (this.costoJQ = x));
     // TODO campos de configuracion de datatable jq.
-    this.rowData = this.egresoService.getAll();
+    this.rowData = this.costoService.getAll();
   }
   // modal metodos
 
@@ -117,7 +113,7 @@ export class LubricentroListComponent implements OnInit {
   //
   onSelectionChanged() {
     var selectedRows = this.gridApi2.getSelectedRows();
-    this.egresoService.getFiles(selectedRows[0].url);
+    this.costoService.getFiles(selectedRows[0].url);
   }
 
   onGridReady(params) {
@@ -168,11 +164,11 @@ export class LubricentroListComponent implements OnInit {
       this.selectedRows.forEach((x) => {
         rowView = x.id;
         this.rowFind = rowView;
-        this.egresoService
+        this.costoService
           .getById(rowView)
           .pipe()
           .subscribe((x) => {
-            this.rowData2 = x[0].RespaldoEgresoLubricentros;
+            this.rowData2 = x[0].RespaldoCostoLubricentros;
           });
       });
     } else {
@@ -205,11 +201,11 @@ export class LubricentroListComponent implements OnInit {
       if (
         confirm(`Esta seguro que desea eliminar el registro ID: ${rowToDel}`)
       ) {
-        this.egresoService
+        this.costoService
           .delete(rowToDel)
           .pipe(first())
           .subscribe(() => {
-            this.rowData = this.egresoService.getAll();
+            this.rowData = this.costoService.getAll();
           });
       }
     } else {

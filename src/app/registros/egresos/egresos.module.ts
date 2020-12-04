@@ -18,8 +18,11 @@ import { ModalModule } from '@app/_components/_modal';
 import { FirmaAbogadosFormComponent } from './firmaAbogados/firma-abogados-form/firma-abogados-form.component';
 import { FirmaAbogadosListComponent } from './firmaAbogados/firma-abogados-list/firma-abogados-list.component';
 import { RespaldoComponent } from '../egresos/lubricentro/respaldo/respaldo.component';
+import { RespaldComponent } from '../egresos/inmobiliaria/respald/respald.component';
 import { RentacarListComponent } from './rentacar/rentacar-list/rentacar-list.component';
 import { RentacarFormComponent } from './rentacar/rentacar-form/rentacar-form.component';
+import { InmobiliariaFormComponent } from './inmobiliaria/inmobiliaria-form/inmobiliaria-form.component';
+import { InmobiliariaListComponent } from './inmobiliaria/inmobiliaria-list/inmobiliaria-list.component';
 @NgModule({
   declarations: [
     LayoutComponent,
@@ -32,10 +35,13 @@ import { RentacarFormComponent } from './rentacar/rentacar-form/rentacar-form.co
     HostalListComponent,
     RespaldosComponent,
     RespaldoComponent,
+    RespaldComponent,
     FirmaAbogadosFormComponent,
     FirmaAbogadosListComponent,
     RentacarListComponent,
     RentacarFormComponent,
+    InmobiliariaFormComponent,
+    InmobiliariaListComponent,
   ],
   imports: [
     CommonModule,

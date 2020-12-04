@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RespaldoComponent } from './respaldo.component';
+import { RespaldComponent } from './respald.component';
 
-describe('RespaldoComponent', () => {
-  let component: RespaldoComponent;
-  let fixture: ComponentFixture<RespaldoComponent>;
+describe('RespaldosComponent', () => {
+  let component: RespaldComponent;
+  let fixture: ComponentFixture<RespaldComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RespaldoComponent ]
+      declarations: [ RespaldComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RespaldoComponent);
+    fixture = TestBed.createComponent(RespaldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
