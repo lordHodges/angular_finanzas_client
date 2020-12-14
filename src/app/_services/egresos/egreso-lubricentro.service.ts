@@ -39,6 +39,12 @@ export class EgresoLubricentroService {
         window.open(window.URL.createObjectURL(res));
       });
   }
+  /* api/egresoLubricentro/getDetalle/8 */
+  getDetalleEgreso(idEgreso): any {
+    return this.http.get(
+      `${environment.apiUrl}/egresoLubricentro/getDetalle/${idEgreso}`
+    );
+  }
 
   getById(id: string) {
     return this.http.get<EgresosLubricentro>(

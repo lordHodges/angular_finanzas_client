@@ -9,7 +9,6 @@ import { HostalListComponent } from './hostal/hostal-list/hostal-list.component'
 import { RentacarListComponent } from './rentacar/rentacar-list/rentacar-list.component';
 import { LubricentroFormComponent } from './lubricentro/lubricentro-form/lubricentro-form.component';
 import { LubricentroListComponent } from './lubricentro/lubricentro-list/lubricentro-list.component';
-import { CostoLubricentroFormComponent } from './lubricentro/costo-lubricentro-form/costo-lubricentro-form.component';
 import { FirmaAbogadosListComponent } from './firmaAbogados/firma-abogados-list/firma-abogados-list.component';
 import { ClientesComponent } from '@app/_components/clientes/clientes.component';
 import { ListaContratosComponent } from './firmaAbogados/lista-contratos/lista-contratos.component';
@@ -51,7 +50,6 @@ const routes: Routes = [
         component: LubricentroListComponent,
         children: [
             { path: 'add/:idEmpresa', component: LubricentroFormComponent },
-            { path: 'add/:idCosto', component: CostoLubricentroFormComponent },
             { path: 'edit/', component: LubricentroFormComponent,
           },
         ],

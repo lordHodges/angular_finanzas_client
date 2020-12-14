@@ -9,11 +9,11 @@ import { environment } from '../../../environments/environment';
 export class IngresoRentacarService {
   constructor(private http: HttpClient, private router: Router) {}
   getArriendos() {
-    return this.http.get<[]>(`${environment.apiUrl}/rentacar/arriendos`);
+    return this.http.get<[]>(`${environment.apiUrl}/ingresoRentacar/arriendos`);
   }
   getDetallePago(idArriendo) {
     return this.http.get<[]>(
-      `${environment.apiUrl}/rentacar/detallePago/${idArriendo}`
+      `${environment.apiUrl}/ingresoRentacar/detallePago/${idArriendo}`
     );
   }
 }

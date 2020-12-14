@@ -41,6 +41,15 @@
           </select>
         </div>
       </div>
+      <div class="form-group col" *ngIf="f.tipoEgreso.value == 'Costos'">
+        <label for="idIngreso">ID Ingreso</label>
+        <input
+          type="number"
+          formControlName="idIngreso"
+          class="form-control"
+          value="{{ f.idIngreso}}"
+        />
+      </div>
       <div class="form-row">
         <div class="form-group col">
           <label for="fecha">Fecha</label>
@@ -124,7 +133,7 @@
             ></span>
             Guardar
           </button>
-          <a routerLink="/egresos" class="btn btn-link">Cancelar</a>
+          <a routerLink="/egresos/lubricentro" class="btn btn-link">Cancelar</a>
         </div>
       </div>
     </form>

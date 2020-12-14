@@ -48,7 +48,7 @@ const routes: Routes = [
         children: [
           { path: 'add/:idEmpresa', component: LubricentroFormComponent },
           {
-            path: 'edit/:id/:idEmpresa',
+            path: 'edit/:idEmpresa',
             component: LubricentroFormComponent,
           },
         ],

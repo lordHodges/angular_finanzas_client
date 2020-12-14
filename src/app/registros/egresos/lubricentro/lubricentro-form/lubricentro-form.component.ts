@@ -28,6 +28,7 @@ export class LubricentroFormComponent implements OnInit {
   loading = true;
   usuario: User;
   idUsuario = null;
+  idIngreso = null;
   egreso = new EgresosLubricentro();
   respuesta;
 
@@ -50,8 +51,8 @@ export class LubricentroFormComponent implements OnInit {
     this.respuesta = e;
   }
   ngOnInit() {
-    this.idEmpresa = this.route.snapshot.params['idEmpresa'];
-    this.id = this.route.snapshot.params['id'];
+    this.idEmpresa = this.route.snapshot.params.idEmpresa;
+    this.id = this.route.snapshot.params.id;
     this.isAddMode = !this.id;
     this.empresaService
       .getAll()
@@ -81,6 +82,7 @@ export class LubricentroFormComponent implements OnInit {
       responsable: ['', Validators.required],
       idSucursal: ['', Validators.required],
       idUsuario: this.idUsuario,
+      idIngreso: [''],
     });
 
     if (!this.isAddMode) {
@@ -93,6 +95,7 @@ export class LubricentroFormComponent implements OnInit {
           this.f.descripcion.setValue(x.descripcion);
           this.f.idSucursal.setValue(x.idSucursal);
           this.f.idUsuario.setValue(this.idUsuario);
+          this.f.idIngreso.setValue(this.idIngreso);
         });
     }
   }
@@ -129,6 +132,7 @@ export class LubricentroFormComponent implements OnInit {
     this.egreso.idSucursal = this.form.value.idSucursal;
     this.egreso.idUsuario = this.form.value.idUsuario;
     this.egreso.tipoEgreso = this.form.value.tipoEgreso;
+    this.egreso.idIngreso = this.form.value.idIngreso;
     for (let i = 0; i < this.respuesta.length; i++) {
       this.egreso.RespaldoEgresoLubricentros.push({ url: this.respuesta[i] });
     }

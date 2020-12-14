@@ -8,4 +8,5 @@ export class EgresosRentacar {
   idSucursal: number;
   idUsuario: number;
   RespaldoEgresos: any[];
+  idArriendo: number;
 }

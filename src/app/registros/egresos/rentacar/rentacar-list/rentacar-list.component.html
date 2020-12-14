@@ -11,12 +11,15 @@
   <h5 class="col">Mostrar Listado</h5>
 </div>
 <div *ngIf="mostrarList">
-  <button class="btn btn-outline-success" (click)="getSelectedRows()">
+  <button class="btn btn-outline-success mr-2" (click)="getSelectedRows()">
     Calcular Filtro: {{ total | currency: "CLP" }}
   </button>
-  <button (click)="exportAsXLSX()" class="btn btn-success">
+  <button (click)="exportAsXLSX()" class="btn btn-success mr-2">
     <i class="fa fa-arrow-alt-circle-down"> </i>
     Exportar Datos
+  </button>
+  <button (click)="getDetalleEgreso()" class="btn btn-warning mr-2">
+    DetalleEgreso
   </button>
   <!-- <button
     (click)="deleteEgreso()"
@@ -26,10 +29,24 @@
     <i class="fa fa-trash"> </i>
     Eliminar Datos
   </button> -->
-  <button (click)="detalleEgreso()" class="btn btn-primary ml-4 right-align">
+  <button (click)="detalleEgreso()" class="btn btn-primary">
     <i class="fa fa-eye"> </i>
     Explorar Datos
   </button>
+  <!--  -->
+  <ag-grid-angular
+    #agGrid
+    id="agGrid"
+    style="width: 100%; height: 500px"
+    class="ag-theme-material"
+    [rowData]="rowData | async"
+    (gridReady)="onGridReady($event)"
+    [columnDefs]="columnDefs"
+    [animateRows]="true"
+    rowSelection="multiple"
+  >
+  </ag-grid-angular>
+  <!--  -->
   <jw-modal id="documentosEgresoHostal">
     <h1>Respaldos</h1>
     <ag-grid-angular
@@ -49,19 +66,89 @@
       (click)="closeModal('documentosEgresoHostal')"
       class="btn btn-danger"
     >
-      Close
+      Cerrar
     </button>
   </jw-modal>
-  <ag-grid-angular
-    #agGrid
-    id="agGrid"
-    style="width: 100%; height: 500px"
-    class="ag-theme-material"
-    [rowData]="rowData | async"
-    (gridReady)="onGridReady($event)"
-    [columnDefs]="columnDefs"
-    [animateRows]="true"
-    rowSelection="multiple"
-  >
-  </ag-grid-angular>
+  <!--  -->
+  <jw-modal id="detalleEgreso">
+    <div class="card mb-3" *ngIf="detalle != null">
+      <div class="card-header">
+        <h5>Detalle {{ detalle["tipoEgreso"] }}</h5>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>ID Egreso</th>
+                <th>Monto</th>
+                <th>Fecha</th>
+                <th>Sucursal</th>
+                <th>Usuario</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ detalle["id"] }}</td>
+
+                <td>{{ detalle["monto"] }}</td>
+
+                <td>{{ detalle["fecha"] }}</td>
+
+                <td>{{ detalle["Sucursal"]["razonSocial"] }}</td>
+
+                <td>{{ detalle["Usuario"]["nombre"] }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- TODO agregar campos opcionales de costos -->
+    </div>
+    <div
+      class="card mb-3"
+      *ngIf="detalle != null && detalle.tipoEgreso == 'Costos'"
+    >
+      <div class="card-header">
+        <h5>Detalle Arriendo Asociado</h5>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>ID Arriendo</th>
+                <th>Monto</th>
+                <th>Fecha</th>
+                <th>Sucursal</th>
+                <th>Usuario</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ detalle["idArriendo"] }}</td>
+
+                <td>{{ detalle["estado_arriendo"] }}</td>
+
+                <td>{{ detalle["fechaEntrega_arriendo"] }}</td>
+
+                <td>{{ detalle["tipo_arriendo"] }}</td>
+
+                <td>{{ detalle["userAt"] }}</td>
+                <td>{{ detalle["patente_vehiculo"] }}</td>
+                <td>{{ detalle["marca_vehiculo"] }}</td>
+                <td>{{ detalle["modelo_vehiculo"] }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- TODO agregar campos opcionales de costos -->
+    </div>
+
+    <button (click)="closeModal('detalleEgreso')" class="btn btn-danger">
+      Cerrar
+    </button>
+  </jw-modal>
+  <!--  -->
 </div>

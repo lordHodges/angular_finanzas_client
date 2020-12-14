@@ -15,7 +15,7 @@ export class EgresoRentacarService {
     );
   }
   getAll(): any {
-    return this.http.get<[]>(`${environment.apiUrl}/egresoRentacar`);
+    return this.http.get<[]>(`${environment.apiUrl}/egresoRentacar/getEgresos`);
   }
   getFiles(fileName: string): any {
     return this.http
@@ -33,8 +33,16 @@ export class EgresoRentacarService {
         window.open(window.URL.createObjectURL(res));
       });
   }
+  /* api/egresoRentacar/getDetalle/8 */
+  getDetalleEgreso(idEgreso): any {
+    return this.http.get(
+      `${environment.apiUrl}/egresoRentacar/getDetalle/${idEgreso}`
+    );
+  }
 
   getById(id: string): any {
-    return this.http.get(`${environment.apiUrl}/egresoRentacar/${id}`);
+    return this.http.get(
+      `${environment.apiUrl}/egresoRentacar/getEgreso/${id}`
+    );
   }
 }

@@ -19,13 +19,8 @@
     Exportar Datos
   </button>
   <!-- llamando al modal para agregar nuevas costos asociados a un -->
-  <button
-    (click)="deleteEgreso()"
-    disabled
-    class="btn btn-danger ml-4 right-align"
-  >
-    <i class="fa fa-trash"> </i>
-    Eliminar Datos
+  <button (click)="getDetalleEgreso()" class="btn btn-warning mr-2">
+    DetalleEgreso
   </button>
   <button (click)="detalleEgreso()" class="btn btn-primary ml-4 right-align">
     <i class="fa fa-eye"> </i>
@@ -52,6 +47,75 @@
     </button>
   </jw-modal>
   <!--  -->
+  <jw-modal id="detalleEgreso">
+    <div class="card mb-3" *ngIf="detalle != null">
+      <div class="card-header">
+        <h5>Detalle {{ detalle["tipoEgreso"] }}</h5>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>ID Egreso</th>
+                <th>Monto</th>
+                <th>Fecha</th>
+                <th>Sucursal</th>
+                <th>Usuario</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ detalle.id }}</td>
+                <td>{{ detalle.monto }}</td>
+                <td>{{ detalle.fecha }}</td>
+                <td>{{ detalle.Sucursal.razonSocial }}</td>
+                <td>{{ detalle.Usuario.nombre }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- TODO agregar campos opcionales de costos -->
+    </div>
+    <div
+      class="card mb-3"
+      *ngIf="detalle != null && detalle.tipoEgreso == 'Costos'"
+    >
+      <div class="card-header">
+        <h5>Detalle Ingreso Asociado</h5>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>ID Ingreso</th>
+                <th>Monto</th>
+                <th>Fecha</th>
+                <th>Sucursal</th>
+                <th>Usuario</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ detalle.IngresoLubricentro.id }}</td>
+                <td>{{ detalle.IngresoLubricentro.monto }}</td>
+                <td>{{ detalle.IngresoLubricentro.fecha }}</td>
+                <td>{{ detalle.IngresoLubricentro.Sucursal.razonSocial }}</td>
+                <td>{{ detalle.IngresoLubricentro.Usuario.nombre }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- TODO agregar campos opcionales de costos -->
+    </div>
+
+    <button (click)="closeModal('detalleEgreso')" class="btn btn-danger">
+      Cerrar
+    </button>
+  </jw-modal>
   <ag-grid-angular
     #agGrid
     id="agGrid"

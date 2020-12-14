@@ -11,5 +11,5 @@ export class EgresosLubricentro {
     idSucursal: number;
     idUsuario: number;
     RespaldoEgresoLubricentros: any[];
-    idCosto: number;
+    idIngreso: number;
 }

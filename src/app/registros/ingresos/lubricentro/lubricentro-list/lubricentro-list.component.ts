@@ -98,7 +98,9 @@ export class LubricentroListComponent implements OnInit {
     this.ingresoService
       .getAllWithUsuario()
       .pipe(first())
-      .subscribe((ingresos) => (this.ingresos = ingresos));
+      .subscribe((ingresos) => {
+        this.ingresos = ingresos;
+      });
 
     // TODO campos de configuracion de datatable jq.
     this.rowData = this.ingresoService.getAll();
