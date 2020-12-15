@@ -7,7 +7,7 @@ import { ModalService } from '@app/_components/_modal';
 @Component({
   selector: 'app-inmobiliaria-list',
   templateUrl: './inmobiliaria-list.component.html',
-  styleUrls: ['./inmobiliaria-list.component.less']
+  styleUrls: ['./inmobiliaria-list.component.scss'],
 })
 export class InmobiliariaListComponent implements OnInit {
   @ViewChild('agGrid') agGrid: AgGridAngular;

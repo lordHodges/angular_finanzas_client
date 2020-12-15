@@ -20,7 +20,7 @@ import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-causas-form',
   templateUrl: './causas-form.component.html',
-  styleUrls: ['./causas-form.component.less'],
+  styleUrls: ['./causas-form.component.scss'],
 })
 export class CausasFormComponent implements OnChanges, OnInit {
   @Input()

@@ -12,7 +12,7 @@ import { AgGridAngular } from 'ag-grid-angular';
 @Component({
   selector: 'app-pago-cuotas',
   templateUrl: './pago-cuotas.component.html',
-  styleUrls: ['./pago-cuotas.component.less'],
+  styleUrls: ['./pago-cuotas.component.scss'],
 })
 export class PagoCuotasComponent implements OnInit, OnChanges {
   @ViewChild('agGrid') agGrid: AgGridAngular;

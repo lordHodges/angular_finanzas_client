@@ -8,7 +8,7 @@ import { ModalService } from '@app/_components/_modal';
 @Component({
   selector: 'app-lubricentro-list',
   templateUrl: './lubricentro-list.component.html',
-  styleUrls: ['./lubricentro-list.component.less'],
+  styleUrls: ['./lubricentro-list.component.scss'],
 })
 export class LubricentroListComponent implements OnInit {
   @ViewChild('agGrid') agGrid: AgGridAngular;

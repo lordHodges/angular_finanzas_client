@@ -1,1 +1,98 @@
-<p>agrofirma-list works!</p>
+<div class="row">
+  <div class="d-flex bd-highlight mb-3">
+    <div class="mr-auto p-2 bd-highlight">
+      <h5>Proyectos Disponibles</h5>
+    </div>
+    <div class="p-2 bd-highlight">
+      <button
+        type="button"
+        class="btn bg-indigo text-white align-right"
+        (click)="ngOnInit()"
+      >
+        <i class="fa fa-refresh" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="card mr-1 col-md-3" *ngFor="let p of proyectos">
+    <img
+      class="card-img-top"
+      src="assets/img/agrofirma/agrobanner.png"
+      alt="Card image cap"
+    />
+    <div class="card-body">
+      <h4 class="card-title">{{ p.nombre }}</h4>
+      <p class="card-text">{{ p.ubicacion }}</p>
+    </div>
+    <div class="card-footer">
+      <div class="d-flex bd-highlight mb-3">
+        <div class="mr-auto p-2 bd-highlight">
+          <button
+            class="btn btn-secondary align-left"
+            (click)="registrarIngresos('apendice', p.id)"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            title="Registrar Ingresos"
+          >
+            <i class="fas fa-file-invoice-dollar"></i>
+          </button>
+        </div>
+        <div class="p-2 bd-highlight">
+          <button
+            class="btn btn-dark align-right mr-1"
+            (click)="addCuentasBancarias('apendice', p.id)"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            title="Añadir Cuentas Bancarias"
+          >
+            <i class="fas fa-piggy-bank"></i>
+          </button>
+          <button
+            class="btn bg-indigo align-right text-white"
+            (click)="verMapa(p.id)"
+            data-bs-toggle="tooltip"
+            data-bs-placement="top"
+            title="Ver Ubicacion"
+          >
+            <i class="fas fa-map-marked-alt"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="p-2 bd-highlight"></div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <a class="btn btn-primary mb-4 mt-4" (click)="registrarProyecto('apendice')"
+    >REGISTRAR PROYECTO NUEVO</a
+  >
+</div>
+
+<jw-modal id="mapaModal">
+  <app-mapa [idProyecto]="idProyecto"></app-mapa>
+  <button
+    type="button"
+    class="btn btn-danger"
+    routerLink="/ingresos/agrofirma"
+    (click)="closeModal('mapaModal')"
+  >
+    Cerrar
+  </button>
+</jw-modal>
+<!-- modal formularios -->
+<jw-modal id="apendice">
+  <router-outlet></router-outlet>
+  <button
+    type="button"
+    class="btn btn-danger"
+    routerLink="/ingresos/agrofirma"
+    (click)="closeModal('apendice')"
+  >
+    Cerrar
+  </button>
+</jw-modal>
+<!-- /modal formularios -->
+<br />

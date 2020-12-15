@@ -14,7 +14,7 @@ import { Empresa, IngresosHostal, Sucursal, User } from '@app/_models';
 @Component({
   selector: 'app-hostal-form',
   templateUrl: './hostal-form.component.html',
-  styleUrls: ['./hostal-form.component.less'],
+  styleUrls: ['./hostal-form.component.scss'],
 })
 export class HostalFormComponent implements OnInit {
   form: FormGroup;
@@ -50,15 +50,15 @@ export class HostalFormComponent implements OnInit {
     this.respuesta = e;
   }
   ngOnInit() {
-    this.idEmpresa = this.route.snapshot.params['idEmpresa'];
-    this.id = this.route.snapshot.params['id'];
+    this.idEmpresa = this.route.snapshot.params.idEmpresa;
+    this.id = this.route.snapshot.params.id;
     this.isAddMode = !this.id;
     this.empresaService
       .getAll()
       .pipe(first())
       .subscribe((x) => {
         for (let i = 0; i < x.length; i++) {
-          x[i]['Sucursals'] = Object.values(x[i]['Sucursals']);
+          x[i].Sucursals = Object.values(x[i].Sucursals);
         }
         this.empresas = x;
       });
@@ -66,7 +66,7 @@ export class HostalFormComponent implements OnInit {
       .getByIdWithSucursales(this.idEmpresa)
       .pipe(first())
       .subscribe((x) => {
-        x['Sucursals'] = Object.values(x['Sucursals']);
+        x.Sucursals = Object.values(x.Sucursals);
 
         this.empresa = x;
       });

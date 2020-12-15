@@ -7,7 +7,7 @@ import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-sucursal-form',
   templateUrl: './sucursal-form.component.html',
-  styleUrls: ['./sucursal-form.component.less'],
+  styleUrls: ['./sucursal-form.component.scss'],
 })
 export class SucursalFormComponent implements OnInit {
   form: FormGroup;

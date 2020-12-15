@@ -23,6 +23,9 @@ import { RentacarListComponent } from './rentacar/rentacar-list/rentacar-list.co
 import { RentacarFormComponent } from './rentacar/rentacar-form/rentacar-form.component';
 import { InmobiliariaFormComponent } from './inmobiliaria/inmobiliaria-form/inmobiliaria-form.component';
 import { InmobiliariaListComponent } from './inmobiliaria/inmobiliaria-list/inmobiliaria-list.component';
+import { AgrofirnaFormComponent } from './agrofirma/agrofirna-form/agrofirna-form.component';
+import { AgrofirnaListComponent } from './agrofirma/agrofirna-list/agrofirna-list.component';
+import { LayoutAgrofirmaComponent } from './agrofirma/layout-agrofirma/layout-agrofirma.component';
 @NgModule({
   declarations: [
     LayoutComponent,
@@ -42,6 +45,9 @@ import { InmobiliariaListComponent } from './inmobiliaria/inmobiliaria-list/inmo
     RentacarFormComponent,
     InmobiliariaFormComponent,
     InmobiliariaListComponent,
+    AgrofirnaFormComponent,
+    AgrofirnaListComponent,
+    LayoutAgrofirmaComponent,
   ],
   imports: [
     CommonModule,

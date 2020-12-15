@@ -11,6 +11,9 @@ import { RentacarListComponent } from '../egresos/rentacar/rentacar-list/rentaca
 import { RentacarFormComponent } from '../egresos/rentacar/rentacar-form/rentacar-form.component';
 import { InmobiliariaListComponent } from './inmobiliaria/inmobiliaria-list/inmobiliaria-list.component';
 import { InmobiliariaFormComponent } from './inmobiliaria/inmobiliaria-form/inmobiliaria-form.component';
+import { LayoutAgrofirmaComponent } from './agrofirma/layout-agrofirma/layout-agrofirma.component';
+import { AgrofirnaFormComponent } from '../egresos/agrofirma/agrofirna-form/agrofirna-form.component';
+import { AgrofirnaListComponent } from '../egresos/agrofirma/agrofirna-list/agrofirna-list.component';
 const routes: Routes = [
   {
     path: '',
@@ -69,6 +72,14 @@ const routes: Routes = [
             path: 'edit/:id/:idEmpresa',
             component: InmobiliariaFormComponent,
           },
+        ],
+      },
+      {
+        path: 'agrofirma',
+        component: LayoutAgrofirmaComponent,
+        children: [
+          { path: 'add/:idProyecto', component: AgrofirnaFormComponent },
+          { path: 'list/:idProyecto', component: AgrofirnaListComponent },
         ],
       },
     ],

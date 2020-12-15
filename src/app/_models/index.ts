@@ -23,3 +23,4 @@ export * from '@app/_models/registros/registrosRentacar/egresos-rentacar';
 export * from '@app/_models/registros/registrosRentacar/ingresos-rentacar';
 export * from '@app/_models/registros/registrosInmobiliaria/ingresos-inmobiliaria';
 export * from '@app/_models/registros/registrosInmobiliaria/egresos-inmobiliaria';
+export * from '@app/_models/proyectoAgrofirma';

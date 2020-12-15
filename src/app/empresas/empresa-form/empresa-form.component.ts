@@ -7,7 +7,7 @@ import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-empresa-form',
   templateUrl: './empresa-form.component.html',
-  styleUrls: ['./empresa-form.component.less'],
+  styleUrls: ['./empresa-form.component.scss'],
 })
 export class EmpresaFormComponent implements OnInit {
   form: FormGroup;
@@ -26,8 +26,8 @@ export class EmpresaFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.idEmpresa = this.route.snapshot.params['idEmpresa'];
-    this.id = this.route.snapshot.params['id'];
+    this.idEmpresa = this.route.snapshot.params.idEmpresa;
+    this.id = this.route.snapshot.params.id;
     this.isAddMode = !this.id;
     this.empresaService
       .getAll()

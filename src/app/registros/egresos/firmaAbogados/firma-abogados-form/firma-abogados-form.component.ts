@@ -21,7 +21,7 @@ import { Empresa, RegistroEgresoFirma, Sucursal, User } from '@app/_models';
 @Component({
   selector: 'app-firma-abogados-form',
   templateUrl: './firma-abogados-form.component.html',
-  styleUrls: ['./firma-abogados-form.component.less'],
+  styleUrls: ['./firma-abogados-form.component.scss'],
 })
 export class FirmaAbogadosFormComponent implements OnInit {
   form: FormGroup;

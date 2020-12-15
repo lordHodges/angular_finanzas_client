@@ -7,7 +7,7 @@ import { AlertService, RolService } from '@app/_services';
 @Component({
   selector: 'app-rol-form',
   templateUrl: './rol-form.component.html',
-  styleUrls: ['./rol-form.component.less'],
+  styleUrls: ['./rol-form.component.scss'],
 })
 export class RolFormComponent implements OnInit {
   form: FormGroup;

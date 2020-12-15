@@ -14,7 +14,7 @@ import { Empresa, IngresosLubricentro, Sucursal, User } from '@app/_models';
 @Component({
   selector: 'app-lubricentro-form',
   templateUrl: './lubricentro-form.component.html',
-  styleUrls: ['./lubricentro-form.component.less'],
+  styleUrls: ['./lubricentro-form.component.scss'],
 })
 export class LubricentroFormComponent implements OnInit {
   

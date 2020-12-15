@@ -14,7 +14,7 @@ import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-pago-causa',
   templateUrl: './pago-causa.component.html',
-  styleUrls: ['./pago-causa.component.less'],
+  styleUrls: ['./pago-causa.component.scss'],
 })
 export class PagoCausaComponent implements OnChanges, OnInit {
   @ViewChild('agGrid') agGrid: AgGridAngular;

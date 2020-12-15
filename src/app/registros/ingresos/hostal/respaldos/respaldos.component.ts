@@ -8,7 +8,7 @@ const UploadURL = `${environment.apiUrl}/ingresoHostal/upload`;
 @Component({
   selector: 'app-respaldos',
   templateUrl: './respaldos.component.html',
-  styleUrls: ['./respaldos.component.less'],
+  styleUrls: ['./respaldos.component.scss'],
 })
 export class RespaldosComponent implements OnInit {
   @Output()

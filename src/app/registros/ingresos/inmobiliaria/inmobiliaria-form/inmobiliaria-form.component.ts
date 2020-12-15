@@ -13,7 +13,7 @@ import { Empresa, IngresosInmobiliaria, Sucursal, User } from '@app/_models';
 @Component({
   selector: 'app-inmobiliaria-form',
   templateUrl: './inmobiliaria-form.component.html',
-  styleUrls: ['./inmobiliaria-form.component.less']
+  styleUrls: ['./inmobiliaria-form.component.scss'],
 })
 export class InmobiliariaFormComponent implements OnInit {
   form: FormGroup;

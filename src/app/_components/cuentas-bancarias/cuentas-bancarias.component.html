@@ -1,0 +1,69 @@
+<h4>Cuentas Bancarias</h4>
+<div class="container">
+  <div class="row">
+    <div class="card col col-md-4">
+      <div class="card-header">
+        <h5>Registrar Cuentas de la Entidad {{ idEntidad }}</h5>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="form">
+          <div class="form-group">
+            <label for="">seleccionar Banco</label>
+            <select class="form-control" formControlName="idBanco">
+              <option *ngFor="let banco of bancos" value="{{ banco.id }}">
+                {{ banco.NombreInstitucion }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="">N° Cuenta Bancaria</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="numeroCuenta"
+            />
+          </div>
+          <div class="form-group">
+            <label for="">Tipo de Cuenta</label>
+            <select class="form-control" formControlName="tipoCuenta">
+              <option>seleccionar tipo cta</option>
+              <option>cuenta vista</option>
+              <option>cuenta corriente</option>
+              <option>cuenta ahorro</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer text-right">
+        <button type="button" class="btn btn-success" (click)="crearCuenta()">
+          Guardar
+        </button>
+      </div>
+    </div>
+    <div class="card col col-md-6">
+      <div class="card-header">
+        <h5>Cuentas Registradas{{ idEntidad }}</h5>
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID Cuenta</th>
+              <th>N° Cuenta</th>
+              <th>Tipo Cuenta</th>
+              <th>Banco</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cuenta of cuentasBancarias">
+              <td>{{ cuenta.id }}</td>
+              <td>{{ cuenta.numeroCuenta }}</td>
+              <td>{{ cuenta.tipoCuenta }}</td>
+              <td>{{ cuenta.Banco.NombreInstitucion }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

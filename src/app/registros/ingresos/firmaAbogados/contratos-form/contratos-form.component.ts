@@ -12,7 +12,7 @@ import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-contratos-form',
   templateUrl: './contratos-form.component.html',
-  styleUrls: ['./contratos-form.component.less'],
+  styleUrls: ['./contratos-form.component.scss'],
 })
 export class ContratosFormComponent implements OnInit {
   @Input()

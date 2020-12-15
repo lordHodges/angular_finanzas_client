@@ -6,7 +6,7 @@ import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.less'],
+  styleUrls: ['./layout.component.scss'],
 })
 export class LayoutComponent implements OnInit {
   idEmpresa: string;

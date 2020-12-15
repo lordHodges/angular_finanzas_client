@@ -23,8 +23,8 @@ export class AddEditComponent implements OnInit {
     private rolService: RolService
   ) {}
 
-  ngOnInit() {
-    this.id = this.route.snapshot.params['id'];
+  ngOnInit(): void {
+    this.id = this.route.snapshot.params.id;
     this.isAddMode = !this.id;
     this.rolService
       .getAll()
@@ -62,7 +62,7 @@ export class AddEditComponent implements OnInit {
     return this.form.controls;
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.submitted = true;
 
     // reset alerts on submit
@@ -81,7 +81,7 @@ export class AddEditComponent implements OnInit {
     }
   }
 
-  private createUser() {
+  private createUser(): void {
     this.accountService
       .register(this.form.value)
       .pipe(first())
@@ -99,7 +99,7 @@ export class AddEditComponent implements OnInit {
       );
   }
 
-  private updateUser() {
+  private updateUser(): void {
     this.accountService
       .update(this.id, this.form.value)
       .pipe(first())

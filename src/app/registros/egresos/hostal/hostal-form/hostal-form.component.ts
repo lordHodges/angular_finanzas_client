@@ -20,7 +20,7 @@ import { EgresosHostal, Empresa, Sucursal, User } from '@app/_models';
 @Component({
   selector: 'app-hostal-form',
   templateUrl: './hostal-form.component.html',
-  styleUrls: ['./hostal-form.component.less'],
+  styleUrls: ['./hostal-form.component.scss'],
 })
 export class HostalFormComponent implements OnInit {
   form: FormGroup;

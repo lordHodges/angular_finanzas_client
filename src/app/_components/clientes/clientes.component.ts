@@ -5,7 +5,7 @@ import { AgGridAngular } from 'ag-grid-angular';
 @Component({
   selector: 'app-clientes',
   templateUrl: './clientes.component.html',
-  styleUrls: ['./clientes.component.less'],
+  styleUrls: ['./clientes.component.scss'],
 })
 export class ClientesComponent implements OnInit {
   @ViewChild('agGrid') agGrid: AgGridAngular;

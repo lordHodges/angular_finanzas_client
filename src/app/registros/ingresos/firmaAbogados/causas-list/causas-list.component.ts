@@ -8,7 +8,7 @@ import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-causas-list',
   templateUrl: './causas-list.component.html',
-  styleUrls: ['./causas-list.component.less'],
+  styleUrls: ['./causas-list.component.scss'],
 })
 export class CausasListComponent implements OnInit {
   @ViewChild('agGrid') agGrid: AgGridAngular;

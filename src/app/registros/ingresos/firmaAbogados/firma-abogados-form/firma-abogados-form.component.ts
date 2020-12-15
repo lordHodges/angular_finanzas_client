@@ -20,13 +20,12 @@ import {
   ContratoAbogadoService,
 } from '@app/_services';
 import { first } from 'rxjs/operators';
-import { CausasListComponent } from '../causas-list/causas-list.component';
 import { ContratosListComponent } from '../contratos-list/contratos-list.component';
 
 @Component({
   selector: 'app-firma-abogados-form',
   templateUrl: './firma-abogados-form.component.html',
-  styleUrls: ['./firma-abogados-form.component.less'],
+  styleUrls: ['./firma-abogados-form.component.scss'],
 })
 export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
   miFactory: ComponentFactory<any>;
@@ -43,6 +42,7 @@ export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
   rut = '';
   idCliente = null;
   causasCliente = null;
+  idEmpresa = null;
 
   // !este valor se debe definir con el cliente creado o actualizado
   elPadreDice = null;
@@ -65,7 +65,6 @@ export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
     this.usuario = this.accountService.userValue;
     this.idUsuario = this.usuario.id;
   }
-  idEmpresa = null;
 
   ngOnInit(): void {
     // ?forzando la consulta a FirmaAbogados
@@ -174,7 +173,7 @@ export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
   }
 
   // abrir componentes
-  mostrarContratos() {
+  mostrarContratos(): void {
     if (this.qMostrar) {
       this.miFactory = this.resolver.resolveComponentFactory(
         ContratosListComponent

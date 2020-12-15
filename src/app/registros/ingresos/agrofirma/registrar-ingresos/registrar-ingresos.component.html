@@ -1,0 +1,234 @@
+<div class="container-fluid !spacing">
+  <div class="row">
+    <div class="card col col-4">
+      <div class="card-body">
+        <h5 class="card-title">Registrar Ingresos {{ proyecto.nombre }}</h5>
+        <form [formGroup]="form">
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="fecha">Fecha</label>
+              <input
+                type="date"
+                formControlName="fecha"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid': submitted && f.fecha.errors
+                }"
+              />
+
+              <div *ngIf="submitted && f.fecha.errors" class="invalid-feedback">
+                <div *ngIf="f.fecha.errors.required">
+                  este campo es requerido
+                </div>
+              </div>
+            </div>
+            <div class="form-group col">
+              <label for="monto">Monto</label>
+              <input
+                type="number"
+                formControlName="monto"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid': submitted && f.monto.errors
+                }"
+              />
+
+              <div *ngIf="submitted && f.monto.errors" class="invalid-feedback">
+                <div *ngIf="f.monto.errors.required">
+                  este campo es requerido
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="descripcionIngreso">Descricion Ingreso</label>
+              <input
+                type="text"
+                formControlName="descripcionIngreso"
+                class="form-control"
+                [ngClass]="{
+                  'is-invalid': submitted && f.descripcionIngreso.errors
+                }"
+              />
+
+              <div
+                *ngIf="submitted && f.descripcionIngreso.errors"
+                class="invalid-feedback"
+              >
+                <div *ngIf="f.descripcionIngreso.errors.required">
+                  este campo es requerido
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="">Tipo Ingreso</label>
+              <select class="form-control" formControlName="tipoIngreso">
+                <option value="Transferencia">Transferencia</option>
+                <option value="Cheque">Cheque</option>
+                <option value="Efectivo">Efectivo</option>
+              </select>
+            </div>
+            <div class="form-group col" *ngIf="f.tipoIngreso.value == 'Cheque'">
+              <label for="nDocumeto">Numero Cheque</label>
+              <input
+                type="text"
+                formControlName="nDocumento"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="idCuentaProyecto">Cuenta Proyecto</label>
+              <select
+                class="form-control"
+                name="idCuentaProyecto"
+                id="idCuentaProyecto"
+                formControlName="idCuentaProyecto"
+              >
+                <option
+                  *ngFor="let cuenta of cuentasProyecto"
+                  value="{{ cuenta.id }}"
+                >
+                  {{ cuenta.numeroCuenta }}
+                  {{ cuenta.Banco.NombreInstitucion }} {{ cuenta.tipoCuenta }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group col">
+              <label for="nAutorizacion col">N° Autorizacion</label>
+              <input
+                type="text"
+                class="form-control"
+                name="nAutorizacion"
+                id="nAutorizacion"
+                placeholder="nAutorizacion"
+                formControlName="nAutorizacion"
+              />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col">
+              <label for="estadoPago">Estado Pago</label>
+              <select
+                class="form-control"
+                name="estadoPago"
+                id="estadoPago"
+                formControlName="estadoPago"
+              >
+                <option value="Pendiente">Pendiente</option>
+                <option value="Pagado">Pagado</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-primary mr-2" (click)="registrarRespaldos()">
+          Agregar Respaldos
+        </button>
+        <button class="btn btn-success" (click)="registrarIngreso()">
+          Guardar
+        </button>
+      </div>
+    </div>
+    <div class="col col-8">
+      <div class="card">
+        <div class="card-header">
+          <h5>Ingresos Registrados</h5>
+        </div>
+        <div class="card-body">
+          <ag-grid-angular
+            #agGrid
+            id="agGrid"
+            style="width: 100%; height: 500px"
+            class="ag-theme-material"
+            [rowData]="rowData"
+            (gridReady)="onGridReady($event)"
+            [columnDefs]="columnDefs"
+            [animateRows]="true"
+            rowSelection="multiple"
+          >
+          </ag-grid-angular>
+        </div>
+        <div class="card-footer">
+          <button
+            type="button"
+            class="btn bg-indigo text-white"
+            (click)="detalleRespaldos('documentos')"
+          >
+            Detalle Respaldos
+          </button>
+          <button
+            type="button"
+            class="btn btn-success"
+            (click)="exportAsXLSX()"
+          >
+            Exportar Datos
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<jw-modal id="respaldos">
+  <div class="card">
+    <div class="card-header">
+      <h5>Respaldos Ingresos</h5>
+    </div>
+    <div class="card-body">
+      <app-respaldos-agro
+        [idEmpresa]="idProyecto"
+        (listo)="envv($event)"
+        (respuesta)="resp($event)"
+      ></app-respaldos-agro>
+    </div>
+    <div class="card-footer">
+      <button
+        type="button"
+        class="btn btn-danger"
+        (click)="cerrarModdal('respaldos')"
+      >
+        Cerrar
+      </button>
+    </div>
+  </div>
+</jw-modal>
+
+<jw-modal id="documentos">
+  <table class="table table-hover bg-dark text-white">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Documento</th>
+        <th>Descargar</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let d of respaldoIngresos">
+      <tr>
+        <td>{{ d.id }}</td>
+        <td>{{ d.url }}</td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-success"
+            (click)="descargar(d.url)"
+          >
+            <i class="fa fa-download" aria-hidden="true"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button
+    type="button"
+    class="btn btn-danger"
+    (click)="cerrarModdal('documentos')"
+  >
+    Cerrar
+  </button>
+</jw-modal>

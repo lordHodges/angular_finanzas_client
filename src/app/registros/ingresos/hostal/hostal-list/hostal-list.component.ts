@@ -8,7 +8,7 @@ import { ModalService } from '@app/_components/_modal';
 @Component({
   selector: 'app-hostal-list',
   templateUrl: './hostal-list.component.html',
-  styleUrls: ['./hostal-list.component.less'],
+  styleUrls: ['./hostal-list.component.scss'],
 })
 export class HostalListComponent implements OnInit {
   @ViewChild('agGrid') agGrid: AgGridAngular;
@@ -82,8 +82,8 @@ export class HostalListComponent implements OnInit {
 
   ngOnInit() {
     //////////////////////
-    this.idEmpresa = this.route.snapshot.params['idEmpresa'];
-    this.id = this.route.snapshot.params['id'];
+    this.idEmpresa = this.route.snapshot.params.idEmpresa;
+    this.id = this.route.snapshot.params.id;
 
     this.ingresoService
       .getAllWithUsuario()
@@ -126,8 +126,8 @@ export class HostalListComponent implements OnInit {
     this.selectedRows = [];
     this.agGrid.api.getSelectedRows().forEach((x) => this.selectedRows.push(x));
     this.selectedRows.forEach((x) => {
-      const fechaF = new Date(x['createdAt']);
-      const fechaG = new Date(x['updatedAt']);
+      const fechaF = new Date(x.createdAt);
+      const fechaG = new Date(x.updatedAt);
       const formato = {
         weekday: 'long',
         year: 'numeric',
@@ -137,8 +137,8 @@ export class HostalListComponent implements OnInit {
         minute: 'numeric',
         second: 'numeric',
       };
-      x['createdAt'] = fechaF.toLocaleDateString('es-GB', formato);
-      x['updatedAt'] = fechaF.toLocaleDateString('es-GB', formato);
+      x.createdAt = fechaF.toLocaleDateString('es-GB', formato);
+      x.updatedAt = fechaF.toLocaleDateString('es-GB', formato);
     });
     console.log(this.selectedRows);
     this.excelService.exportAsExcelFile(this.selectedRows, 'sample');

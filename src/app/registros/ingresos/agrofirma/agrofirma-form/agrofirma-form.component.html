@@ -1,1 +1,209 @@
-<p>agrofirma-form works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col col-4">
+      <div class="row p-4">
+        <div class="card col-12">
+          <div class="card-header">Registrar Nuevo Proyecto</div>
+          <div class="card-body">
+            <form [formGroup]="form">
+              <div class="form-row">
+                <div class="form-group col">
+                  <label for="nombre">Nombre Proyecto</label>
+                  <input
+                    type="text"
+                    formControlName="nombre"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': submitted && f.nombre.errors
+                    }"
+                  />
+
+                  <div
+                    *ngIf="submitted && f.nombre.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.nombre.errors.required">
+                      este campo es requerido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col">
+                  <label for="ubicacion">Ubicación</label>
+                  <input
+                    type="text"
+                    formControlName="ubicacion"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': submitted && f.ubicacion.errors
+                    }"
+                  />
+
+                  <div
+                    *ngIf="submitted && f.ubicacion.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.ubicacion.errors.required">
+                      este campo es requerido
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col">
+                  <label for="geoLocalizacion">Localizacion Gps</label>
+                  <input
+                    type="text"
+                    id="geoLocalizacion"
+                    formControlName="geoLocalizacion"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': submitted && f.geoLocalizacion.errors
+                    }"
+                  />
+                  <div
+                    *ngIf="submitted && f.geoLocalizacion.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.geoLocalizacion.errors.required">
+                      este campo es requerido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col">
+                  <label for="capitalInicial">Capital Inicial</label>
+                  <input
+                    type="number"
+                    formControlName="capitalInicial"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': submitted && f.capitalInicial.errors
+                    }"
+                  />
+                  <div
+                    *ngIf="submitted && f.capitalInicial.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.capitalInicial.errors.required">
+                      este campo es requerido
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col">
+                  <label for="totalInversion">Total Inversion</label>
+                  <input
+                    type="number"
+                    formControlName="totalInversion"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': submitted && f.totalInversion.errors
+                    }"
+                  />
+                  <div
+                    *ngIf="submitted && f.totalInversion.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.totalInversion.errors.required">
+                      este campo es requerido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col">
+                  <label for="fechaInicio">Fecha Inicio</label>
+                  <input
+                    type="date"
+                    formControlName="fechaInicio"
+                    class="form-control"
+                    [ngClass]="{
+                      'is-invalid': submitted && f.fechaInicio.errors
+                    }"
+                  />
+                  <div
+                    *ngIf="submitted && f.fechaInicio.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.fechaInicio.errors.required">
+                      este campo es requerido
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col">
+                  <div class="form-group">
+                    <label for="estado"></label>
+                    <select
+                      class="form-control"
+                      name="estado"
+                      id="estado"
+                      formControlName="estado"
+                      class="form-control"
+                      [ngClass]="{
+                        'is-invalid': submitted && f.estado.errors
+                      }"
+                    >
+                      <option value="Activo">Activo</option>
+                      <option value="Inactivo">Inactivo</option>
+                      <option value="Terminado">Terminado</option>
+                    </select>
+                  </div>
+                  <div
+                    *ngIf="submitted && f.estado.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.estado.errors.required">
+                      este campo es requerido
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="card-footer text-muted">
+            <button class="btn btn-success" (click)="guardar()">Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col col-8">
+      <div class="row p-4">
+        <h5>Proyectos Registrados</h5>
+        <table class="table table-hover table-responsive">
+          <thead>
+            <tr>
+              <th>Nombre Proyecto</th>
+              <th>Estado</th>
+              <th>Capital Inicial</th>
+              <th>Fecha Registro</th>
+              <th>Fecha Actualizacion</th>
+              <th>Usuario</th>
+              <th>Acciones</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let proyecto of proyectos">
+              <td>{{ proyecto.nombre }}</td>
+              <td>{{ proyecto.estado }}</td>
+              <td>{{ proyecto.capitalInicial }}</td>
+              <td>{{ proyecto.createdAt }}</td>
+              <td>{{ proyecto.updatedAt }}</td>
+              <td>{{ proyecto.idUsuario }}</td>
+              <td>
+                <a class="btn btn-primary" (click)="edit(proyecto.id)">
+                  <i class="fas fa-edit"></i>
+                </a>
+              </td>
+              <td>
+                <button type="button" class="btn btn-danger">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

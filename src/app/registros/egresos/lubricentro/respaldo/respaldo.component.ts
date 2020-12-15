@@ -14,7 +14,7 @@ const UploadURL = `${environment.apiUrl}/egresoLubricentro/upload`;
 @Component({
   selector: 'app-respaldo',
   templateUrl: './respaldo.component.html',
-  styleUrls: ['./respaldo.component.less'],
+  styleUrls: ['./respaldo.component.scss'],
 })
 export class RespaldoComponent {
   @Output()
@@ -70,4 +70,3 @@ export class RespaldoComponent {
     this.hasAnotherDropZoneOver = e;
   }
 }
-

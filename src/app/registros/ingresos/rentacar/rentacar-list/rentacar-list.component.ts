@@ -7,7 +7,7 @@ import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-rentacar-list',
   templateUrl: './rentacar-list.component.html',
-  styleUrls: ['./rentacar-list.component.less'],
+  styleUrls: ['./rentacar-list.component.scss'],
 })
 export class RentacarListComponent implements OnInit {
   @ViewChild('agGrid') agGrid: AgGridAngular;

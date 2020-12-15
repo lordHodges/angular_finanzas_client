@@ -1,0 +1,101 @@
+<div class="row">
+  <div class="col col-md-5">
+    <form [formGroup]="form">
+      <div class="form-group col">
+        <label for="tipoEgreso">Tipo Egreso</label>
+        <select
+          class="custom-select"
+          name="tipoEgreso"
+          id="tipoEgreso"
+          formControlName="tipoEgreso"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.tipoEgreso.errors }"
+        >
+          <option value="">Seleccionar</option>
+          <option value="Gastos">Gastos</option>
+          <option value="Costos">Costos</option>
+          <option value="Remuneraciones">Remuneraciones</option>
+          <option value="Bancarios">Bancarios</option>
+          <option value="Impuestos">Impuestos</option>
+        </select>
+      </div>
+      <div class="form-group col">
+        <label for="fecha">Fecha</label>
+        <input
+          type="date"
+          formControlName="fecha"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.fecha.errors }"
+        />
+        <div *ngIf="submitted && f.fecha.errors" class="invalid-feedback">
+          <div *ngIf="f.fecha.errors.required">este campo es requerido</div>
+        </div>
+      </div>
+      <div class="form-group col">
+        <label for="monto">Monto</label>
+        <input
+          type="number"
+          formControlName="monto"
+          class="form-control"
+          value="{{ f.monto }}"
+          [ngClass]="{ 'is-invalid': submitted && f.monto.errors }"
+        />
+        <div *ngIf="submitted && f.monto.errors" class="invalid-feedback">
+          <div *ngIf="f.monto.errors.required">este campo es requerido</div>
+        </div>
+      </div>
+      <div class="form-group col">
+        <label for="responsable">Responsable</label>
+        <input
+          type="text"
+          formControlName="responsable"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.responsable.errors }"
+        />
+        <div *ngIf="submitted && f.responsable.errors" class="invalid-feedback">
+          <div *ngIf="f.responsable.errors.required">
+            este campo es requerido
+          </div>
+        </div>
+      </div>
+      <div class="form-group col">
+        <label for="descripcion">Descripcion</label>
+        <input
+          type="text"
+          formControlName="descripcion"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.descripcion.errors }"
+        />
+        <div *ngIf="submitted && f.descripcion.errors" class="invalid-feedback">
+          <div *ngIf="f.descripcion.errors.required">
+            este campo es requerido
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="form-row">
+      <div class="form-group">
+        <button
+          #guardar
+          [disabled]="loading"
+          class="btn btn-primary"
+          (click)="registrarEgreso()"
+        >
+          <span
+            *ngIf="loading"
+            class="spinner-border spinner-border-sm mr-1"
+          ></span>
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="col col-md-7">
+    <app-respaldos
+      [idEmpresa]="nombreEmpresa"
+      (listo)="envv($event)"
+      (respuesta)="resp($event)"
+    ></app-respaldos>
+  </div>
+</div>

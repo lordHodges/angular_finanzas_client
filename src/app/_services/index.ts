@@ -17,3 +17,7 @@ export * from '@app/_services/ingresos/ingreso-rentacar.service';
 export * from '@app/_services/egresos/egreso-rentacar.service';
 export * from '@app/_services/ingresos/ingreso-inmobiliaria.service';
 export * from '@app/_services/egresos/egreso-inmobiliaria.service';
+export * from '@app/_services/ingresos/agrofirma/proyecto-agrofirma.service';
+export * from '@app/_services/cuentasBancarias/cuentas-bancarias.service';
+export * from '@app/_services/bancos/banco.service';
+export * from '@app/_services/egresos/egreso-agrofirma.service';

@@ -18,7 +18,7 @@ import { ModalService } from '@app/_components/_modal';
 @Component({
   selector: 'app-hostal-list',
   templateUrl: './hostal-list.component.html',
-  styleUrls: ['./hostal-list.component.less'],
+  styleUrls: ['./hostal-list.component.scss'],
 })
 export class HostalListComponent implements OnInit {
   @ViewChild('agGrid') agGrid: AgGridAngular;

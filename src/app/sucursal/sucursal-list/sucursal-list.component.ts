@@ -4,7 +4,7 @@ import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-sucursal-list',
   templateUrl: './sucursal-list.component.html',
-  styleUrls: ['./sucursal-list.component.less'],
+  styleUrls: ['./sucursal-list.component.scss'],
 })
 export class SucursalListComponent implements OnInit {
   sucursales = null;

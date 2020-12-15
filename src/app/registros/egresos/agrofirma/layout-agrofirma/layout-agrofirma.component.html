@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="row">
+    <div class="d-flex bd-highlight mb-3">
+      <div class="mr-auto p-2 bd-highlight">
+        <h5>Proyectos Disponibles</h5>
+      </div>
+      <div class="p-2 bd-highlight">
+        <button
+          type="button"
+          class="btn bg-indigo text-white align-right"
+          (click)="ngOnInit()"
+        >
+          <i class="fa fa-refresh" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="card mr-1 col-md-3" *ngFor="let p of proyectos">
+      <img
+        class="card-img-top"
+        src="assets/img/agrofirma/agrobanner.png"
+        alt="Card image cap"
+      />
+      <div class="card-body">
+        <h4 class="card-title">{{ p.nombre }}</h4>
+        <p class="card-text">{{ p.ubicacion }}</p>
+      </div>
+      <div class="card-footer">
+        <div class="d-flex bd-highlight mb-3">
+          <div class="mr-auto p-2 bd-highlight">
+            <button
+              class="btn btn-secondary align-left"
+              (click)="registrarEgresos('apendice', p.id)"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Registrar Egresos"
+            >
+              <i class="fas fa-file-invoice-dollar"></i>
+            </button>
+          </div>
+          <div class="p-2 bd-highlight">
+            <button
+              class="btn btn-dark align-right mr-1"
+              (click)="verEgresos('apendice', p.id)"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="ver egresos proyecto"
+            >
+              <i class="fa fa-list" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="p-2 bd-highlight"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<jw-modal id="apendice">
+  <div class="card text-left">
+    <div class="card-body">
+      <router-outlet></router-outlet>
+    </div>
+    <div class="card-footer">
+      <button
+        type="button"
+        class="btn btn-danger"
+        (click)="closeModal('apendice')"
+      >
+        Cerrar
+      </button>
+    </div>
+  </div>
+</jw-modal>

@@ -13,7 +13,7 @@ import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-rentacar-form',
   templateUrl: './rentacar-form.component.html',
-  styleUrls: ['./rentacar-form.component.less'],
+  styleUrls: ['./rentacar-form.component.scss'],
 })
 export class RentacarFormComponent implements OnInit {
   form: FormGroup;
@@ -126,7 +126,7 @@ export class RentacarFormComponent implements OnInit {
       .pipe(first())
       .subscribe(
         (data) => {
-          this.alertService.success('Sucursal creado con exito', {
+          this.alertService.success(' Creado con exito', {
             keepAfterRouteChange: true,
           });
           this.loading = false;

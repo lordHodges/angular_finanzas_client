@@ -16,7 +16,7 @@ import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-respaldos',
   templateUrl: './respaldos.component.html',
-  styleUrls: ['./respaldos.component.less'],
+  styleUrls: ['./respaldos.component.scss'],
 })
 export class RespaldosComponent implements OnInit, OnChanges {
   @Output()
@@ -27,10 +27,13 @@ export class RespaldosComponent implements OnInit, OnChanges {
   @Input()
   idEmpresa = null;
 
+  @Input()
+  nombreEmpresa = null;
+
   changelog: string[] = [];
 
   fileName;
-
+  urlAPi = '';
   public uploader: FileUploader;
   hasBaseDropZoneOver: boolean;
   hasAnotherDropZoneOver: boolean;
@@ -41,52 +44,7 @@ export class RespaldosComponent implements OnInit, OnChanges {
   constructor(
     private service: EgresoHostalService,
     private route: ActivatedRoute
-  ) {
-    let urlAPi = '';
-    this.idEmpresa = this.route.snapshot.params.idEmpresa;
-
-    switch (this.idEmpresa) {
-      case '1':
-        urlAPi = `${environment.apiUrl}/egresoHostal/upload`;
-        break;
-      case '2':
-        urlAPi = `${environment.apiUrl}/egresoFirma/upload`;
-        break;
-      case '4':
-        urlAPi = `${environment.apiUrl}/egresoRentacar/upload`;
-        break;
-      default:
-        break;
-    }
-    this.uploader = new FileUploader({
-      url: urlAPi,
-      itemAlias: 'photo',
-    });
-
-    this.hasBaseDropZoneOver = false;
-    this.hasAnotherDropZoneOver = false;
-    this.uploader.onAfterAddingFile = (file) => {
-      file.withCredentials = false;
-    };
-    this.uploader.onCompleteItem = (
-      item: any,
-      response: any,
-      status: any,
-      headers: any
-    ) => {
-      console.log('ImageUpload:uploaded:', item.alias, status, response);
-      this.uris.push(response);
-    };
-
-    this.uploader.onCompleteAll = () => {
-      this.response = this.uris;
-      alert(
-        'Archivos exitosamente subidos:' + this.response.length + ' registros'
-      );
-      this.listo.emit(false);
-      this.respuesta.emit(this.response);
-    };
-  }
+  ) {}
   ngOnInit() {}
   ngOnChanges(changes: SimpleChanges) {
     console.log('OnChanges');
@@ -99,6 +57,55 @@ export class RespaldosComponent implements OnInit, OnChanges {
       const from = JSON.stringify(change.previousValue);
       const changeLog = `${propName}: changed from ${from} to ${to} `;
       this.changelog.push(changeLog);
+      this.idEmpresa = this.idEmpresa;
+
+      // this.idEmpresa = this.route.snapshot.params.idEmpresa;
+
+      switch (this.idEmpresa) {
+        case '1':
+          this.urlAPi = `${environment.apiUrl}/egresoHostal/upload`;
+          break;
+        case '2':
+          this.urlAPi = `${environment.apiUrl}/egresoFirma/upload`;
+          break;
+        case '4':
+          this.urlAPi = `${environment.apiUrl}/egresoRentacar/upload`;
+          break;
+        case 'agrofirma':
+          this.urlAPi = `${environment.apiUrl}/egresoAgrofirma/upload`;
+          break;
+
+        default:
+          break;
+      }
+      this.uploader = new FileUploader({
+        url: this.urlAPi,
+        itemAlias: 'photo',
+      });
+
+      this.hasBaseDropZoneOver = false;
+      this.hasAnotherDropZoneOver = false;
+      this.uploader.onAfterAddingFile = (file) => {
+        file.withCredentials = false;
+      };
+      this.uploader.onCompleteItem = (
+        item: any,
+        response: any,
+        status: any,
+        headers: any
+      ) => {
+        console.log('ImageUpload:uploaded:', item.alias, status, response);
+        this.uris.push(response);
+      };
+
+      this.uploader.onCompleteAll = () => {
+        this.response = this.uris;
+        alert(
+          'Archivos exitosamente subidos:' + this.response.length + ' registros'
+        );
+        this.listo.emit(false);
+        this.respuesta.emit(this.response);
+      };
     }
   }
 

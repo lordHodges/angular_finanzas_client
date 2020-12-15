@@ -8,7 +8,7 @@ import { AgGridAngular } from 'ag-grid-angular';
 @Component({
   selector: 'app-contratos-list',
   templateUrl: './contratos-list.component.html',
-  styleUrls: ['./contratos-list.component.less'],
+  styleUrls: ['./contratos-list.component.scss'],
 })
 export class ContratosListComponent {
   @ViewChild('agGrid') agGrid: AgGridAngular;

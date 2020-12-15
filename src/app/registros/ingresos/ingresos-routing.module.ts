@@ -14,6 +14,11 @@ import { ClientesComponent } from '@app/_components/clientes/clientes.component'
 import { ListaContratosComponent } from './firmaAbogados/lista-contratos/lista-contratos.component';
 import { InmobiliariaFormComponent } from './inmobiliaria/inmobiliaria-form/inmobiliaria-form.component';
 import { InmobiliariaListComponent } from './inmobiliaria/inmobiliaria-list/inmobiliaria-list.component';
+import { AgrofirmaListComponent } from './agrofirma/agrofirma-list/agrofirma-list.component';
+import { AgrofirmaFormComponent } from './agrofirma/agrofirma-form/agrofirma-form.component';
+import { MapaComponent } from './agrofirma/mapa/mapa.component';
+import { RegistrarIngresosComponent } from './agrofirma/registrar-ingresos/registrar-ingresos.component';
+import { CuentasBancariasComponent } from '@app/_components/cuentas-bancarias/cuentas-bancarias.component';
 const routes: Routes = [
   {
     path: '',
@@ -62,6 +67,29 @@ const routes: Routes = [
           {
             path: 'edit/',
             component: InmobiliariaFormComponent,
+          },
+        ],
+      },
+      {
+        path: 'agrofirma',
+        component: AgrofirmaListComponent,
+        children: [
+          { path: 'add', component: AgrofirmaFormComponent },
+          {
+            path: 'edit/:idProyecto',
+            component: AgrofirmaFormComponent,
+          },
+          {
+            path: 'mapa/:id',
+            component: MapaComponent,
+          },
+          {
+            path: 'ingresos/:idProyecto',
+            component: RegistrarIngresosComponent,
+          },
+          {
+            path: 'addCuentasBancarias/:idEntidad',
+            component: CuentasBancariasComponent,
           },
         ],
       },

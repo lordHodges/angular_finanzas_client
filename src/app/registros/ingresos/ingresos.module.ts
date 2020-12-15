@@ -27,14 +27,17 @@ import { PagoCausaComponent } from './firmaAbogados/pago-causa/pago-causa.compon
 import { ContratosListComponent } from './firmaAbogados/contratos-list/contratos-list.component';
 import { ContratosFormComponent } from './firmaAbogados/contratos-form/contratos-form.component';
 import { PagoCuotasComponent } from './firmaAbogados/pago-cuotas/pago-cuotas.component';
-import { importType } from '@angular/compiler/src/output/output_ast';
 import { ClientesComponent } from '@app/_components/clientes/clientes.component';
 import { ListaContratosComponent } from './firmaAbogados/lista-contratos/lista-contratos.component';
 import { RespaldComponent } from './inmobiliaria/respald/respald.component';
-
-
+import { MapaComponent } from './agrofirma/mapa/mapa.component';
+import { RegistrarIngresosComponent } from './agrofirma/registrar-ingresos/registrar-ingresos.component';
+import { CuentasBancariasComponent } from '@app/_components';
+import { RespaldosAgroComponent } from './agrofirma/respaldos/respaldos.component';
 @NgModule({
   declarations: [
+    RespaldosAgroComponent,
+    CuentasBancariasComponent,
     ClientesComponent,
     LayoutComponent,
     AgrofirmaFormComponent,
@@ -59,6 +62,8 @@ import { RespaldComponent } from './inmobiliaria/respald/respald.component';
     ContratosFormComponent,
     PagoCuotasComponent,
     ListaContratosComponent,
+    MapaComponent,
+    RegistrarIngresosComponent,
   ],
   imports: [
     CommonModule,

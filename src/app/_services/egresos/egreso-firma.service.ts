@@ -15,16 +15,16 @@ export class EgresoFirmaService {
   public get EgresosHostalValue(): RegistroEgresoFirma {
     return this.egresosSubject.value;
   }
-  create(egresos: RegistroEgresoFirma) {
+  create(egresos: RegistroEgresoFirma): any {
     return this.http.post(
       `${environment.apiUrl}/egresoFirma/conRespaldo/`,
       egresos
     );
   }
-  getAll() {
+  getAll(): any {
     return this.http.get<[]>(`${environment.apiUrl}/egresoFirma`);
   }
-  getFiles(fileName: string) {
+  getFiles(fileName: string): any {
     return this.http
       .get(`${environment.apiUrl}/egresoFirma/download/${fileName}`, {
         responseType: 'blob',
@@ -40,15 +40,15 @@ export class EgresoFirmaService {
         window.open(window.URL.createObjectURL(res));
       });
   }
-  getById(id: string) {
+  getById(id: string): any {
     return this.http.get<RegistroEgresoFirma>(
       `${environment.apiUrl}/egresoFirma/${id}`
     );
   }
-  update(id, params) {
+  update(id, params): any {
     return this.http.put(`${environment.apiUrl}/egresoFirma/${id}`, params);
   }
-  delete(id: string) {
+  delete(id: string): any {
     return this.http.delete(`${environment.apiUrl}/egresoFirma/${id}`);
   }
 }
