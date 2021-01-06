@@ -27,7 +27,7 @@ export class FirmaAbogadosFormComponent implements OnInit {
   form: FormGroup;
   id: string;
   empresas = null;
-  empresa = new Empresa();
+  empresa = null;
   sucursales = null;
   isAddMode: boolean;
   idEmpresa = null;
@@ -73,12 +73,11 @@ export class FirmaAbogadosFormComponent implements OnInit {
       .getByIdWithSucursales(this.idEmpresa)
       .pipe(first())
       .subscribe((x) => {
-        x['Sucursals'] = Object.values(x['Sucursals']);
+        x.Sucursals = Object.values(x.Sucursals);
 
         this.empresa = x;
         console.log(this.empresa);
       });
-    /* TODO AGREGAR campos numeroBoleta, Tipo Documento(boleta, factura), documento */
 
     this.form = this.formBuilder.group({
       fecha: ['', Validators.required],
