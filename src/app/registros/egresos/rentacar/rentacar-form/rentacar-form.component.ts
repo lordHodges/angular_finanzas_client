@@ -29,6 +29,7 @@ export class RentacarFormComponent implements OnInit {
   idUsuario = null;
   egreso = new EgresosRentacar();
   respuesta;
+  idArriendo = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -78,7 +79,7 @@ export class RentacarFormComponent implements OnInit {
       descripcion: ['', Validators.required],
       responsable: ['', Validators.required],
       idSucursal: ['', Validators.required],
-      idArriendo: [''],
+      idArriendo: this.idArriendo,
       idUsuario: this.idUsuario,
     });
   }
