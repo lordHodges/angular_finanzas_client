@@ -57,8 +57,8 @@ export class FirmaAbogadosFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.idEmpresa = this.route.snapshot.params['idEmpresa'];
-    this.id = this.route.snapshot.params['id'];
+    this.idEmpresa = this.route.snapshot.params.idEmpresa;
+    this.id = this.route.snapshot.params.id;
     this.isAddMode = !this.id;
     this.empresaService
       .getAll()

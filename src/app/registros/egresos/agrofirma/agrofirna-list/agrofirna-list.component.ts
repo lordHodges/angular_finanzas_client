@@ -109,7 +109,7 @@ export class AgrofirnaListComponent implements OnInit {
   descargar(url): void {
     this.egresoService.getFiles(url);
   }
-  cerrarModdal(id) {
+  cerrarModdal(id): void {
     this.modalService.close(id);
   }
 }

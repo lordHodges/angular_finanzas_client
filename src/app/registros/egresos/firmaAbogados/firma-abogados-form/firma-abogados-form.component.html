@@ -60,7 +60,6 @@
             type="number"
             formControlName="monto"
             class="form-control"
-            value="{{ f.monto }}"
             [ngClass]="{ 'is-invalid': submitted && f.monto.errors }"
           />
           <div *ngIf="submitted && f.monto.errors" class="invalid-feedback">
@@ -112,6 +111,7 @@
         <app-respaldos
           (listo)="envv($event)"
           (respuesta)="resp($event)"
+          [idEmpresa]="idEmpresa"
         ></app-respaldos>
         <!-- respaldo de documantacion -->
       </div>
@@ -124,7 +124,9 @@
             ></span>
             Guardar
           </button>
-          <a routerLink="/egresos/firmaAbogado" class="btn btn-link">Cancelar</a>
+          <a routerLink="/egresos/firmaAbogado" class="btn btn-link"
+            >Cancelar</a
+          >
         </div>
       </div>
     </form>
