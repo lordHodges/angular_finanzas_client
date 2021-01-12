@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -82,7 +82,7 @@ export class LubricentroFormComponent implements OnInit {
       responsable: ['', Validators.required],
       idSucursal: ['', Validators.required],
       idUsuario: this.idUsuario,
-      idIngreso: [''],
+      idIngreso: this.idIngreso,
     });
 
     if (!this.isAddMode) {
