@@ -3,9 +3,12 @@
     border: dotted 3px lightgray;
     height: 100px;
   }
+
   .nv-file-over {
     border: dotted 3px red;
-  } /* Default class applied to drop zones on over */
+  }
+
+  /* Default class applied to drop zones on over */
   .another-file-over-class {
     border: dotted 3px green;
   }
@@ -21,23 +24,12 @@
   <div class="col">
     <h5>Seleccionar Documentos</h5>
 
-    <div
-      ng2FileDrop
-      [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver }"
-      (fileOver)="fileOverBase($event)"
-      [uploader]="uploader"
-      class="my-drop-zone"
-    >
+    <div ng2FileDrop [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver }" (fileOver)="fileOverBase($event)"
+      [uploader]="uploader" class="my-drop-zone">
       Arrastrar aqui
     </div>
 
-    <input
-      type="file"
-      name="photo"
-      ng2FileSelect
-      [uploader]="uploader"
-      multiple
-    />
+    <input type="file" name="photo" ng2FileSelect [uploader]="uploader" multiple />
     <br />
   </div>
 
@@ -65,46 +57,24 @@
           </td>
           <td *ngIf="uploader.options.isHTML5">
             <div class="progress" style="margin-bottom: 0">
-              <div
-                class="progress-bar"
-                role="progressbar"
-                [ngStyle]="{ width: item.progress + '%' }"
-              ></div>
+              <div class="progress-bar" role="progressbar" [ngStyle]="{ width: item.progress + '%' }"></div>
             </div>
           </td>
           <td class="text-center">
-            <span *ngIf="item.isSuccess"
-              ><i class="fa fa-check success-color" aria-hidden="true"></i
-            ></span>
-            <span *ngIf="item.isCancel"
-              ><i class="fa fa-arrow-alt-circle-down warning"></i
-            ></span>
-            <span *ngIf="item.isError"
-              >fail<i class="fa fa-stop-circle red"></i
-            ></span>
+            <span *ngIf="item.isSuccess"><i class="fa fa-check success-color" aria-hidden="true"></i></span>
+            <span *ngIf="item.isCancel"><i class="fa fa-arrow-alt-circle-down warning"></i></span>
+            <span *ngIf="item.isError">fail<i class="fa fa-stop-circle red"></i></span>
           </td>
           <td nowrap>
-            <button
-              type="button"
-              class="btn btn-success btn-xs"
-              (click)="item.upload()"
-              [disabled]="item.isReady || item.isUploading || item.isSuccess"
-            >
+            <button type="button" class="btn btn-success btn-xs" (click)="item.upload()"
+              [disabled]="item.isReady || item.isUploading || item.isSuccess">
               <span class="fa fa-arrow-circle-up"></span> Subir
             </button>
-            <button
-              type="button"
-              class="btn btn-warning btn-xs ml-2"
-              (click)="item.cancel()"
-              [disabled]="!item.isUploading"
-            >
+            <button type="button" class="btn btn-warning btn-xs ml-2" (click)="item.cancel()"
+              [disabled]="!item.isUploading">
               <span class="fa fa-ban"></span> Cancelar
             </button>
-            <button
-              type="button"
-              class="btn btn-danger btn-xs ml-2"
-              (click)="item.remove()"
-            >
+            <button type="button" class="btn btn-danger btn-xs ml-2" (click)="item.remove()">
               <span class="fa fa-trash"></span> Quitar
             </button>
           </td>
@@ -116,35 +86,19 @@
       <div>
         Progreso Cola:
         <div class="progress">
-          <div
-            class="progress-bar"
-            role="progressbar"
-            ng-Style="{ width: uploader.progress + '%' }"
-          ></div>
+          <div class="progress-bar" role="progressbar" ng-Style="{ width: uploader.progress + '%' }"></div>
         </div>
       </div>
-      <button
-        type="button"
-        class="btn btn-success btn-s ml-2"
-        (click)="uploader.uploadAll()"
-        [disabled]="!uploader.getNotUploadedItems().length"
-      >
+      <button type="button" class="btn btn-success btn-s ml-2" (click)="uploader.uploadAll()"
+        [disabled]="!uploader.getNotUploadedItems().length">
         <span class="fa fa-arrow-circle-up"></span> Subir Todos
       </button>
-      <button
-        type="button"
-        class="btn btn-warning btn-s ml-2"
-        (click)="uploader.cancelAll()"
-        [disabled]="!uploader.isUploading"
-      >
+      <button type="button" class="btn btn-warning btn-s ml-2" (click)="uploader.cancelAll()"
+        [disabled]="!uploader.isUploading">
         <span class="fa fa-ban"></span> Cancelar Todos
       </button>
-      <button
-        type="button"
-        class="btn btn-danger btn-s ml-2"
-        (click)="uploader.clearQueue()"
-        [disabled]="!uploader.queue.length"
-      >
+      <button type="button" class="btn btn-danger btn-s ml-2" (click)="uploader.clearQueue()"
+        [disabled]="!uploader.queue.length">
         <span class="fa fa-trash"></span> Quitar Todos
       </button>
     </div>
@@ -159,11 +113,7 @@
       <div class="panel-body">
         <!-- TODO {{ response }} -->
 
-        <button
-          class="btn btn-cyan"
-          *ngFor="let r of response"
-          (click)="decargar(r)"
-        >
+        <button class="btn btn-cyan" *ngFor="let r of response">
           {{ r }}
         </button>
       </div>

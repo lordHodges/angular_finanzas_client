@@ -48,7 +48,7 @@ export class EgresoLubricentroService {
 
   getById(id: string) {
     return this.http.get<EgresosLubricentro>(
-      `${environment.apiUrl}/egresoLubricentro/${id}`
+      `${environment.apiUrl}/egresoLubricentro/getEgreso/${id}`
     );
   }
   update(id, params) {

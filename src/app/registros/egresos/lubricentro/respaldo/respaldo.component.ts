@@ -59,7 +59,7 @@ export class RespaldoComponent {
     };
   }
   decargar(r) {
-    let h = this.service.getFiles(r);
+    this.service.getFiles(r);
   }
 
   public fileOverBase(e: any): void {

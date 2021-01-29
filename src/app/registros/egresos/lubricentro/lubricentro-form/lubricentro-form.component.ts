@@ -154,7 +154,7 @@ export class LubricentroFormComponent implements OnInit {
         }
       );
   }
-  private updateEgreso() {
+  private updateEgreso(): void {
     this.egresoLubricentroService
       .update(this.id, this.form.value)
       .pipe(first())

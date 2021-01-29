@@ -1,6 +1,6 @@
-import { HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import {
   EgresoLubricentroService,
   EmpresaService,
@@ -46,6 +46,8 @@ export class LubricentroListComponent implements OnInit {
       sortable: true,
       filter: true,
       checkboxSelection: true,
+      headerCheckboxSelection: true,
+      headerCheckboxSelectionFilteredOnly: true,
     },
     { field: 'fecha', sortable: true, filter: true },
     { field: 'monto', sortable: true, filter: true },
@@ -93,14 +95,14 @@ export class LubricentroListComponent implements OnInit {
     this.idEmpresa = this.route.snapshot.params.idEmpresa;
     this.id = this.route.snapshot.params.id;
     // extraer empresa y suscursales
-    this.empresaService
+    /* this.empresaService
       .getByIdWithSucursales(this.idEmpresa)
       .pipe()
       .subscribe((x) => {
         x.Sucursals = Object.values(x.Sucursals);
 
         this.empresa = x;
-      });
+      }); */
     // consultar registros ingresados
     this.egresoService
       .getAll()
@@ -175,13 +177,13 @@ export class LubricentroListComponent implements OnInit {
   }
   detalle = null;
   getDetalleEgreso(): void {
-    let rowView
+    let rowView;
 
     this.selectedRows = [];
-    this.agGrid.api.getSelectedRows().forEach((x)=> this.selectedRows.push(x));
+    this.agGrid.api.getSelectedRows().forEach((x) => this.selectedRows.push(x));
     this.modalService.open('detalleEgreso');
-    if(this.selectedRows.length <= 1 && this.selectedRows.length > 0){
-      this.selectedRows.forEach((x)=> {
+    if (this.selectedRows.length <= 1 && this.selectedRows.length > 0) {
+      this.selectedRows.forEach((x) => {
         rowView = x.id;
         this.rowFind = rowView;
         this.egresoService
@@ -190,7 +192,7 @@ export class LubricentroListComponent implements OnInit {
           .subscribe((x) => {
             this.detalle = x[0];
             console.log(this.detalle);
-        });
+          });
       });
     } else {
       alert(
@@ -198,16 +200,15 @@ export class LubricentroListComponent implements OnInit {
       );
     }
   }
-    ////////////////////////////////////
-    mostrar(e): void {
-      if (e.target.checked) {
-        this.mostrarList = true;
-        this.ngOnInit();
-      } else {
-        this.mostrarList = false;
-        this.ngOnInit();
-      }
+  ////////////////////////////////////
+  mostrar(e): void {
+    if (e.target.checked) {
+      this.mostrarList = true;
+      this.ngOnInit();
+    } else {
+      this.mostrarList = false;
+      this.ngOnInit();
     }
+  }
   ////////////////////////////
-  
 }
