@@ -44,6 +44,8 @@ export class RegistrarIngresosComponent implements OnInit {
       sortable: true,
       filter: true,
       checkboxSelection: true,
+      headerCheckboxSelection: true,
+      headerCheckboxSelectionFilteredOnly: true,
     },
     { headerName: 'Fecha', field: 'fecha', sortable: true, filter: true },
     { field: 'monto' },

@@ -48,6 +48,8 @@ export class FirmaAbogadosListComponent implements OnInit {
       sortable: true,
       filter: true,
       checkboxSelection: true,
+      headerCheckboxSelection: true,
+      headerCheckboxSelectionFilteredOnly: true,
     },
     { field: 'fecha', sortable: true, filter: true },
     { field: 'monto', sortable: true, filter: true },
@@ -90,17 +92,17 @@ export class FirmaAbogadosListComponent implements OnInit {
 
   ngOnInit(): void {
     /* rescatar parametros de la ruta */
-    this.idEmpresa = this.route.snapshot.params['idEmpresa'];
+    // this.idEmpresa = this.route.snapshot.params['idEmpresa'];
     this.id = this.route.snapshot.params['id'];
     // extraer empresa y suscursales
-    this.empresaService
+    /* this.empresaService
       .getByIdWithSucursales(this.idEmpresa)
       .pipe(first())
       .subscribe((x) => {
         x['Sucursals'] = Object.values(x['Sucursals']);
 
         this.empresa = x;
-      });
+      }); */
     //consultar registros ingresados
     this.egresoService
       .getAll()

@@ -32,6 +32,8 @@ export class LubricentroListComponent implements OnInit {
       sortable: true,
       filter: true,
       checkboxSelection: true,
+      headerCheckboxSelection: true,
+      headerCheckboxSelectionFilteredOnly: true,
     },
     { field: 'fecha', sortable: true, filter: true },
     { field: 'cliente', sortable: true, filter: true },

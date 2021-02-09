@@ -19,6 +19,7 @@ import { AgrofirmaFormComponent } from './agrofirma/agrofirma-form/agrofirma-for
 import { MapaComponent } from './agrofirma/mapa/mapa.component';
 import { RegistrarIngresosComponent } from './agrofirma/registrar-ingresos/registrar-ingresos.component';
 import { CuentasBancariasComponent } from '@app/_components/cuentas-bancarias/cuentas-bancarias.component';
+import { CuotasListComponent } from './firmaAbogados/cuotas-list/cuotas-list.component';
 const routes: Routes = [
   {
     path: '',
@@ -47,6 +48,10 @@ const routes: Routes = [
             path: 'listaClientes',
             component: ClientesComponent,
           },
+          {
+            path: 'cuotas',
+            component: CuotasListComponent,
+          },
         ],
       },
       { path: 'rentacar', component: RentacarListComponent },
@@ -54,9 +59,8 @@ const routes: Routes = [
         path: 'lubricentro',
         component: LubricentroListComponent,
         children: [
-            { path: 'add/:idEmpresa', component: LubricentroFormComponent },
-            { path: 'edit/', component: LubricentroFormComponent,
-          },
+          { path: 'add/:idEmpresa', component: LubricentroFormComponent },
+          { path: 'edit/', component: LubricentroFormComponent },
         ],
       },
       {

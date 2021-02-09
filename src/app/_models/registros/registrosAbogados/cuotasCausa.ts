@@ -1,7 +1,8 @@
-export class CuotasCausa {
+export class CuotaContrato {
   id: number;
-  fecha: string;
+  fechaPago: string;
   montoCuota: number;
   estado: string;
-  idCausa: string;
+  idUsuario: number;
+  idContrato: string;
 }

@@ -26,8 +26,10 @@ import { InmobiliariaListComponent } from './inmobiliaria/inmobiliaria-list/inmo
 import { AgrofirnaFormComponent } from './agrofirma/agrofirna-form/agrofirna-form.component';
 import { AgrofirnaListComponent } from './agrofirma/agrofirna-list/agrofirna-list.component';
 import { LayoutAgrofirmaComponent } from './agrofirma/layout-agrofirma/layout-agrofirma.component';
+import { CuentasSucursalComponent } from '@app/_components/cuentas-sucursal/cuentas-sucursal.component';
 @NgModule({
   declarations: [
+    CuentasSucursalComponent,
     LayoutComponent,
     EgresosFormComponent,
     EgresosListComponent,

@@ -18,7 +18,7 @@ import { ModalService } from '@app/_components/_modal';
 @Component({
   selector: 'app-inmobiliaria-list',
   templateUrl: './inmobiliaria-list.component.html',
-  styleUrls: ['./inmobiliaria-list.component.less']
+  styleUrls: ['./inmobiliaria-list.component.less'],
 })
 export class InmobiliariaListComponent implements OnInit {
   @ViewChild('agGrid') agGrid: AgGridAngular;
@@ -28,8 +28,7 @@ export class InmobiliariaListComponent implements OnInit {
   private gridColumnApi: any;
   selectedRows: any[];
   egresos: EgresosInmobiliaria[];
-  _egreso: EgresosInmobiliaria;
-  egresosJQ: EgresosInmobiliaria[];
+
   idEmpresa = null;
   id = null;
   mostrarList = true;
@@ -47,6 +46,8 @@ export class InmobiliariaListComponent implements OnInit {
       sortable: true,
       filter: true,
       checkboxSelection: true,
+      headerCheckboxSelection: true,
+      headerCheckboxSelectionFilteredOnly: true,
     },
     { field: 'propiedad', sortable: true, filter: true },
     { field: 'fecha', sortable: true, filter: true },
@@ -94,20 +95,19 @@ export class InmobiliariaListComponent implements OnInit {
     this.idEmpresa = this.route.snapshot.params.idEmpresa;
     this.id = this.route.snapshot.params.id;
     // extraer empresa y suscursales
-    this.empresaService
+    /* this.empresaService
       .getByIdWithSucursales(this.idEmpresa)
       .pipe(first())
       .subscribe((x) => {
         x.Sucursals = Object.values(x.Sucursals);
 
         this.empresa = x;
-      });
+      }); */
     // consultar registros ingresados
-    this.egresoService
-      .getAll()
-      .pipe(first())
-      .subscribe((x) => (this.egresosJQ = x));
-    this.rowData = this.egresoService.getAll();
+    this.egresoService.getAll().subscribe((data) => {
+      console.table(data);
+      this.rowData = data;
+    });
   }
   // modal metodos
 

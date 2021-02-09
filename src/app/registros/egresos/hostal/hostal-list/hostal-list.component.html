@@ -1,6 +1,15 @@
 <h4>Egresos Hostal</h4>
 <a routerLink="add/1" class="btn btn-sm btn-success mb-2">Agregar Egresos</a>
+<button
+  class="btn btn-sm btn-primary mb-2 ml-2"
+  (click)="openModal('cuentasSucursal')"
+>
+  Agregar Cuentas
+</button>
 <router-outlet></router-outlet>
+<jw-modal id="cuentasSucursal">
+  <app-cuentas-sucursal [idEmpresa]="1"></app-cuentas-sucursal>
+</jw-modal>
 <br />
 <!-- Rounded switch -->
 <div class="row">

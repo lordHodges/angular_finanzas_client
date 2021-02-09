@@ -15,6 +15,12 @@
       routerLink="listaClientes"
       ><i class="fa fa-address-book" aria-hidden="true"></i> Clientes</a
     >
+    <a
+      class="btn btn-danger mr-2"
+      (click)="openAnexos('anexos')"
+      routerLink="cuotas"
+      ><i class="fa fa-dollar-sign" aria-hidden="true"></i>Cuotas</a
+    >
     <!-- el outlet de estas rutas se encuentra al fuinal de este documento -->
   </div>
 
@@ -59,7 +65,6 @@
               'is-invalid': submitted && f.nombreCliente.errors
             }"
           />
-
           <div
             *ngIf="submitted && f.nombreCliente.errors"
             class="invalid-feedback"

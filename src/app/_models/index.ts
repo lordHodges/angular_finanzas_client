@@ -15,7 +15,6 @@ export * from './registros/registrosHostal/egresos-hostal';
 export * from '@app/_models/registros/registrosLubricentro/egresos-lubricentro';
 export * from '@app/_models/registros/registrosAbogados/cuotasCausa';
 export * from './cliente';
-export * from './registros/registrosAbogados/causa';
 export * from '@app/_models/registros/registrosAbogados/cuota-inicial';
 export * from '@app/_models/registros/registrosAbogados/contrato-abogado';
 export * from '@app/_models/registros/registrosAbogados/egresosFirma';
