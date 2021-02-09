@@ -21,9 +21,6 @@ import { FileSelectDirective, FileUploadModule } from 'ng2-file-upload';
 import { ModalModule } from '@app/_components/_modal';
 import { AgGridModule } from 'ag-grid-angular';
 import { ExcelService } from '@app/_services';
-import { CausasListComponent } from './firmaAbogados/causas-list/causas-list.component';
-import { CausasFormComponent } from './firmaAbogados/causas-form/causas-form.component';
-import { PagoCausaComponent } from './firmaAbogados/pago-causa/pago-causa.component';
 import { ContratosListComponent } from './firmaAbogados/contratos-list/contratos-list.component';
 import { ContratosFormComponent } from './firmaAbogados/contratos-form/contratos-form.component';
 import { PagoCuotasComponent } from './firmaAbogados/pago-cuotas/pago-cuotas.component';
@@ -34,8 +31,12 @@ import { MapaComponent } from './agrofirma/mapa/mapa.component';
 import { RegistrarIngresosComponent } from './agrofirma/registrar-ingresos/registrar-ingresos.component';
 import { CuentasBancariasComponent } from '@app/_components';
 import { RespaldosAgroComponent } from './agrofirma/respaldos/respaldos.component';
+import { RespaldosFirmaComponent } from './firmaAbogados/respaldos/respaldos.component';
+import { CuotasListComponent } from './firmaAbogados/cuotas-list/cuotas-list.component';
+
 @NgModule({
   declarations: [
+    RespaldosFirmaComponent,
     RespaldosAgroComponent,
     CuentasBancariasComponent,
     ClientesComponent,
@@ -55,15 +56,13 @@ import { RespaldosAgroComponent } from './agrofirma/respaldos/respaldos.componen
     RespaldosComponent,
     RespaldoComponent,
     RespaldComponent,
-    CausasListComponent,
-    CausasFormComponent,
-    PagoCausaComponent,
     ContratosListComponent,
     ContratosFormComponent,
     PagoCuotasComponent,
     ListaContratosComponent,
     MapaComponent,
     RegistrarIngresosComponent,
+    CuotasListComponent,
   ],
   imports: [
     CommonModule,

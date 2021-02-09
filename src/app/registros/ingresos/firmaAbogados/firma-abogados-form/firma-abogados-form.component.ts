@@ -15,7 +15,6 @@ import { Cliente, User } from '@app/_models';
 import {
   AccountService,
   AlertService,
-  CausasService,
   ClienteService,
   ContratoAbogadoService,
 } from '@app/_services';
@@ -59,7 +58,6 @@ export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
     private router: Router,
     private clienteService: ClienteService,
     private alertService: AlertService,
-    private causasService: CausasService,
     private contratoService: ContratoAbogadoService
   ) {
     this.usuario = this.accountService.userValue;
@@ -174,7 +172,9 @@ export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
 
   // abrir componentes
   mostrarContratos(): void {
-    if (this.qMostrar) {
+    if (!this.idCliente) {
+      alert('Debe Seleccionar Un Cliente');
+    } else if (this.qMostrar) {
       this.miFactory = this.resolver.resolveComponentFactory(
         ContratosListComponent
       );
@@ -188,6 +188,7 @@ export class FirmaAbogadosFormComponent implements OnInit, OnDestroy {
           this.causasCliente = x;
           this.componentRef.instance.rowData = this.causasCliente;
           this.componentRef.instance.data = this.elPadreDice.cliente.nombre;
+          this.componentRef.instance.idCliente = this.idCliente;
           this.qMostrar = false;
         });
     } else {

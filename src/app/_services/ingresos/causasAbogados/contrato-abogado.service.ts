@@ -50,4 +50,29 @@ export class ContratoAbogadoService {
       { excuotas: excuotas, newcuotas: newcuotas }
     );
   }
+  obtenerCuotas(): any {
+    return this.http.get<[]>(
+      `${environment.apiUrl}/cuotasContrato/obtenerCuotas/`
+    );
+  }
+  agregarRespaldos(arrayRespaldos): any {
+    return this.http.post(
+      `${environment.apiUrl}/cuotasContrato/agregarRespaldos/`,
+      arrayRespaldos
+    );
+  }
+  obtenerRespaldos(id): any {
+    return this.http.get(
+      `${environment.apiUrl}/cuotasContrato/obtenerRespaldos/${id}`
+    );
+  }
+  getFiles(fileName: string): any {
+    return this.http
+      .get(`${environment.apiUrl}/cuotasContrato/download/${fileName}`, {
+        responseType: 'blob',
+      })
+      .subscribe((res) => {
+        window.open(window.URL.createObjectURL(res));
+      });
+  }
 }

@@ -5,19 +5,18 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "chrome",
-      "request": "launch",
-      "name": "chromeDebugging",
-      "url": "http://localhost:4200",
-      "webRoot": "${workspaceFolder}",
-      "runtimeExecutable": "/usr/bin/chromium"
-    },
-    {
       "type": "pwa-chrome",
       "request": "launch",
       "name": "chromiumDebugging",
       "url": "http://localhost:4200",
       "webRoot": "${workspaceFolder}"
     }
+    /* {
+      "name": "Launch index.html",
+      "type": "firefox",
+      "request": "launch",
+      "reAttach": true,
+      "file": "${workspaceFolder}/index.html"
+    } */
   ]
 }

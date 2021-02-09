@@ -9,7 +9,6 @@ import {
   ExcelService,
 } from '@app/_services';
 import { AgGridAngular } from 'ag-grid-angular';
-import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-rentacar-list',
@@ -41,6 +40,8 @@ export class RentacarListComponent implements OnInit {
       sortable: true,
       filter: true,
       checkboxSelection: true,
+      headerCheckboxSelection: true,
+      headerCheckboxSelectionFilteredOnly: true,
     },
     { field: 'fecha', sortable: true, filter: true },
     { field: 'monto', sortable: true, filter: true },
@@ -84,21 +85,11 @@ export class RentacarListComponent implements OnInit {
   ngOnInit(): void {
     this.idEmpresa = this.route.snapshot.params.idEmpresa;
     this.id = this.route.snapshot.params.id;
-    // extraer empresa y suscursales
-    this.empresaService
-      .getByIdWithSucursales(this.idEmpresa)
-      .pipe(first())
-      .subscribe((x) => {
-        x.Sucursals = Object.values(x.Sucursals);
 
-        this.empresa = x;
-      });
-    // consultar registros ingresados
-    this.egresoService
-      .getAll()
-      .pipe(first())
-      .subscribe((x) => (this.egresosJQ = x));
-    this.rowData = this.egresoService.getAll();
+    this.egresoService.getAll().subscribe((data) => {
+      console.table(data);
+      this.rowData = data;
+    });
   }
   onGridReady(params): void {
     this.gridApi = params.api;
@@ -130,8 +121,21 @@ export class RentacarListComponent implements OnInit {
   }
   exportAsXLSX(): void {
     this.selectedRows = [];
+
     this.agGrid.api.getSelectedRows().forEach((x) => this.selectedRows.push(x));
-    this.excelService.exportAsExcelFile(this.selectedRows, 'sample');
+    console.table(this.selectedRows);
+    const data = this.selectedRows.map((dato) => {
+      dato.suscursal = dato.Sucursal.razonSocial;
+      dato.usuario = dato.Usuario.nombreUsuario;
+      dato.respaldos = dato.RespaldoEgresos.length;
+      delete dato.Usuario;
+      delete dato.Sucursal;
+      delete dato.RespaldoEgresos;
+      delete dato.idUsuario;
+      delete dato.idSucursal;
+      return dato;
+    });
+    this.excelService.exportAsExcelFile(data, 'egresos_rentacar');
   }
   detalleEgreso(): void {
     let rowView;
@@ -140,14 +144,14 @@ export class RentacarListComponent implements OnInit {
     this.agGrid.api.getSelectedRows().forEach((x) => this.selectedRows.push(x));
     this.modalService.open('documentosEgresoHostal');
     if (this.selectedRows.length <= 1 && this.selectedRows.length > 0) {
-      this.selectedRows.forEach((x) => {
-        rowView = x.id;
+      this.selectedRows.forEach((row) => {
+        rowView = row.id;
         this.rowFind = rowView;
         this.egresoService
           .getById(rowView)
           .pipe()
-          .subscribe((x) => {
-            this.rowData2 = x[0].RespaldoEgresos;
+          .subscribe((data) => {
+            this.rowData2 = data[0].RespaldoEgresos;
           });
       });
     } else {

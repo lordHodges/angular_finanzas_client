@@ -22,4 +22,10 @@ export class CuentasBancariasService {
       `${environment.apiUrl}/banco/obtenerCuentasByEntity/${idEntity}`
     );
   }
+  crearCuentaSucursal(body): any {
+    return this.http.post(
+      `${environment.apiUrl}/banco/registrarCuentasSucursal/`,
+      body
+    );
+  }
 }

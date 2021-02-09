@@ -31,6 +31,8 @@ export class InmobiliariaListComponent implements OnInit {
       sortable: true,
       filter: true,
       checkboxSelection: true,
+      headerCheckboxSelection: true,
+      headerCheckboxSelectionFilteredOnly: true,
     },
     { field: 'propiedad', sortable: true, filter: true },
     { field: 'fecha', sortable: true, filter: true },

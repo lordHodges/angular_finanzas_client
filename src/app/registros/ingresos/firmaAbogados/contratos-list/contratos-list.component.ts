@@ -17,6 +17,7 @@ export class ContratosListComponent {
   data: any;
   idContrato = null;
   repacto = false;
+  idCliente: any;
 
   columnDefs = [
     {
@@ -101,7 +102,41 @@ export class ContratosListComponent {
       diasPago: ['', Validators.required],
     });
   }
+  scrambleAndRefreshTopToBottom(): void {
+    this.constratoService
+      .obtenerContratosCliente(this.idCliente)
+      .subscribe((data) => (this.rowData = data));
+    let frame = 0;
+    let i;
+    let rowNode;
+    const api = this.gridApi;
+    for (i = 0; i < api.getPinnedTopRowCount(); i++) {
+      rowNode = api.getPinnedTopRow(i);
+      refreshRow(rowNode, api);
+    }
+    for (i = 0; i < this.gridApi.getDisplayedRowCount(); i++) {
+      rowNode = this.gridApi.getDisplayedRowAtIndex(i);
+      refreshRow(rowNode, api);
+    }
+    for (i = 0; i < this.gridApi.getPinnedBottomRowCount(); i++) {
+      rowNode = this.gridApi.getPinnedBottomRow(i);
+      refreshRow(rowNode, api);
+    }
 
+    function refreshRow(rowNode, api): void {
+      const millis = frame++ * 100;
+      const rowNodes = [rowNode];
+      const params = {
+        rowNodes,
+      };
+      callRefreshAfterMillis(params, millis, api);
+    }
+    function callRefreshAfterMillis(params, millis, gridApi): void {
+      setTimeout(() => {
+        gridApi.refreshCells(params);
+      }, millis);
+    }
+  }
   onGridReady(params): void {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;

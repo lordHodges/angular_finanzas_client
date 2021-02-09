@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="card col-md-6">
+    <div class="card-head">
+      <h5>Registrar cuentas Bancarias :</h5>
+    </div>
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-group col">
+          <label for="idSucursal">Sucursales</label>
+          <select class="form-control" name="idSucursal" id="idSucursal">
+            <option *ngFor="let sucursal of sucursales" value="sucursal.id">
+              {{ sucursal.razonSocial }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col">
+          <label for="idBanco">Bancos</label>
+          <select class="form-control" name="idBanco" id="idBanco">
+            <option *ngFor="let banco of bancos" value="banco.id">
+              {{ banco.NombreInstitucion }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col">
+          <label for="numeroCuenta">N° cuenta</label>
+          <input
+            type="text"
+            class="form-control"
+            name="numeroCuenta"
+            id="numeroCuenta"
+            placeholder="ingrese numero de cuenta"
+          />
+        </div>
+        <div class="form-group">
+          <label for="tipoCuenta">Tipo de Cuenta</label>
+          <select class="form-control" id="tipoCuenta">
+            <option>seleccionar tipo cta</option>
+            <option>cuenta vista</option>
+            <option>cuenta corriente</option>
+            <option>cuenta ahorro</option>
+          </select>
+        </div>
+      </div>
+      <hr />
+    </div>
+    <div class="card-footer">
+      <button type="button" class="btn btn-success">Guardar</button>
+    </div>
+  </div>
+  <div class="col col-md-6">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>BANCO</th>
+          <th>TIPO</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td scope="row"></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

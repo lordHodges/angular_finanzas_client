@@ -10,7 +10,6 @@ export * from '@app/_services/ingresos/ingreso-lubricentro.service';
 export * from '@app/_services/egresos/egreso-lubricentro.service';
 export * from '@app/_services/excel.service';
 export * from '@app/_services/cliente/cliente.service';
-export * from '@app/_services/ingresos/causasAbogados/causas.service';
 export * from '@app/_services/ingresos/causasAbogados/contrato-abogado.service';
 export * from '@app/_services/egresos/egreso-firma.service';
 export * from '@app/_services/ingresos/ingreso-rentacar.service';

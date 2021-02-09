@@ -6,6 +6,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+import { ModalService } from '@app/_components';
 import { ContratoAbogadoService } from '@app/_services';
 import { AgGridAngular } from 'ag-grid-angular';
 
@@ -21,7 +22,7 @@ export class PagoCuotasComponent implements OnInit, OnChanges {
   loading = false;
   //
   //
-  //definiendo tabla
+  // ?definiendo tabla
   private gridApi: any;
   private gridColumnApi: any;
   rowData2: any;
@@ -53,7 +54,10 @@ export class PagoCuotasComponent implements OnInit, OnChanges {
     },
   ];
   changelog: string[] = [];
-  constructor(private contratoService: ContratoAbogadoService) {}
+  constructor(
+    private contratoService: ContratoAbogadoService,
+    private modalService: ModalService
+  ) {}
   ngOnChanges(changes: SimpleChanges): void {
     console.log('OnChanges');
     console.log(JSON.stringify(changes));
@@ -79,13 +83,20 @@ export class PagoCuotasComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {}
-  onGridReady2(params) {
+
+  onGridReady2(params): void {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 
     params.api.expandAll();
   }
-  pagarCuota(): void {
+  respaldoPago(respaldoPago: string): void {
+    this.modalService.open(respaldoPago);
+  }
+  envv(e): void {
+    let respaldo = {};
+    const arrayRespaldos = [];
+    const respuesta = e;
     let idCuota;
     let cuota;
     this.selectedRows = [];
@@ -94,6 +105,20 @@ export class PagoCuotasComponent implements OnInit, OnChanges {
       idCuota = x.id;
       cuota = x;
     });
+    respuesta.forEach((resp) => {
+      respaldo = { idCuotaFirma: idCuota, url: resp };
+      arrayRespaldos.push(respaldo);
+    });
+    this.contratoService.agregarRespaldos(arrayRespaldos).subscribe(
+      () => {
+        this.pagarCuota(idCuota, cuota);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+  pagarCuota(idCuota: string, cuota: any): void {
     const body = { idCuota };
     this.contratoService
       .registrarPago(body)
@@ -108,8 +133,10 @@ export class PagoCuotasComponent implements OnInit, OnChanges {
             this.scrambleAndRefreshTopToBottom();
           });
         alert(x.msj);
+        this.modalService.close('respaldoPago');
       });
   }
+
   scrambleAndRefreshTopToBottom(): void {
     let frame = 0;
     let i;

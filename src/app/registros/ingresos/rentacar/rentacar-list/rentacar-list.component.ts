@@ -27,6 +27,8 @@ export class RentacarListComponent implements OnInit {
       sortable: true,
       filter: true,
       checkboxSelection: true,
+      headerCheckboxSelection: true,
+      headerCheckboxSelectionFilteredOnly: true,
     },
     {
       headerName: 'Fecha Inicio',

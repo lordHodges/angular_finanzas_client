@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalService } from '@app/_components/_modal';
-import { ContratoAbogado, CuotaInicial, Empresa, User } from '@app/_models';
+import { ContratoAbogado, CuotaContrato, Empresa, User } from '@app/_models';
 import {
   AccountService,
   ContratoAbogadoService,
@@ -20,24 +20,25 @@ export class ContratosFormComponent implements OnInit {
   @Input()
   idCliente;
   @Input()
-  idContrato;
-  @Input()
-  repacto;
+  contrato = new ContratoAbogado();
   //
   //
+  saldoPendiente = 0;
   form: FormGroup;
   usuario: User;
   idUsuario = null;
   empresa = new Empresa();
   submitted = false;
-  cuotas = null;
+
   dias = [5, 10, 15, 20, 30];
   changelog: string[] = [];
   constratoExiste = false;
-  datos: CuotaInicial;
-  contrato = new ContratoAbogado();
+  cuotas = [];
+  cuota = new CuotaContrato();
+
   contratoF = null;
   cambiarForm = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private accountService: AccountService,
@@ -57,15 +58,6 @@ export class ContratosFormComponent implements OnInit {
       const from = JSON.stringify(change.previousValue);
       const changeLog = `${propName}: changed from ${from} to ${to} `;
       this.changelog.push(changeLog);
-      this.cambiarForm = this.repacto;
-      this.contratoService
-        .obtenerContratoNumero(this.idContrato)
-        .pipe()
-        .subscribe((x) => {
-          this.contratoF = x;
-          console.log(this.contratoF);
-          console.log(this.cambiarForm);
-        });
     }
 
     this.obtenerEmpresa(this.idEmpresa);
@@ -76,16 +68,13 @@ export class ContratosFormComponent implements OnInit {
       fechaContrato: ['', Validators.required],
       sucursal: ['', Validators.required],
       montoContrato: ['', Validators.required],
-      nCuotas: ['', Validators.required],
-      montoInicial: [{ value: '', disabled: false }],
-      fechaInicio: ['', Validators.required],
-      diasPago: ['', Validators.required],
 
       idUsuario: this.idUsuario,
     });
   }
   onSubmit(): any {}
   validarContrato(): void {
+    this.contrato.id = null;
     this.contrato.montoContrato = this.f.montoContrato.value;
     this.contrato.fechaContrato = this.f.fechaContrato.value;
     this.contrato.idCliente = this.idCliente;
@@ -101,21 +90,22 @@ export class ContratosFormComponent implements OnInit {
       .subscribe((x) => {
         alert(`${x.respuesta}`);
         this.contrato = x.contrato;
+        this.saldoPendiente = this.contrato.montoContrato;
       });
   }
-  calcularCuotas(): any {
-    this.cuotas = [];
-    this.datos = new CuotaInicial();
-    this.datos.idContrato = this.contrato.id;
-    this.datos.nCuotas = this.f.nCuotas.value;
-    this.datos.montoInicial = this.f.montoInicial.value;
-    this.datos.fechaInicio = this.f.fechaInicio.value;
-    this.contratoService
-      .calcularCuotas(this.datos)
-      .pipe()
-      .subscribe((x) => {
-        this.cuotas = x;
-      });
+
+  agregarCuotas(): any {
+    if (this.cuota.montoCuota <= this.saldoPendiente) {
+      this.cuota.estado = 'pendiente';
+      this.cuota.idContrato = this.contrato.id;
+      this.cuota.idUsuario = this.idUsuario;
+      this.cuotas.push(this.cuota);
+      console.log(this.cuotas);
+      this.saldoPendiente = this.saldoPendiente - this.cuota.montoCuota;
+      this.cuota = new CuotaContrato();
+    } else {
+      alert('monto no coincide con saldo pendiente');
+    }
   }
   guardarContrato(): any {
     this.contratoService
@@ -124,6 +114,7 @@ export class ContratosFormComponent implements OnInit {
       .subscribe((x) => {
         console.log(x);
         this.modalService.close('addContratos');
+        this.cuotas = [];
       });
   }
   get f(): any {

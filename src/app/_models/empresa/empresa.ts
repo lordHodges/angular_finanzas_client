@@ -8,5 +8,5 @@ export class Empresa {
   giro: string;
   actividad: string;
   direccion: string;
-  Sucursals: Sucursal[];
+  Sucursals: any[];
 }

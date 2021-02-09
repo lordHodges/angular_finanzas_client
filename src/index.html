@@ -13,6 +13,14 @@
     ></script>
   </head>
   <body>
-    <app>Loading...</app>
+    <app>
+      <h5>
+        cargando....
+        <span
+          *ngIf="loading"
+          class="spinner-border spinner-border-sm mr-1"
+        ></span>
+      </h5>
+    </app>
   </body>
 </html>
