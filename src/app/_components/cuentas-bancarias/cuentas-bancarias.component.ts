@@ -50,7 +50,7 @@ export class CuentasBancariasComponent implements OnInit {
       .pipe(first())
       .subscribe((cuentas) => {
         this.cuentasBancarias = cuentas;
-        console.log(this.cuentasBancarias);
+
       });
     this.bancoService
       .getAll()
@@ -70,7 +70,7 @@ export class CuentasBancariasComponent implements OnInit {
       .create(this.form.value)
       .pipe(first())
       .subscribe((cuenta) => {
-        console.log(cuenta);
+
         this.ngOnInit();
       });
   }

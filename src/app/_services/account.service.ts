@@ -71,7 +71,7 @@ export class AccountService {
           // publish updated user to subscribers
           this.userSubject.next(user);
         }
-        console.log();
+
         return x;
       })
     );

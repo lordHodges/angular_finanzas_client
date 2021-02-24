@@ -58,7 +58,7 @@ export class AgrofirnaListComponent implements OnInit {
     private excelService: ExcelService,
     private egresoService: EgresoAgrofirmaService,
     private modalService: ModalService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.idProyecto = this.route.snapshot.params.idProyecto;
@@ -67,7 +67,7 @@ export class AgrofirnaListComponent implements OnInit {
       .pipe(first())
       .subscribe((egresos) => {
         this.egresos = egresos;
-        console.log(this.egresos);
+
         this.rowData = this.egresos;
       });
   }
@@ -97,7 +97,7 @@ export class AgrofirnaListComponent implements OnInit {
           .pipe()
           .subscribe((respaldos) => {
             this.respaldos = respaldos.RespaldoEgresos;
-            console.log(this.respaldos);
+
 
             this.modalService.open(id);
           });

@@ -68,7 +68,7 @@ export class InmobiliariaFormComponent implements OnInit {
         x.Sucursals = Object.values(x.Sucursals);
 
         this.empresa = x;
-        console.log(this.empresa);
+
       });
     /* TODO AGREGAR campos numeroBoleta, Tipo Documento(boleta, factura), documento */
 
@@ -122,7 +122,7 @@ export class InmobiliariaFormComponent implements OnInit {
   }
 
   private createEgreso() {
-    console.log(this.respuesta);
+
     this.egreso.RespaldoEgresoInmobiliaria = [];
     if (this.form.value.propiedad == 'Otra') {
       this.egreso.propiedad = this.form.value.otraPropiedad;
@@ -139,8 +139,8 @@ export class InmobiliariaFormComponent implements OnInit {
     for (let i = 0; i < this.respuesta.length; i++) {
       this.egreso.RespaldoEgresoInmobiliaria.push({ url: this.respuesta[i] });
     }
-    
-    console.log(this.egreso);
+
+
     this.egresoInmobiliariaService
       .create(this.egreso)
       .pipe(first())
@@ -157,23 +157,23 @@ export class InmobiliariaFormComponent implements OnInit {
         }
       );
   }
-  
+
   private updateEgreso() {
     this.egresoInmobiliariaService
-    .update(this.id, this.form.value)
-    .pipe(first())
-    .subscribe(
-      (data) => {
-        this.alertService.success('Egreso editado con Exito', {
-          keepAfterRouteChange: true,
-        });
-        this.router.navigate(['..', { relativeTo: this.route }]);
-      },
-      (error) => {
-        this.alertService.error(error);
-        this.loading = false;
-      }
-    );
-}
+      .update(this.id, this.form.value)
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          this.alertService.success('Egreso editado con Exito', {
+            keepAfterRouteChange: true,
+          });
+          this.router.navigate(['..', { relativeTo: this.route }]);
+        },
+        (error) => {
+          this.alertService.error(error);
+          this.loading = false;
+        }
+      );
+  }
 }
 

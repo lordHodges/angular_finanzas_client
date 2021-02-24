@@ -9,14 +9,14 @@ import { EmpresaService } from '@app/_services';
 })
 export class EmpresaListComponent implements OnInit {
   empresas = null;
-  constructor(private empresaService: EmpresaService) {}
+  constructor(private empresaService: EmpresaService) { }
 
   ngOnInit() {
     this.empresaService
       .getAll()
       .pipe(first())
       .subscribe((empresas) => (this.empresas = empresas));
-    console.log(this.empresas);
+
   }
   deleteEmpresa(id: string) {
     const empresa = this.empresas.find((x) => x.id === id);

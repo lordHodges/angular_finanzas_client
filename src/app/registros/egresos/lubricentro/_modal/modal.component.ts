@@ -87,7 +87,7 @@ export class ModalComponent implements OnInit, OnDestroy {
   async open(row) {
     this.service.getById(row).subscribe((x) => {
       this.rowData = x[0].RespaldoEgresos;
-      console.log(this.rowData);
+
     });
     this.element.style.display = 'block';
     document.body.classList.add('jw-modal-open');

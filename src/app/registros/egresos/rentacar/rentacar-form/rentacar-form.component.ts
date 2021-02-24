@@ -70,7 +70,7 @@ export class RentacarFormComponent implements OnInit {
         x.Sucursals = Object.values(x.Sucursals);
 
         this.empresa = x;
-        console.log(this.empresa);
+
       });
     this.form = this.formBuilder.group({
       fecha: ['', Validators.required],
@@ -106,7 +106,7 @@ export class RentacarFormComponent implements OnInit {
     }
   }
   private createEgreso(): void {
-    console.log(this.respuesta);
+
     this.egreso.RespaldoEgresos = [];
     this.egreso.fecha = this.form.value.fecha;
     this.egreso.monto = this.form.value.monto;
@@ -120,8 +120,6 @@ export class RentacarFormComponent implements OnInit {
     for (let i = 0; i < this.respuesta.length; i++) {
       this.egreso.RespaldoEgresos.push({ url: this.respuesta[i] });
     }
-
-    console.log(this.egreso);
     this.egresoService
       .create(this.egreso)
       .pipe(first())
@@ -138,5 +136,5 @@ export class RentacarFormComponent implements OnInit {
         }
       );
   }
-  private updateEgreso(): void {}
+  private updateEgreso(): void { }
 }

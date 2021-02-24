@@ -75,7 +75,7 @@ export class HostalFormComponent implements OnInit {
         x.Sucursals = Object.values(x.Sucursals);
 
         this.empresa = x;
-        console.log(this.empresa);
+
       });
     /* TODO AGREGAR campos numeroBoleta, Tipo Documento(boleta, factura), documento */
 
@@ -126,7 +126,7 @@ export class HostalFormComponent implements OnInit {
   }
 
   private createEgreso() {
-    console.log(this.respuesta);
+
     this.egreso.RespaldoEgresos = [];
     this.egreso.fecha = this.form.value.fecha;
     this.egreso.monto = this.form.value.monto;
@@ -139,7 +139,7 @@ export class HostalFormComponent implements OnInit {
       this.egreso.RespaldoEgresos.push({ url: this.respuesta[i] });
     }
 
-    console.log(this.egreso);
+
     this.egresoHostalService
       .create(this.egreso)
       .pipe(first())
@@ -156,5 +156,5 @@ export class HostalFormComponent implements OnInit {
         }
       );
   }
-  private updateEgreso() {}
+  private updateEgreso() { }
 }

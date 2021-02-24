@@ -62,7 +62,7 @@ export class AgrofirnaFormComponent implements OnInit {
       .pipe()
       .subscribe(
         (egreso) => {
-          console.log(egreso);
+
           this.alertService.success(' Creado con exito', {
             keepAfterRouteChange: false,
           });

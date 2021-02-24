@@ -70,7 +70,7 @@ export class LubricentroFormComponent implements OnInit {
         x.Sucursals = Object.values(x.Sucursals);
 
         this.empresa = x;
-        console.log(this.empresa);
+
       });
     /* TODO AGREGAR campos numeroBoleta, Tipo Documento(boleta, factura), documento */
 
@@ -123,7 +123,7 @@ export class LubricentroFormComponent implements OnInit {
   }
 
   private createEgreso() {
-    console.log(this.respuesta);
+
     this.egreso.RespaldoEgresoLubricentros = [];
     this.egreso.fecha = this.form.value.fecha;
     this.egreso.monto = this.form.value.monto;
@@ -137,7 +137,7 @@ export class LubricentroFormComponent implements OnInit {
       this.egreso.RespaldoEgresoLubricentros.push({ url: this.respuesta[i] });
     }
 
-    console.log(this.egreso);
+
     this.egresoLubricentroService
       .create(this.egreso)
       .pipe(first())

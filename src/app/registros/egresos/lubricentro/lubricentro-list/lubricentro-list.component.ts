@@ -88,7 +88,7 @@ export class LubricentroListComponent implements OnInit {
     private excelService: ExcelService,
     private http: HttpClient,
     private modalService: ModalService
-  ) {}
+  ) { }
 
   ngOnInit() {
     /* rescatar parametros de la ruta */
@@ -109,7 +109,7 @@ export class LubricentroListComponent implements OnInit {
       .pipe(first())
       .subscribe((x) => {
         this.egresosJQ = x;
-        console.log(x);
+
       });
     // TODO campos de configuracion de datatable jq.
     this.rowData = this.egresoService.getAll();
@@ -191,7 +191,7 @@ export class LubricentroListComponent implements OnInit {
           .pipe()
           .subscribe((x) => {
             this.detalle = x[0];
-            console.log(this.detalle);
+
           });
       });
     } else {

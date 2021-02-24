@@ -11,10 +11,10 @@ ENV PATH /usr/src/app/node_modules/.bin:$PATH
 # install package.json (o sea las dependencies)
 COPY ./package.json /usr/src/app/package.json
 RUN npm install
-RUN npm install -g @angular/cli@1.7.3 
+RUN npm install -g @angular/cli
 
 # add app
 COPY . /usr/src/app
 
 # start app
-CMD ng serve --host 0.0.0.0
+CMD ng serve --host 0.0.0.0 --port 4200

@@ -16,12 +16,12 @@ export class LayoutComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private empresaService: EmpresaService
-  ) {}
+  ) { }
 
   ngOnInit() {
-    this.empresaService
+    /* this.empresaService
       .getAll()
       .pipe(first())
       .subscribe((empresas) => (this.empresas = empresas));
+  } */
   }
-}
