@@ -19,9 +19,6 @@ export class LayoutComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    /* this.empresaService
-      .getAll()
-      .pipe(first())
-      .subscribe((empresas) => (this.empresas = empresas));
-  } */
+
   }
+}
