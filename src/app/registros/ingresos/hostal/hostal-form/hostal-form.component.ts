@@ -113,7 +113,6 @@ export class HostalFormComponent implements OnInit {
     }
   }
   private createIngreso() {
-    console.log(this.respuesta);
     this.ingreso.RespaldoIngresos = [];
     this.ingreso.fecha = this.form.value.fecha;
     this.ingreso.monto = this.form.value.monto;

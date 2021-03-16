@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { environment } from '@environments/environment';
 import { IngresosHostal } from '@app/_models';
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class IngresoHostalService {
 
   private ingresosHostal: Observable<IngresosHostal>;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
 
   public get ingresosHostalValue(): IngresosHostal {
     return this.ingresosHostalSubject.value;
